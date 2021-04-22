@@ -2,6 +2,7 @@
   width: 100%;
 }
 
+
 .slider {
   -webkit-appearance: none;
   width: 100%;
@@ -131,4 +132,7 @@ span.psw {
      display: block;
      float: none;
   }
+}
+#welcome{
+  background-color: #b9b3b3;
 }

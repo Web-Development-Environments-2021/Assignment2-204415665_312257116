@@ -352,3 +352,44 @@ $(document).ready(function() {
 
     });
 });
+
+
+$.validator.addMethod("validPassword", function(value) {
+    return /^(?=.[A-Za-z])(?=.\d)[A-Za-z\d]{6,}$/.test(value);
+});
+
+$.validator.addMethod("validName", function(value) {
+    return /^[a-zA-Z ]+$/.test(value);
+});
+
+$.validator.addMethod("passwordMatch", function() {
+    let username = $('#uname').val();
+    let password = $('#pass').val();
+
+    let validUserName = "";
+    let validPassword = "";
+    for (var i = 0; i < users.length; i++) {
+        if (users[i][0] == username) {
+            validUserName = users[i][0];
+
+            if (users[i][1] == password) {
+                validPassword = users[i][1];
+                break;
+            }
+        }
+    }
+    if (validUserName != "") {
+        if (password == "") {
+            return false;
+
+        } else if (validPassword == "") {
+            return false;
+
+        } else {
+            return true;
+        }
+    } else {
+        return false;
+    }
+});
+
