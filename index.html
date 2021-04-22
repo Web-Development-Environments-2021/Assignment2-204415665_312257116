@@ -17,36 +17,54 @@
 	</head>
 
 	<body>
-		<div class="w3-top">
-			<div id="fb-root"></div>
-			<div class="w3-bar w3-white w3-card">
-			  <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
-			  <a href="#" class="w3-bar-item w3-button w3-padding-large p3">HOME</a>
-			  <a href="#about"class="w3-bar-item w3-button w3-padding-large w3-hide-small p3" onclick="myFunction()">About Me</a>
-			  <a href="#photos"class="w3-bar-item w3-button w3-padding-large w3-hide-small p3" onclick="myFunction()">My Photos</a>
-			  <a href="#playlist"class="w3-bar-item w3-button w3-padding-large w3-hide-small p3" onclick="myFunction()">My Playlist</a>	
-			  <a href="#like"class="w3-bar-item w3-button w3-padding-large w3-hide-small p3" onclick="myFunction()">Like</a>
-			  <a href="#qrcoder"class="w3-bar-item w3-button w3-padding-large w3-hide-small p3" onclick="myFunction()">QR code</a>
-			  <a href="#spa"class="w3-bar-item w3-button w3-padding-large w3-hide-small p3" onclick="myFunction()">Q&A</a>
-			  <a href="#contact"class="w3-bar-item w3-button w3-padding-large w3-hide-small p3" onclick="myFunction()">Contact Me</a>
-			  <a href="javascript:void(0)" class="w3-padding-large w3-hover-red w3-hide-small w3-right p3"><i class="fa fa-search"></i></a>
+
+		
+		<div id="welcome" style="max-width:2000px;margin-top:46px">
+			<div class="w3-top">
+				<div id="fb-root"></div>
+				<div class="w3-bar w3-white w3-card">
+				  <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+				  <a href="#" class="w3-bar-item w3-button w3-padding-large p3">HOME</a>
+				  <a href="#about"class="w3-bar-item w3-button w3-padding-large w3-hide-small p3" onclick="myFunction()">About</a>
+				  <a href="#satting"class="w3-bar-item w3-button w3-padding-large w3-hide-small p3" onclick="myFunction()">Satting</a>
+				  <a href="#signIn"class="w3-bar-item w3-button w3-padding-large w3-hide-small p3" onclick="myFunction()">Sing in</a>
+				  <a href="#logIn"class="w3-bar-item w3-button w3-padding-large w3-hide-small p3" onclick="myFunction()">Log in</a>
+				  <a href="javascript:void(0)" class="w3-padding-large w3-hover-red w3-hide-small w3-right p3"><i class="fa fa-search"></i></a>
+				</div>
 			</div>
 		</div>
+		
 		<div id="signIn" style="max-width:2000px;margin-top:46px"></div> 
 		<div id="logIn" style="max-width:2000px;margin-top:46px"></div>
 		<div id="satting" style="max-width:2000px;margin-top:46px"></div>
 		<div id="about" style="max-width:2000px;margin-top:46px"></div> 
-		<div id="score" >
-			<label for="lblScore">SCORE:</label>
-			<input id="lblScore" type="text" />
+
+		<div id="loginUser" style="max-width:2000px;margin-top:46px">
+			<div class="w3-top">
+				<div id="fb-root"></div>
+				<div class="w3-bar w3-white w3-card">
+				  <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+				  <a href="#" class="w3-bar-item w3-button w3-padding-large p3">HOME</a>
+				  <a href="#about"class="w3-bar-item w3-button w3-padding-large w3-hide-small p3" onclick="myFunction()">About</a>
+				  <a href="#satting"class="w3-bar-item w3-button w3-padding-large w3-hide-small p3" onclick="myFunction()">Satting</a>
+				  <a href="#welcome"class="w3-bar-item w3-button w3-padding-large w3-hide-small p3" onclick="myFunction()">Log Out</a>
+				  <a href="javascript:void(0)" class="w3-padding-large w3-hover-red w3-hide-small w3-right p3"><i class="fa fa-search"></i></a>
+				</div>
+			</div>
+			<div id="score" >
+				<label for="lblScore">SCORE:</label>
+				<input id="lblScore" type="text" />
+			</div>
+			<div id="time">
+				<label for="lblTime">TIME:</label>
+				<input id="lblTime" type="text" />
+			</div>
+			<div id="game" style="max-width:2000px;margin-top:46px">
+				<canvas id="canvas" height="600" width="600"></canvas>
+			</div>
 		</div>
-		<div id="time">
-			<label for="lblTime">TIME:</label>
-			<input id="lblTime" type="text" />
-		</div>
-		<div id="game" style="max-width:2000px;margin-top:46px">
-			<canvas id="canvas" height="600" width="600"></canvas>
-		</div>
+		
+
 	</body>
 	<footer>
 	</footer>
