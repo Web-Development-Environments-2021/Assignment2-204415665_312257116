@@ -291,3 +291,64 @@ lifeoutput.innerHTML = lifeslider.value; // Display the default slider value
 lifeslider.oninput = function() {
  lifeoutput.innerHTML = this.value;
 }
+
+
+
+$(document).ready(function() {
+
+    //register
+    $("#signIn").validate({
+        rules: {
+            username: {
+                required: true
+            },
+            password: {
+                required: true,
+                minlength: 6,
+                validPassword: true,
+            },
+            fullName: {
+                required: true,
+                validName: true,
+            },
+            email: {
+                required: true,
+                email: true,
+            }
+        },
+
+
+        messages: {
+            username: "Please enter username",
+            password: {
+                required: "Please enter a password",
+                minlength: "Password must consist at least 6 characters",
+                validPassword: "Please enter a valid password"
+            },
+            fullName: {
+                required: "Please enter your full name",
+                validName: "Name can only consist alphabetic chars"
+            },
+            email: {
+                required: "Please enter your Email",
+                email: "Please enter valid Email",
+            },
+        },
+
+        submitHandler: function() {
+            //add user to users array
+
+            let username = $('#username').val();
+            let password = $('#password').val();
+
+            users.push([username, password]);
+
+            switchDivs("loginPage");
+            $('#registerForm')[0].reset();
+
+
+        }
+
+
+    });
+});
