@@ -15,9 +15,11 @@
 		<script src="./jquery-3.4.1.slim.min.js"></script>
 		<script type="text/javascript" src="./app.js"></script>
 		<style>
-			div_none {
-			  display: none;
-			}
+        
+        div_none {
+           display: none;
+         }
+
 		</style>
 	</head>
 
@@ -40,8 +42,19 @@
 				<h2 class="w3-wide w3-center">welcome</h2>
 			</div>
 			
-			<div_none id="signIn" class="w3-content w3-container w3-padding-64 " style="max-width:2000px;margin-top:46px">
-					<h2 class="w3-wide w3-center">signIn</h2>
+			<div_none id="signIn" class="w3-content w3-container w3-padding-64 " style="max-width:500px;margin-top:46px">
+					<h2 class="w3-wide w3-center">signIn</h2><br><br>
+                    <form method="post" enctype="text/plain">
+                        <input class="w3-round-xxlarge w3-input w3-border" type="text" name="name"  placeholder="Full Name" required><br>
+                        <input class="w3-round-xxlarge w3-input w3-border" type="text" name="uname"  placeholder="User Name" required><br>
+                        <input class="w3-round-xxlarge w3-input w3-border" type="text" placeholder="Enter Password" name="psw" required><br>
+                        <input class="w3-round-xxlarge w3-input w3-border" type="text" placeholder="Enter Email" name="mail" required><br>
+                  		<input class="w3-round-xxlarge w3-input w3-border" type="date" placeholder="Enter Email-yyyy-mm-dd" name="trip-start"
+                         min="1920-01-01" max="2021-12-31" required><br>
+                        <input class="w3-round-xxlarge w3-button w3-black w3-section w3-center" type="submit" value="Send">
+						<input class="w3-round-xxlarge w3-button w3-black w3-section w3-center" type="reset" value="Reset">
+                        <input class="w3-round-xxlarge w3-button w3-black w3-section w3-right" type="submit" value="Already registered" onclick="logInON()">
+                  </form>
 			</div_none>
 			
 			<div_none id="logIn" class="w3-content w3-container w3-padding-64" style="max-width:500px;margin-top:46px">
@@ -51,7 +64,10 @@
 							<input class="w3-round-xxlarge w3-input w3-border" type="text" placeholder="Enter Password" name="psw" required><br>
 							<input class="w3-round-xxlarge w3-button w3-black w3-section w3-center" type="submit" value="Send">
 							<input class="w3-round-xxlarge w3-button w3-black w3-section w3-center" type="reset" value="Reset">
-							</form>
+                            <input class="w3-round-xxlarge w3-button w3-black w3-section w3-right" type="submit" value="new user" onclick="signInON()">
+
+                            
+					</form>
 			</div_none>
 			
 			<div_none id="satting" class="w3-content w3-container w3-padding-64 " style="max-width:2000px;margin-top:46px">
