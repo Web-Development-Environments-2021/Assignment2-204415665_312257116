@@ -188,3 +188,36 @@ function UpdatePosition() {
 		Draw();
 	}
 }
+function resetElement() {
+	document.getElementById("welcome").style.display = "none";
+  	document.getElementById("logIn").style.display = "none";
+	document.getElementById("signIn").style.display = "none";
+	document.getElementById("satting").style.display = "none";
+	document.getElementById("about").style.display = "none";
+	document.getElementById("UserScreen").style.display = "none";
+
+}
+function welcomeON() {
+resetElement()
+	document.getElementById("welcome").style.display = "block";
+}
+function logInON() {
+resetElement()
+	document.getElementById("logIn").style.display = "block";
+}
+function signInON() {
+resetElement()
+	document.getElementById("signIn").style.display = "block";
+}
+function sattingON() {
+resetElement()
+	document.getElementById("satting").style.display = "block";
+}
+function aboutON() {
+resetElement()
+	document.getElementById("about").style.display = "block";
+}
+function UserScreenON() {
+resetElement()
+	document.getElementById("UserScreen").style.display = "block";
+}

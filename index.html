@@ -22,26 +22,40 @@
 	</head>
 
 	<body>
-
-		
-		<div id="welcome" class="w3-content w3-container w3-padding-64 " style="max-width:2000px;margin-top:46px">
 			<div class="w3-top">
 				<div id="fb-root"></div>
 				<div class="w3-bar w3-white w3-card">
-				  <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
-				  <a href="#" class="w3-bar-item w3-button w3-padding-large p3">HOME</a>
-				  <a href="#about"class="w3-bar-item w3-button w3-padding-large w3-hide-small p3" onclick="myFunction()">About</a>
-				  <a href="#satting"class="w3-bar-item w3-button w3-padding-large w3-hide-small p3" onclick="myFunction()">Satting</a>
-				  <a href="#signIn"class="w3-bar-item w3-button w3-padding-large w3-hide-small p3" onclick="myFunction()">Sing in</a>
-				  <a href="#logIn"class="w3-bar-item w3-button w3-padding-large w3-hide-small p3" onclick="myFunction()">Log in</a>
-				  <a href="javascript:void(0)" class="w3-padding-large w3-hover-red w3-hide-small w3-right p3"><i class="fa fa-search"></i></a>
+
+				  <a href="#" class="w3-bar-item w3-button w3-padding-large p3" onclick="welcomeON()">HOME</a>
+				  <a href="#about"class="w3-bar-item w3-button w3-padding-large w3-hide-small p3" onclick="aboutON()">About</a>
+				  <a href="#satting"class="w3-bar-item w3-button w3-padding-large w3-hide-small p3" onclick="sattingON()">Satting</a>
+				  <a href="#signIn"class="w3-bar-item w3-button w3-padding-large w3-hide-small p3" onclick="signInON()">Sing in</a>
+				  <a href="#logIn"class="w3-bar-item w3-button w3-padding-large w3-hide-small p3" onclick="logInON()">Log in</a>
+
 				</div>
 			</div>
+		
+		<div id="welcome" class="w3-content w3-container w3-padding-64 " style="max-width:2000px;margin-top:46px">
+			 <h2 class="w3-wide w3-center">welcome</h2>
 		</div>
 		
-		<div_none id="signIn" class="w3-content w3-container w3-padding-64 " style="max-width:2000px;margin-top:46px"></div_none> 
-		<div_none id="logIn" class="w3-content w3-container w3-padding-64 " style="max-width:2000px;margin-top:46px"></div_none>
-		<div_none id="satting" class="w3-content w3-container w3-padding-64 " style="max-width:2000px;margin-top:46px"></div_none>
+		<div_none id="signIn" class="w3-content w3-container w3-padding-64 " style="max-width:2000px;margin-top:46px">
+                <h2 class="w3-wide w3-center">signIn</h2>
+        </div_none>
+        
+		<div_none id="logIn" class="w3-content w3-container w3-padding-64" style="max-width:500px;margin-top:46px">
+                <form method="post" enctype="text/plain">
+                		<h2 class="w3-wide w3-center">User Login</h2><br><br>
+						<input class="w3-round-xxlarge w3-input w3-border" type="text" name="name" placeholder="User Name" ><br>
+						<input class="w3-round-xxlarge w3-input w3-border" type="text" name="password"placeholder="password"><br>
+						<input class="w3-round-xxlarge w3-button w3-black w3-section w3-center" type="submit" value="Send">
+						<input class="w3-round-xxlarge w3-button w3-black w3-section w3-center" type="reset" value="Reset">
+                        </form>
+        </div_none>
+        
+		<div_none id="satting" class="w3-content w3-container w3-padding-64 " style="max-width:2000px;margin-top:46px">
+        <h2 class="w3-wide w3-center">satting</h2>
+        </div_none>
 
 		<div_none id="about" class="w3-content w3-container w3-padding-64 " style="max-width:2000px;margin-top:46px">
 			<h2 class="w3-wide w3-center">CONTACT</h2>
@@ -61,7 +75,7 @@
 			</div>
 		</div_none> 
 
-		<div_none id="loginUser" class="w3-content w3-container w3-padding-64 " style="max-width:2000px;margin-top:46px">
+		<div_none id="UserScreen" class="w3-content w3-container w3-padding-64 " style="max-width:2000px;margin-top:46px">
 			<div class="w3-top">
 				<div id="fb-root"></div>
 				<div class="w3-bar w3-white w3-card">
