@@ -222,6 +222,52 @@ resetElement()
 	document.getElementById("UserScreen").style.display = "block";
 }
 
+var logInmodal = document.getElementById('logIn');
+window.onclick = function(event) {
+	if (event.target == logInmodal) {
+		logInmodal.style.display = "none";
+		welcomeON()
+	}
+}
+var signInmodal = document.getElementById('signIn');
+window.onclick = function(event) {
+	if (event.target == signInmodal) {
+		signInmodal.style.display = "none";
+		welcomeON()
+	}
+}
+
+var settingmodal = document.getElementById('setting');
+window.onclick = function(event) {
+	if (event.target == settingmodal) {
+		settingmodal.style.display = "none";
+		welcomeON()
+	}
+}
+
+var aboutmodal = document.getElementById('about');
+window.onclick = function(event) {
+	if (event.target == aboutmodal) {
+		aboutmodal.style.display = "none";
+		welcomeON()
+	}
+}
+
+var UserScreenmodal = document.getElementById('UserScreen');
+window.onclick = function(event) {
+	if (event.target == UserScreenmodal) {
+		UserScreenmodal.style.display = "none";
+		welcomeON()
+	}
+}
+/*-------setVolume------- */
+var x = document.getElementById("myAudio");
+
+function setVolume() { 
+  x.volume = Volslider.value/100;
+}
+
+/*-----------------------*/
 var Volslider = document.getElementById("Volume");
 var Voloutput = document.getElementById("Volume_val");
 Voloutput.innerHTML = Volslider.value; // Display the default slider value
@@ -230,6 +276,7 @@ Voloutput.innerHTML = Volslider.value; // Display the default slider value
 Volslider.oninput = function() {
  Voloutput.innerHTML = this.value;
 }
+
 var enemslider = document.getElementById("enemNum");
 var enemoutput = document.getElementById("enem_val");
 enemoutput.innerHTML = enemslider.value; // Display the default slider value
@@ -238,6 +285,7 @@ enemoutput.innerHTML = enemslider.value; // Display the default slider value
 enemslider.oninput = function() {
  enemoutput.innerHTML = this.value;
 }
+
 var lifeslider = document.getElementById("lifeNum");
 var lifeoutput = document.getElementById("life_val");
 lifeoutput.innerHTML = lifeslider.value; // Display the default slider value
@@ -245,37 +293,4 @@ lifeoutput.innerHTML = lifeslider.value; // Display the default slider value
 // Update the current slider value (each time you drag the slider handle)
 lifeslider.oninput = function() {
  lifeoutput.innerHTML = this.value;
-}
-var logInmodal = document.getElementById('logIn');
-window.onclick = function(event) {
-if (event.target == logInmodal) {
-	logInmodal.style.display = "none";
-}
-}
-var signInmodal = document.getElementById('signIn');
-window.onclick = function(event) {
-if (event.target == signInmodal) {
-	signInmodal.style.display = "none";
-}
-}
-
-var settingmodal = document.getElementById('setting');
-window.onclick = function(event) {
-if (event.target == settingmodal) {
-	settingmodal.style.display = "none";
-}
-}
-
-var aboutmodal = document.getElementById('about');
-window.onclick = function(event) {
-if (event.target == aboutmodal) {
-	aboutmodal.style.display = "none";
-}
-}
-
-var UserScreenmodal = document.getElementById('UserScreen');
-window.onclick = function(event) {
-if (event.target == UserScreenmodal) {
-	UserScreenmodal.style.display = "none";
-}
 }
