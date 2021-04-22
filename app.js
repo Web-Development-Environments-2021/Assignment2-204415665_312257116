@@ -136,7 +136,18 @@ function Draw() {
 		}
 	}
 }
-
+function DIV_none() {
+	var x = document.getElementById('DIV_none');
+	ar = document.getElementsByTagName("code");
+	for (i = 0; i < ar.length; ++i)
+   	ar[i].style.display = "none";
+	   
+	if (x.style.display === 'none') {
+	  x.style.display = 'block';
+	} else {
+	  x.style.display = 'none';
+	}
+  }
 function UpdatePosition() {
 	board[shape.i][shape.j] = 0;
 	var x = GetKeyPressed();
