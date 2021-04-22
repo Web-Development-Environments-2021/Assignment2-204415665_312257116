@@ -81,12 +81,7 @@ function findRandomEmptyCell(board) {
 	}
 	return [i, j];
 }
-function onClick(element) {
-    document.getElementById("img01").src = element.src;
-    document.getElementById("modal01").style.display = "block";
-    var captionText = document.getElementById("caption");
-    captionText.innerHTML = element.alt;
-  }
+
   
 function GetKeyPressed() {
 	if (keysDown[38]) {
@@ -136,12 +131,18 @@ function Draw() {
 		}
 	}
 }
+function onClick(element) {
+    document.getElementById("img01").src = element.src;
+    document.getElementById("modal01").style.display = "block";
+    var captionText = document.getElementById("caption");
+    captionText.innerHTML = element.alt;
+  }
 function DIV_none() {
 	var x = document.getElementById('DIV_none');
 	ar = document.getElementsByTagName("code");
 	for (i = 0; i < ar.length; ++i)
    	ar[i].style.display = "none";
-	   
+
 	if (x.style.display === 'none') {
 	  x.style.display = 'block';
 	} else {
