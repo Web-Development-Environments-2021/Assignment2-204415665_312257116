@@ -261,13 +261,6 @@ window.onclick = function(event) {
 	}
 }
 /*-------setVolume------- */
-var x = document.getElementById("myAudio");
-
-function setVolume() { 
-  x.volume = Volslider.value/100;
-}
-
-/*-----------------------*/
 var Volslider = document.getElementById("Volume");
 var Voloutput = document.getElementById("Volume_val");
 Voloutput.innerHTML = Volslider.value; // Display the default slider value
@@ -275,6 +268,11 @@ Voloutput.innerHTML = Volslider.value; // Display the default slider value
 // Update the current slider value (each time you drag the slider handle)
 Volslider.oninput = function() {
  Voloutput.innerHTML = this.value;
+}
+var x = document.getElementById("myAudio");
+
+function setVolume() { 
+  x.volume = Volslider.value/100;
 }
 
 var enemslider = document.getElementById("enemNum");
@@ -285,7 +283,6 @@ enemoutput.innerHTML = enemslider.value; // Display the default slider value
 enemslider.oninput = function() {
  enemoutput.innerHTML = this.value;
 }
-
 var lifeslider = document.getElementById("lifeNum");
 var lifeoutput = document.getElementById("life_val");
 lifeoutput.innerHTML = lifeslider.value; // Display the default slider value
