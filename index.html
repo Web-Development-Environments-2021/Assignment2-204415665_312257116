@@ -14,11 +14,47 @@
 		<link rel="stylesheet" href="style.css">
 		<script src="./jquery-3.4.1.slim.min.js"></script>
 		<script type="text/javascript" src="./app.js"></script>
+        
+        
 		<style>
         
-        div_none {
-           display: none;
-         }
+            div_none {
+               display: none;
+             }
+            .slidecontainer {
+              width: 100%;
+            }
+
+            .slider {
+              -webkit-appearance: none;
+              width: 100%;
+              height: 25px;
+              background: #d3d3d3;
+              outline: none;
+              opacity: 0.7;
+              -webkit-transition: .2s;
+              transition: opacity .2s;
+            }
+
+            .slider:hover {
+              opacity: 1;
+            }
+
+            .slider::-webkit-slider-thumb {
+              -webkit-appearance: none;
+              appearance: none;
+              width: 25px;
+              height: 25px;
+              background: #4CAF50;
+              cursor: pointer;
+            }
+
+            .slider::-moz-range-thumb {
+              width: 25px;
+              height: 25px;
+              background: #4CAF50;
+              cursor: pointer;
+            }
 
 		</style>
 	</head>
@@ -32,7 +68,7 @@
 
 				  <a href="#" class="w3-bar-item w3-button w3-padding-large p3" onclick="welcomeON()">HOME</a>
 				  <a href="#about"class="w3-bar-item w3-button w3-padding-large w3-hide-small p3" onclick="aboutON()">About</a>
-				  <a href="#satting"class="w3-bar-item w3-button w3-padding-large w3-hide-small p3" onclick="sattingON()">Satting</a>
+				  <a href="#setting"class="w3-bar-item w3-button w3-padding-large w3-hide-small p3" onclick="settingON()">Setting</a>
 				  <a href="#signIn"class="w3-bar-item w3-button w3-padding-large w3-hide-small p3" onclick="signInON()">Sing in</a>
 				  <a href="#logIn"class="w3-bar-item w3-button w3-padding-large w3-hide-small p3" onclick="logInON()">Log in</a>
 
@@ -70,8 +106,17 @@
 					</form>
 			</div_none>
 			
-			<div_none id="satting" class="w3-content w3-container w3-padding-64 " style="max-width:2000px;margin-top:46px">
-			<h2 class="w3-wide w3-center">satting</h2>
+			<div_none id="setting" class="w3-content w3-container w3-padding-64 " style="max-width:2000px;margin-top:46px">
+			<h2 class="w3-wide w3-center">setting</h2>
+            <form method="post" enctype="text/plain" id ="setting_form">
+            <div class="slidecontainer" align="center">
+            <p>music vol:</p>
+                  <input type="range" min="1" max="100" value="50" align="center">
+                  <input class="w3-round-xxlarge w3-button w3-black w3-section" type="submit" value="Send">
+				  <input class="w3-round-xxlarge w3-button w3-black w3-section" type="reset" value="Reset">
+
+          	</div>
+            </form>
 			</div_none>
 
 			<div_none id="about" class="w3-content w3-container w3-padding-64 " style="max-width:2000px;margin-top:46px">
@@ -100,7 +145,7 @@
 				<a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
 				<a href="#" class="w3-bar-item w3-button w3-padding-large p3">HOME</a>
 				<a href="#about"class="w3-bar-item w3-button w3-padding-large w3-hide-small p3" onclick="myFunction()">About</a>
-				<a href="#satting"class="w3-bar-item w3-button w3-padding-large w3-hide-small p3" onclick="myFunction()">Satting</a>
+				<a href="#setting"class="w3-bar-item w3-button w3-padding-large w3-hide-small p3" onclick="myFunction()">Satting</a>
 				<a href="#welcome"class="w3-bar-item w3-button w3-padding-large w3-hide-small p3" onclick="myFunction()">Log Out</a>
 				<a href="javascript:void(0)" class="w3-padding-large w3-hover-red w3-hide-small w3-right p3"><i class="fa fa-search"></i></a>
 			</div>

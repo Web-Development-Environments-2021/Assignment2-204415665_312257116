@@ -190,9 +190,9 @@ function UpdatePosition() {
 }
 function resetElement() {
 	document.getElementById("welcome").style.display = "none";
-  	document.getElementById("logIn").style.display = "none";
+    document.getElementById("logIn").style.display = "none";
 	document.getElementById("signIn").style.display = "none";
-	document.getElementById("satting").style.display = "none";
+	document.getElementById("setting").style.display = "none";
 	document.getElementById("about").style.display = "none";
 	document.getElementById("UserScreen").style.display = "none";
 
@@ -209,9 +209,9 @@ function signInON() {
 resetElement()
 	document.getElementById("signIn").style.display = "block";
 }
-function sattingON() {
+function settingON() {
 resetElement()
-	document.getElementById("satting").style.display = "block";
+	document.getElementById("setting").style.display = "block";
 }
 function aboutON() {
 resetElement()
