@@ -246,4 +246,36 @@ lifeoutput.innerHTML = lifeslider.value; // Display the default slider value
 lifeslider.oninput = function() {
  lifeoutput.innerHTML = this.value;
 }
-lifeNum
+var logInmodal = document.getElementById('logIn');
+window.onclick = function(event) {
+if (event.target == logInmodal) {
+	logInmodal.style.display = "none";
+}
+}
+var signInmodal = document.getElementById('signIn');
+window.onclick = function(event) {
+if (event.target == signInmodal) {
+	signInmodal.style.display = "none";
+}
+}
+
+var settingmodal = document.getElementById('setting');
+window.onclick = function(event) {
+if (event.target == settingmodal) {
+	settingmodal.style.display = "none";
+}
+}
+
+var aboutmodal = document.getElementById('about');
+window.onclick = function(event) {
+if (event.target == aboutmodal) {
+	aboutmodal.style.display = "none";
+}
+}
+
+var UserScreenmodal = document.getElementById('UserScreen');
+window.onclick = function(event) {
+if (event.target == UserScreenmodal) {
+	UserScreenmodal.style.display = "none";
+}
+}
