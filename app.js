@@ -8,6 +8,8 @@ var time_elapsed;
 var interval;
 
 var pac_dir = "right"
+var monster_num = 2; // get from settings
+
 
 $(document).ready(function() {
 	context = canvas.getContext("2d");
@@ -18,7 +20,7 @@ function Start() {
 	board = new Array();
 	score = 0;
 	pac_color = "yellow";
-	var cnt = 100;
+	var cnt = 100 - monster_num;
 	var food_remain = 50;
 	var pacman_remain = 1;
 	start_time = new Date();
@@ -51,6 +53,29 @@ function Start() {
 			}
 		}
 	}
+
+	//add monsters
+	var monster_count = monster_num;
+	while(monster_count != 0)
+	{
+		var row = Math.floor(Math.random() * 10);
+		var col = Math.floor(Math.random() * 10);
+		if (row < 5){
+			row = 0;
+		} else{
+			row = 9;
+		}
+		if (col < 5){
+			col = 0;
+		} else{
+			col = 9
+		}
+		if (board[row][col] != 10){
+			board[row][col] = 10;
+			monster_count--;
+		}
+	}
+		
 	while (food_remain > 0) {
 		var emptyCell = findRandomEmptyCell(board);
 		board[emptyCell[0]][emptyCell[1]] = 1;
@@ -164,6 +189,50 @@ function Draw() {
 				context.beginPath();
 				context.rect(center.x - 30, center.y - 30, 60, 60);
 				context.fillStyle = "grey"; //color
+				context.fill();
+			} else if (board[i][j] == 10){
+				context.beginPath();
+				context.arc(center.x, center.y, 20, 1 * Math.PI, 2 * Math.PI); // head
+				context.fillStyle = "blue";
+				context.fill();
+
+				context.beginPath();
+				context.arc(center.x + 10, center.y - 5 , 5, 0, 2 * Math.PI); // right eye
+				context.fillStyle = "white"; 
+				context.fill();
+
+				context.beginPath();
+				context.arc(center.x + 10, center.y - 5 , 2, 0, 2 * Math.PI); // in right eye
+				context.fillStyle = "black";
+				context.fill();
+
+				context.beginPath();
+				context.arc(center.x - 10, center.y - 5, 5, 0, 2 * Math.PI); // left eye
+				context.fillStyle = "white"; 
+				context.fill();
+
+				context.beginPath();
+				context.arc(center.x - 10, center.y - 5 , 2, 0, 2 * Math.PI); // in left eye
+				context.fillStyle = "black"; 
+				context.fill();
+
+				context.beginPath(); // legs
+				context.moveTo(center.x, center.y);
+
+				context.lineTo(center.x + 20 , center.y);
+				context.lineTo(center.x + 20 , center.y + 20);
+				context.lineTo(center.x + 15 , center.y + 15);
+				context.lineTo(center.x + 10 , center.y + 20);
+				context.lineTo(center.x +  5 , center.y + 15);
+				context.lineTo(center.x      , center.y + 20);
+				context.lineTo(center.x -  5 , center.y + 15);
+				context.lineTo(center.x - 10 , center.y + 20);
+				context.lineTo(center.x - 15 , center.y + 15);
+				context.lineTo(center.x - 20 , center.y + 20);
+				context.lineTo(center.x - 20 , center.y);
+				
+				context.lineTo(center.x, center.y);
+				context.fillStyle = "blue"; 
 				context.fill();
 			}
 		}
