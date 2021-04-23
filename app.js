@@ -318,7 +318,6 @@ $(document).ready(function() {
             }
         },
 
-
         messages: {
             username: "Please enter username",
             password: {
@@ -342,11 +341,11 @@ $(document).ready(function() {
             let username = $('#username').val();
             let password = $('#password').val();
 
-            users.push([username, password]);
+            userDic[username] = password;
 
-            switchDivs("loginPage");
-            $('#registerForm')[0].reset();
-
+            // switchDivs("loginPage");
+            // $('#registerForm')[0].reset();
+			welcomeON()
 
         }
 
