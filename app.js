@@ -216,11 +216,13 @@ resetElement()
 function aboutON() {
 resetElement()
 	document.getElementById("about").style.display = "block";
+	document.getElementById("aboutDialog").showModal();
 }
 function UserScreenON() {
 resetElement()
 	document.getElementById("UserScreen").style.display = "block";
 }
+
 
 var logInmodal = document.getElementById('logIn');
 window.onclick = function(event) {
@@ -248,6 +250,7 @@ window.onclick = function(event) {
 var aboutmodal = document.getElementById('about');
 window.onclick = function(event) {
 	if (event.target == aboutmodal) {
+		document.getElementById('aboutDialog').close();
 		aboutmodal.style.display = "none";
 		welcomeON()
 	}
@@ -260,6 +263,13 @@ window.onclick = function(event) {
 		welcomeON()
 	}
 }
+/*-------span Close------- */
+function closeSpan(){
+	document.getElementById('aboutDialog').close();
+	document.getElementById('about').style.display = "none";
+	welcomeON()
+}
+
 /*-------setVolume------- */
 var Volslider = document.getElementById("Volume");
 var Voloutput = document.getElementById("Volume_val");
