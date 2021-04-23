@@ -8,45 +8,44 @@ var time_elapsed;
 var interval;
 var userDic={};
 userDic["k"]="k";
-userDic["u"]="u";
+var game_username;
 
 $(document).ready(function() {
-	// context = canvas.getContext("2d");
-	// Start();
+
 
 	//register
 	$("#registerForm").validate({
 		rules: {
-			username: {
+			register_username: {
 				required: true
 			},
-			password: {
+			register_password: {
 				required: true,
 				minlength: 6,
 				validPassword: true
 			},
-			fullName: {
+			register_name: {
 				required: true,
 				validName: true
 			},
-			email: {
+			register_email: {
 				required: true,
 				email: true
 			}
 		},
 
 		messages: {
-			username: "Please enter username",
-			password: {
+			register_username: "Please enter username",
+			register_password: {
 				required: "Please enter a password",
 				minlength: "Password must consist at least 6 characters",
 				validPassword: "Please enter a valid password"
 			},
-			fullName: {
+			register_name: {
 				required: "Please enter your full name",
 				validName: "Name can only consist alphabetic chars"
 			},
-			email: {
+			register_email: {
 				required: "Please enter your Email",
 				email: "Please enter valid Email"
 			}
@@ -65,48 +64,65 @@ $(document).ready(function() {
 
 		}
 	});
+
 	$("#logInForm").validate({
 		rules: {
-			login_username_name: {
+			logIn_name: {
 				required: true,
 			},
-			login_password_name: {
+			logIn_password: {
 				required: true,
 				validateUser: true
 			}
 		},
 		messages: {
-			login_username_name: {
+			logIn_name: {
 				required: "Please enter username."
 			},
-			login_password_name: {
+			logIn_password: {
 				required: "Please enter an password",
-				validateUser: "Username or password is not valid."
+				// validateUser: "Username or password are not valid."
 			}
 		},
 		submitHandler: function () {
 
-			login();
+			// game_username = document.getElementById("login_username_id").value;
+			let username = document.getElementById("logIn_name").value;
+			let password = document.getElementById("logIn_password").value;
 
+			if(userDic[username]==password){
+				document.getElementById("NotLogIn").style.display = "none";
+				document.getElementById("UserScreen").style.display = "block";
+				context = canvas.getContext("2d");
+				Start();
+
+
+			}
+			else{
+
+			}
 			//reset form details
-			let form = $("#form_login_id");
+			let form = $("#logInForm");
 			form[0].reset();
+
+			
+
 		},
 	});
 });
 
-// function submitHandlerregister() {
-// 	//add user to users dic
 
-// 	let username = document.getElementById("register_username").value;
-// 	let password = document.getElementById("register_password").value;
+const isUserExists = (users, key) => {
 
-// 	userDic[username] = password;
-// 	// let form = $("#registerForm");
-// 	// form[0].reset();
-// 	welcomeON();
+	let result = users in userDic;
 
-// }
+	if(users in userDic) {
+		if(userDic[users]==key){
+			return true;
+		}	
+	}
+	return false;
+};
 function Start() {
 	board = new Array();
 	score = 0;
@@ -393,6 +409,9 @@ lifeslider.oninput = function() {
 
 
 
+$.validator.addMethod('validateUsername', function (value, element) {
+	return !isUserExists(value);
+});
 
 $.validator.addMethod("validPassword", function(value) {
     return /^(?=.[A-Za-z])(?=.\d)[A-Za-z\d]{6,}$/.test(value);
