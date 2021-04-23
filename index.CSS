@@ -39,9 +39,9 @@ body {
   cursor: pointer;
 }
 
-/* div {
+div_none {
    display: none;
- } */
+ }
 
  button:hover {
   opacity: 0.8;
