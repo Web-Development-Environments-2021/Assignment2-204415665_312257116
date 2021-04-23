@@ -47,7 +47,8 @@
 			</div>
 			
 			<div id="signIn" class="w3-content w3-container w3-padding-64 container modal" style="max-width:2000px;margin-top:46px ;display:none;">
-                    <form method="post" id="registerForm" enctype="text/plain" class="cmxform modal-content w3-round animate"style="max-width:1000px;margin-top:46px">
+                    <form id="registerForm" enctype="text/plain" class="cmxform modal-content w3-round animate"style="max-width:1000px;margin-top:46px">
+						<span onclick="document.getElementById('signIn').style.display='none'" class="close" title="Close Modal">&times;</span>
                     	<div class="w3-content w3-container w3-padding-64 " style="max-width:2000px;margin-top:46px">
 							<h2 class="w3-wide w3-center">signIn</h2><br><br>
 							
@@ -66,17 +67,16 @@
 			</div>
 			
 			<div id="logIn" class="w3-content w3-container w3-padding-64 modal" style="max-width:2000px;margin-top:46px;display:none;">
-					<form id="logInForm"method="post" enctype="text/plain" class="cmxform modal-content animate">
-                    <span onclick="document.getElementById('logIn').style.display='none'" class="close" title="Close Modal">&times;</span>
-                    <div class="w3-content w3-container w3-padding-64 " style="max-width:2000px;margin-top:46px">
+					<form id="logInForm" enctype="text/plain" class="cmxform modal-content animate">
+						<span onclick="document.getElementById('logIn').style.display='none'" class="close" title="Close Modal">&times;</span>
+						<div class="w3-content w3-container w3-padding-64 " style="max-width:2000px;margin-top:46px">
 							<h2 class="w3-wide w3-center">User Login</h2><br><br>
 							<input class="w3-round-xxlarge w3-input w3-border" type="text" name="uname" required placeholder="User Name" ><br>
 							<input class="w3-round-xxlarge w3-input w3-border" type="text" placeholder="Enter Password" name="psw" required><br>
 							<input class="w3-round-xxlarge w3-button w3-gray w3-text-white w3-section w3-center" type="submit" value="submit" id="logIn_submit">
 							<input class="w3-round-xxlarge w3-button w3-gray w3-text-white w3-section w3-center" type="button" value="Cancel" id="logIn_Cancel" onclick="welcomeON()">
-                            <input class="w3-round-xxlarge w3-button w3-gray w3-text-white w3-section w3-right" type="button" value="new user" id="NotRegister" onclick="signInON()">
-
-                          </div>  
+							<input class="w3-round-xxlarge w3-button w3-gray w3-text-white w3-section w3-right" type="button" value="new user" id="NotRegister" onclick="signInON()">
+						</div>  
 					</form>
 			</div>
 			<div id="setting" class="w3-content w3-container w3-padding-64 w3-center modal" style="max-width:2000px;margin-top:46px;display:none;">

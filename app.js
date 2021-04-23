@@ -65,6 +65,34 @@ $(document).ready(function() {
 
 		}
 	});
+	$("#logInForm").validate({
+		rules: {
+			login_username_name: {
+				required: true,
+			},
+			login_password_name: {
+				required: true,
+				validateUser: true
+			}
+		},
+		messages: {
+			login_username_name: {
+				required: "Please enter username."
+			},
+			login_password_name: {
+				required: "Please enter an password",
+				validateUser: "Username or password is not valid."
+			}
+		},
+		submitHandler: function () {
+
+			login();
+
+			//reset form details
+			let form = $("#form_login_id");
+			form[0].reset();
+		},
+	});
 });
 
 // function submitHandlerregister() {
