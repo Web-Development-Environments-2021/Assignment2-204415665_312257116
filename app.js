@@ -8,6 +8,7 @@ var time_elapsed;
 var interval;
 var userDic={};
 userDic["k"]="k";
+userDic["u"]="u";
 
 $(document).ready(function() {
 	// context = canvas.getContext("2d");
