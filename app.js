@@ -51,33 +51,33 @@ $(document).ready(function() {
 			}
 		},
 
-		// submitHandler: function() {
-		// 	//add user to users dic
+		submitHandler: function() {
+			//add user to users dic
 
-		// 	let username = document.getElementById("register_username").value;
-		// 	let password = document.getElementById("register_password").value;
+			let username = document.getElementById("register_username").value;
+			let password = document.getElementById("register_password").value;
 
-		// 	userDic[username] = password;
-		// 	// let form = $("#registerForm");
-		// 	// form[0].reset();
-		// 	welcomeON();
+			userDic[username] = password;
+			let form = $("#registerForm");
+			form[0].reset();
+			welcomeON();
 
-		// },
+		}
 	});
 });
 
-function submitHandlerregister() {
-	//add user to users dic
+// function submitHandlerregister() {
+// 	//add user to users dic
 
-	let username = document.getElementById("register_username").value;
-	let password = document.getElementById("register_password").value;
+// 	let username = document.getElementById("register_username").value;
+// 	let password = document.getElementById("register_password").value;
 
-	userDic[username] = password;
-	// let form = $("#registerForm");
-	// form[0].reset();
-	welcomeON();
+// 	userDic[username] = password;
+// 	// let form = $("#registerForm");
+// 	// form[0].reset();
+// 	welcomeON();
 
-}
+// }
 function Start() {
 	board = new Array();
 	score = 0;
