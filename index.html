@@ -15,6 +15,9 @@
 		<link rel="stylesheet" href="index.CSS">
 		<script src="./jquery-3.4.1.slim.min.js"></script>
 		<script type="text/javascript" src="./app.js"></script>
+		<script src="https://cdn.jsdelivr.net/jquery.validation/1.15.1/jquery.validate.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/additional-methods.js"></script>
+
         
         
 
@@ -37,7 +40,9 @@
 			</div>
 			<div id="welcome" class="w3-content w3-container w3-padding-64 w3-center" style="max-width:2000px;">
 				<h2 class="w3-wide w3-center">welcome</h2>
-				  <img SRC="https://cdn.dribbble.com/users/761988/screenshots/2510880/giffas_pacman.gif" class="w3-center">
+				  <img SRC="https://cdn.dribbble.com/users/761988/screenshots/2510880/giffas_pacman.gif" class="w3-center"><br>
+				  <a href="#signIn"class="w3-bar-item w3-button w3-padding-large w3-hide-small p3" onclick="signInON()">Sing in</a>
+				  <a href="#logIn"class="w3-bar-item w3-button w3-padding-large w3-hide-small p3" onclick="logInON()">Log in</a>
 			</div>
 			
 			<div_none id="signIn" class="w3-content w3-container w3-padding-64 container modal" style="max-width:2000px;margin-top:46px">
@@ -59,6 +64,7 @@
                   </div>
                   </form>
 			</div_none>
+			/*cmxform*/
 			<div_none id="logIn" class="w3-content w3-container w3-padding-64 modal" style="max-width:2000px;margin-top:46px">
 					<form method="post" enctype="text/plain" class="modal-content animate">
                     <span onclick="document.getElementById('logIn').style.display='none'" class="close" title="Close Modal">&times;</span>
@@ -75,8 +81,7 @@
 			</div_none>
 			<div_none id="setting" class="w3-content w3-container w3-padding-64 w3-center modal" style="max-width:2000px;margin-top:46px">
             <form method="post" enctype="text/plain" id ="setting_form" class="modal-content animate">
-            			<h2 class="w3-wide w3-center">setting</h2>
-
+            	  <h2 class="w3-wide w3-center">setting</h2>
             	  <span onclick="document.getElementById('setting').style.display='none'" class="close" title="Close Modal">&times;</span>
                   <div class="w3-content w3-container w3-padding-64 " style="max-width:2000px;margin-top:46px">
                   <input type="range" min="1" max="100" value="50" id="Volume"><p>Value: <span id="Volume_val"></span></p>
