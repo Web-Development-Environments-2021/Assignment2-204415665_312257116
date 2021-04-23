@@ -6,7 +6,8 @@ var pac_color;
 var start_time;
 var time_elapsed;
 var interval;
-var userDic={}
+var userDic={};
+userDic["k"]="k";
 
 $(document).ready(function() {
 	// context = canvas.getContext("2d");
@@ -21,15 +22,15 @@ $(document).ready(function() {
 			password: {
 				required: true,
 				minlength: 6,
-				validPassword: true,
+				validPassword: true
 			},
 			fullName: {
 				required: true,
-				validName: true,
+				validName: true
 			},
 			email: {
 				required: true,
-				email: true,
+				email: true
 			}
 		},
 
@@ -46,27 +47,37 @@ $(document).ready(function() {
 			},
 			email: {
 				required: "Please enter your Email",
-				email: "Please enter valid Email",
+				email: "Please enter valid Email"
 			}
 		},
 
-		submitHandler: function() {
-			//add user to users dic
+		// submitHandler: function() {
+		// 	//add user to users dic
 
-			let username = document.getElementById("username").value;
-			let password = document.getElementById("password").value;
+		// 	let username = document.getElementById("register_username").value;
+		// 	let password = document.getElementById("register_password").value;
 
-			userDic[username] = password;
-			let form = $("#registerForm");
-			form[0].reset();
-			welcomeON();
+		// 	userDic[username] = password;
+		// 	// let form = $("#registerForm");
+		// 	// form[0].reset();
+		// 	welcomeON();
 
-		},
-
-
+		// },
 	});
 });
 
+function submitHandlerregister() {
+	//add user to users dic
+
+	let username = document.getElementById("register_username").value;
+	let password = document.getElementById("register_password").value;
+
+	userDic[username] = password;
+	// let form = $("#registerForm");
+	// form[0].reset();
+	welcomeON();
+
+}
 function Start() {
 	board = new Array();
 	score = 0;
