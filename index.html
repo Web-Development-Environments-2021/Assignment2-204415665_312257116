@@ -46,35 +46,34 @@
 			</div>
 			
 			<div_none id="signIn" class="w3-content w3-container w3-padding-64 container modal" style="max-width:2000px;margin-top:46px">
-					
-                    <form method="post" id="signIn" enctype="text/plain" class="modal-content w3-round animate"style="max-width:1000px;margin-top:46px">
-                    <div class="w3-content w3-container w3-padding-64 " style="max-width:2000px;margin-top:46px">
-                    <h2 class="w3-wide w3-center">signIn</h2><br><br>
-                        <input class="w3-round-xxlarge w3-input w3-border" type="text" name="name"  placeholder="fullName" required><br>
-                        <input class="w3-round-xxlarge w3-input w3-border" type="text" name="username"  placeholder="User Name" required><br>
-                        <input class="w3-round-xxlarge w3-input w3-border" type="text" placeholder="Enter Password" name="password" required><br>
-                        <input class="w3-round-xxlarge w3-input w3-border" type="text" placeholder="Enter Email" name="email" required><br>
-                  		<input class="w3-round-xxlarge w3-input w3-border" type="date" placeholder="Enter Email-yyyy-mm-dd" name="trip-start"
-                         min="1920-01-01" max="2021-12-31" required><br>
-                        <input class="w3-round-xxlarge w3-button w3-gray w3-text-white w3-section w3-center" type="submit" value="Send">
-						<input class="w3-round-xxlarge w3-button w3-gray w3-text-white w3-section w3-center" type="reset" value="Reset">
-                        <input class="w3-round-xxlarge w3-button w3-gray w3-text-white w3-section w3-center" type="button" value="Cancel" onclick="welcomeON()">
+                    <form method="post" id="registerForm" enctype="text/plain" class="cmxform modal-content w3-round animate"style="max-width:1000px;margin-top:46px">
+                    	<div class="w3-content w3-container w3-padding-64 " style="max-width:2000px;margin-top:46px">
+							<h2 class="w3-wide w3-center">signIn</h2><br><br>
+							
+								<input class="w3-round-xxlarge w3-input w3-border" type="text"     name="name"       placeholder="fullName"       required><br>
+								<input class="w3-round-xxlarge w3-input w3-border" type="text"     name="username"   placeholder="User Name"      required><br>
+								<input class="w3-round-xxlarge w3-input w3-border" type="password" name="password"   placeholder="Enter Password" required><br>
+								<input class="w3-round-xxlarge w3-input w3-border" type="email"    name="email"      placeholder="Enter Email"    required><br>
+								<input class="w3-round-xxlarge w3-input w3-border" type="date"     name="trip-start" placeholder="Enter Email-yyyy-mm-dd" min="1920-01-01" max="2021-12-31" required><br>
 
-                        <input class="w3-round-xxlarge w3-button w3-gray w3-text-white w3-section w3-right" type="submit" value="Already registered" onclick="logInON()">
-                  </div>
+								<input class="w3-round-xxlarge w3-button w3-gray w3-text-white w3-section w3-center" type="submit" value="Send" id="register_submit">
+								<input class="w3-round-xxlarge w3-button w3-gray w3-text-white w3-section w3-center" type="reset" value="Reset" id="register_Reset">
+								<input class="w3-round-xxlarge w3-button w3-gray w3-text-white w3-section w3-center" type="button" value="Cancel" id="register_Cancel" onclick="welcomeON()">
+								<input class="w3-round-xxlarge w3-button w3-gray w3-text-white w3-section w3-right"  type="button" value="Already registered" id="isRegister" onclick="logInON()">
+						</div>
                   </form>
 			</div_none>
 			
 			<div_none id="logIn" class="w3-content w3-container w3-padding-64 modal" style="max-width:2000px;margin-top:46px">
-					<form method="post" enctype="text/plain" class="cmxform modal-content animate">
+					<form id="logInForm"method="post" enctype="text/plain" class="cmxform modal-content animate">
                     <span onclick="document.getElementById('logIn').style.display='none'" class="close" title="Close Modal">&times;</span>
                     <div class="w3-content w3-container w3-padding-64 " style="max-width:2000px;margin-top:46px">
 							<h2 class="w3-wide w3-center">User Login</h2><br><br>
 							<input class="w3-round-xxlarge w3-input w3-border" type="text" name="uname" required placeholder="User Name" ><br>
 							<input class="w3-round-xxlarge w3-input w3-border" type="text" placeholder="Enter Password" name="psw" required><br>
-							<input class="w3-round-xxlarge w3-button w3-gray w3-text-white w3-section w3-center" type="submit" value="submit" >
-							<input class="w3-round-xxlarge w3-button w3-gray w3-text-white w3-section w3-center" type="button" value="Cancel" onclick="welcomeON()">
-                            <input class="w3-round-xxlarge w3-button w3-gray w3-text-white w3-section w3-right" type="button" value="new user" onclick="signInON()">
+							<input class="w3-round-xxlarge w3-button w3-gray w3-text-white w3-section w3-center" type="submit" value="submit" id="logIn_submit">
+							<input class="w3-round-xxlarge w3-button w3-gray w3-text-white w3-section w3-center" type="button" value="Cancel" id="logIn_Cancel" onclick="welcomeON()">
+                            <input class="w3-round-xxlarge w3-button w3-gray w3-text-white w3-section w3-right" type="button" value="new user" id="NotRegister" onclick="signInON()">
 
                           </div>  
 					</form>
@@ -88,9 +87,9 @@
 				  <input type="range" min="1" max="4" value="2"  id="lifeNum"><p>Number of life: <span id="life_val"></span></p>
                   <input type="range" min="1" max="4" value="2"  id="enemNum"><p>Number of enemies: <span id="enem_val"></span></p>
                   
-                 <input class="w3-round-xxlarge w3-button w3-gray w3-text-white w3-section" type="submit" value="Send">
-				 <input class="w3-round-xxlarge w3-button w3-gray w3-text-white w3-section" type="reset" value="Reset">
-                 <input class="w3-round-xxlarge w3-button w3-gray w3-text-white w3-section w3-center" type="button" value="Cancel" onclick="welcomeON()">
+                 <input class="w3-round-xxlarge w3-button w3-gray w3-text-white w3-section" type="submit" value="Send" id="setting_submit">
+				 <input class="w3-round-xxlarge w3-button w3-gray w3-text-white w3-section" type="reset" value="Reset" id="setting_Reset">
+                 <input class="w3-round-xxlarge w3-button w3-gray w3-text-white w3-section w3-center" type="button" value="Cancel" id="setting_Cancel" onclick="welcomeON()">
                  </div>
             </form>
 			</div_none>
@@ -108,9 +107,9 @@
 							<input class="w3-round-xxlarge w3-input w3-border" type="text" name="name" placeholder="Name" ><br>
 							<input class="w3-round-xxlarge w3-input w3-border" type="text" name="mail"placeholder="Email"><br>
 							<input class="w3-round-xxlarge w3-input w3-border"type="text" name="comment" placeholder="Message"><br>
-							<input class="w3-round-xxlarge w3-button w3-gray w3-text-white w3-text-bold w3-section" type="submit" value="Send">
-							<input class="w3-round-xxlarge w3-button w3-gray w3-text-white w3-section" type="reset" value="Reset">
-                            <input class="w3-round-xxlarge w3-button w3-gray w3-text-white w3-section w3-center" type="button" value="Cancel" onclick="welcomeON()">
+							<input class="w3-round-xxlarge w3-button w3-gray w3-text-white w3-text-bold w3-section" type="submit" value="Send" id="about_submit">
+							<input class="w3-round-xxlarge w3-button w3-gray w3-text-white w3-section" type="reset" value="Reset" id="about_Reset">
+                            <input class="w3-round-xxlarge w3-button w3-gray w3-text-white w3-section w3-center" type="button" value="Cancel" id="about_Cancel" onclick="welcomeON()">
                             </div>
                             </div>
 						</form>

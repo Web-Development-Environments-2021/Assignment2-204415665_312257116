@@ -9,8 +9,62 @@ var interval;
 var userDic={}
 
 $(document).ready(function() {
-	context = canvas.getContext("2d");
-	Start();
+	// context = canvas.getContext("2d");
+	// Start();
+
+	//register
+	$("#registerForm").validate({
+		rules: {
+			username: {
+				required: true
+			},
+			password: {
+				required: true,
+				minlength: 6,
+				validPassword: true,
+			},
+			fullName: {
+				required: true,
+				validName: true,
+			},
+			email: {
+				required: true,
+				email: true,
+			}
+		},
+
+		messages: {
+			username: "Please enter username",
+			password: {
+				required: "Please enter a password",
+				minlength: "Password must consist at least 6 characters",
+				validPassword: "Please enter a valid password"
+			},
+			fullName: {
+				required: "Please enter your full name",
+				validName: "Name can only consist alphabetic chars"
+			},
+			email: {
+				required: "Please enter your Email",
+				email: "Please enter valid Email",
+			}
+		},
+
+		submitHandler: function() {
+			//add user to users dic
+
+			let username = document.getElementById("username").value;
+			let password = document.getElementById("password").value;
+
+			userDic[username] = password;
+			let form = $("#registerForm");
+			form[0].reset();
+			welcomeON();
+
+		},
+
+
+	});
 });
 
 function Start() {
@@ -295,63 +349,9 @@ lifeslider.oninput = function() {
 
 
 
-$(document).ready(function() {
-
-    //register
-    $("#signIn").validate({
-        rules: {
-            username: {
-                required: true
-            },
-            password: {
-                required: true,
-                minlength: 6,
-                validPassword: true,
-            },
-            fullName: {
-                required: true,
-                validName: true,
-            },
-            email: {
-                required: true,
-                email: true,
-            }
-        },
-
-        messages: {
-            username: "Please enter username",
-            password: {
-                required: "Please enter a password",
-                minlength: "Password must consist at least 6 characters",
-                validPassword: "Please enter a valid password"
-            },
-            fullName: {
-                required: "Please enter your full name",
-                validName: "Name can only consist alphabetic chars"
-            },
-            email: {
-                required: "Please enter your Email",
-                email: "Please enter valid Email",
-            },
-        },
-
-        submitHandler: function() {
-            //add user to users array
-
-            let username = $('#username').val();
-            let password = $('#password').val();
-
-            userDic[username] = password;
-
-            // switchDivs("loginPage");
-            // $('#registerForm')[0].reset();
-			welcomeON()
-
-        }
 
 
-    });
-});
+
 
 
 $.validator.addMethod("validPassword", function(value) {
