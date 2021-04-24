@@ -9,7 +9,32 @@ var interval;
 var userDic={};
 userDic["k"]="k";
 var game_username;
-var ghost_num=2;
+
+var chosen_key_up = "ArrowUp";
+var chosen_key_down = "ArrowDown";
+var chosen_key_right = "ArrowRight";
+var chosen_key_left = "ArrowLeft";
+var chosen_key_code_up = 38;
+var chosen_key_code_down = 40;
+var chosen_key_code_left = 37;
+var chosen_key_code_right = 39;
+var chosen_food_amount = 70;
+var chosen_food_5_color;
+var chosen_food_15_color;
+var chosen_food_25_color;
+var chosen_game_duration = 100;
+var ghost_num = 2;
+
+var Volslider;
+var Voloutput;
+
+var myAudio;
+
+var enemslider;
+var enemoutput;
+
+var foodslider;
+var foodoutput;
 
 /*all modals declaration*/ 
 
@@ -98,21 +123,80 @@ $(document).ready(function() {
 			}
 		},
 		submitHandler: function () {
-
-			document.getElementById("NotLogIn").style.display = "none";
-			UserScreenON();
-
+			game_username = document.getElementById("logIn_name_id").value;
+			settingON();
 			//reset form details
 			let form = $("#logInForm");
 			form[0].reset();
 		}
 		
 	});
+	$("#setting_form").validate({
+		rules: {
+			UP_name: {
+			 	keyChange1: '#RIGHT',
+				keyChange1: '#DOWN',
+				keyChange1: '#LEFT'
+			},
+			DOWN_name: {
+				keyChange1: '#UP',
+				keyChange1: '#RIGHT',
+				keyChange1: '#LEFT'
+			},
+			LEFT_name: {
+				keyChange1: '#UP',
+				keyChange1: '#DOWN',
+				keyChange1: '#RIGHT'
+			},
+			RIGHT_name: {
+				keyChange1: '#UP',
+				keyChange1: '#DOWN',
+				keyChange1: '#LEFT'
+			},
+			duration_name: {
+				gameTimeMoreThen60: 60
+			}
+		},
+		messages: {
+			UP_name: {			
+				keyChange1: "This key already taken by another action.",
+
+			},
+			DOWN_name: {
+				keyChange1: "This key already taken by another action.",
+
+					},
+			LEFT_name: {
+				keyChange1: "This key already taken by another action.",
+
+						},
+			RIGHT_name: {
+				keyChange1: "This key already taken by another action.",
+
+					},
+			duration_name: {
+				gameTimeMoreThen60: "Minimum game duration is 60 second."
+			}
+		},
+		submitHandler: function () {
+
+
+			document.getElementById("NotLogIn").style.display = "none";
+			UserScreenON();
+			// Start();
+
+			//reset form details
+			// let form = $("#setting");
+			// form[0].reset();
+		}
+	});
+/*-----------------------------------div setting--------------------------------------*/
 	var logInmodal = document.getElementById('logIn');
 	var signInmodal = document.getElementById('signIn');
 	var settingmodal = document.getElementById('setting');
 	var aboutmodal = document.getElementById('about');
 	var UserScreenmodal = document.getElementById('UserScreen');
+	
 	window.onclick = function(event) {
 		if (event.target == logInmodal) {
 			logInmodal.style.display = "none";
@@ -135,9 +219,40 @@ $(document).ready(function() {
 			UserScreenmodal.style.display = "none";
 			welcomeON();
 		}
-}
+
+
+	/*---------------------------slider-------------------------*/
+
+		Volslider = document.getElementById("Volume");
+		let Voloutput = document.getElementById("Volume_val");
+
+		enemslider = document.getElementById("ghost_num_id");
+		let enemoutput = document.getElementById("enem_val");
+
+		foodslider = document.getElementById("foodNum");
+		let lifeoutput = document.getElementById("food_val");
+
+		Voloutput.innerHTML = Volslider.value; // Display the default slider value
+		// Update the current slider value (each time you drag the slider handle)
+		Volslider.oninput = function() {
+		Voloutput.innerHTML = this.value;
+		}
+		
+		enemoutput.innerHTML = enemslider.value; // Display the default slider value
+		// Update the current slider value (each time you drag the slider handle)
+		enemslider.oninput = function() {
+		enemoutput.innerHTML = this.value;
+		}
+
+		lifeoutput.innerHTML = foodslider.value; // Display the default slider value
+		// Update the current slider value (each time you drag the slider handle)
+		foodslider.oninput = function() {
+		lifeoutput.innerHTML = this.value;
+		}
+	}
 });
 
+/*----------------------------------validator function---------------------------------------*/
 $(function() {
 
 	//Password must contain at least 6 digit and contain one number and one char.
@@ -163,32 +278,154 @@ $(function() {
 	$.validator.addMethod('validateUser', function (password, element) {
 
 		let user_input_username = document.getElementById("logIn_name_id").value;
-
-		let user_logIn_password = userDic[user_input_username];
-
-		if(!(user_input_username in userDic)) {
-			return false;
+		if(user_input_username in userDic) {
+			if(userDic[user_input_username] === password) {
+				return true;
+			}
+	
 		}
-		else if(user_logIn_password === password) {
-			return true;
-		}
-
 		return false;
 	});
+	//chack if key already taken by another action
+	$.validator.addMethod("keyChange1", function(value, element, param) {
+		return value != $(param).val();
+	});
+	$.validator.addMethod("keyChange2", function(value, element, param) {
+		return value != $(param).val();
 
 	});
+	$.validator.addMethod("keyChange3", function(value, element, param) {
+		return value != $(param).val();
+	});
+	$.validator.addMethod('gameTimeMoreThen60', function (value, element, param) {
+		return value >= param;
+	});
 
-const isUserExists = (users, key) => {
+});
 
-	let result = users in userDic;
-
-	if(users in userDic) {
-		if(userDic[users]==key){
-			return true;
-		}	
+	/*---------------------------configuration setting-----------------------------------*/
+	function update_time(){
+		chosen_game_duration=document.getElementById('duration_id').value;
 	}
-	return false;
-};
+	function configurationUpdate(data)
+	{
+		//set pacman controls:
+		let chosen_key_code;
+		$(document).keydown(function(event){
+				chosen_key_code = event.keyCode;
+				if (data === "up")
+				{
+					chosen_key_up = checkChosenKey(chosen_key_code);
+					chosen_key_code_up = chosen_key_code;
+					document.getElementById("UP").value = chosen_key_up;
+	
+				}
+				else if (data === "down")
+				{
+					chosen_key_down = checkChosenKey(chosen_key_code);
+					chosen_key_code_down = chosen_key_code;
+					document.getElementById("DOWN").value = chosen_key_down;
+				}
+				else if (data === "left")
+				{
+					chosen_key_left = checkChosenKey(chosen_key_code);
+					chosen_key_code_left = chosen_key_code;
+					document.getElementById("LEFT").value = chosen_key_left;
+				}
+				else if (data === "right")
+				{
+					chosen_key_right = checkChosenKey(chosen_key_code);
+					chosen_key_code_right = chosen_key_code;
+					document.getElementById("RIGHT").value = chosen_key_right;
+				}
+				$(document).unbind();
+			}
+		);
+	}
+	
+	function update_color(food_value)
+	{
+		if(food_value === "5")
+		{
+			chosen_food_5_color = document.getElementById('5_Color_id').value;
+		}
+		else if(food_value === "15")
+		{
+			chosen_food_15_color = document.getElementById('15_Color_id').value;
+		}
+		else if(food_value === "25")
+		{
+			chosen_food_25_color = document.getElementById('25_Color_id').value;
+		}
+	}
+	
+	function checkChosenKey(key_code)
+	{
+		if(key_code == 38)
+		{
+			return "ArrowUp";
+		}
+		else if(key_code == 40)
+		{
+			return "ArrowDown";
+		}
+		else if(key_code == 39)
+		{
+			return "ArrowRight";
+		}
+		else if(key_code == 37)
+		{
+			return "ArrowLeft";
+		}
+		else {
+			return String.fromCharCode(event.keyCode);
+		}
+	}
+	
+	
+	function randomConfigurations()
+	{
+		//set pacman controls keys to thr arrows keys:
+		chosen_key_up = "ArrowUp";
+		chosen_key_down = "ArrowDown";
+		chosen_key_left = "ArrowLeft";
+		chosen_key_right = "ArrowRight";
+
+		document.getElementById('UP').value = chosen_key_up;
+		document.getElementById('DOWN').value = chosen_key_down;
+		document.getElementById('LEFT').value = chosen_key_left;
+		document.getElementById('RIGHT').value = chosen_key_right;
+	
+
+	
+		//random food amount
+		chosen_food_amount = Math.floor(Math.random() * (41) + 50);
+		document.getElementById('foodNum').value = chosen_food_amount;
+		// document.getElementById('chosen_food_amount').value = chosen_food_amount;
+	
+		//random food color
+		chosen_food_5_color = "#" + Math.floor(Math.random()*16777215).toString(16);
+		document.getElementById('5_Color_id').value =chosen_food_5_color;
+		
+		chosen_food_15_color = "#" + Math.floor(Math.random()*16777215).toString(16);
+		document.getElementById('15_Color_id').value =chosen_food_15_color;
+		
+		chosen_food_25_color = "#" + Math.floor(Math.random()*16777215).toString(16);
+		document.getElementById('25_Color_id').value = chosen_food_25_color;
+		
+		//random Game Duration
+		chosen_game_duration =  Math.floor(Math.random() * (61) + 60);
+		document.getElementById('duration_id').value = chosen_game_duration;
+		
+	
+		//random amount of monsters
+		ghost_num = Math.floor(Math.random() * (4) + 1);
+		document.getElementById('ghost_num_id').value = ghost_num;
+
+	}
+	
+	
+	
 function Start() {
 	board = new Array();
 	score = 0;
@@ -400,49 +637,27 @@ function UserScreenON() {
 	document.getElementById("UserScreen").style.display = "block";
 }
 
-function UserScreenON() {
+
+function logOutON(){
+	game_username = "";
 	resetElement();
-	document.getElementById("UserScreen").style.display = "block";
+	document.getElementById("NotLogIn").style.display = "block";
+	document.getElementById("welcome").style.display = "block";
+
+
 }
-
-/*-------span Close------- */
-function closeSpan(){
-	document.getElementById('aboutDialog').close();
-	document.getElementById('about').style.display = "none";
-	welcomeON();
+function UserScreenaboutON() {
+	resetElement();
+	document.getElementById("UserScreenabout").style.display = "block";
 }
+// /*-------span Close------- */
+// function closeSpan(){
+// 	document.getElementById('aboutDialog').close();
+// 	document.getElementById('about').style.display = "none";
+// 	welcomeON();
+// }
 
-/*-------setVolume------- */
-var Volslider = document.getElementById("Volume");
-var Voloutput = document.getElementById("Volume_val");
-Voloutput.innerHTML = Volslider.value; // Display the default slider value
 
-// Update the current slider value (each time you drag the slider handle)
-Volslider.oninput = function() {
- Voloutput.innerHTML = this.value;
-}
-var x = document.getElementById("myAudio");
-
-function setVolume() { 
-  x.volume = Volslider.value/100;
-}
-
-var enemslider = document.getElementById("enemNum");
-var enemoutput = document.getElementById("enem_val");
-enemoutput.innerHTML = enemslider.value; // Display the default slider value
-
-// Update the current slider value (each time you drag the slider handle)
-enemslider.oninput = function() {
- enemoutput.innerHTML = this.value;
-}
-var lifeslider = document.getElementById("lifeNum");
-var lifeoutput = document.getElementById("life_val");
-lifeoutput.innerHTML = lifeslider.value; // Display the default slider value
-
-// Update the current slider value (each time you drag the slider handle)
-lifeslider.oninput = function() {
- lifeoutput.innerHTML = this.value;
-}
 
 
 
