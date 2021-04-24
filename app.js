@@ -288,7 +288,7 @@ function UpdatePosition() {
 			pac_dir = "right"
 		}
 	}
-	
+
 	// bitcoin points
 	if (shape.i == bitcoin_obj.i && shape.j == bitcoin_obj.j){
 		score += 50;
@@ -300,10 +300,11 @@ function UpdatePosition() {
 	if (board[shape.i][shape.j] == 1) {
 		score++;
 	}
-	// // check if Pac-Man Hit By Ghost
+
+	// check if Pac-Man Hit By Ghost
 	for (var i = 0 ; i < ghost_obj.length ; i++)
 	{
-		if (ghost_obj[i].i == shape.i && ghost_obj[i].j == shape.j)
+		if ((ghost_obj[i].i == shape.i && ghost_obj[i].j == shape.j ) || ghost_pos_board[shape.i][shape.j] == 10)
 		{
 			//decrease the Score
 			if (score < 10){
@@ -311,27 +312,31 @@ function UpdatePosition() {
 			} else {
 				score -= 10;
 			}
+
+			lives_left--;
+			if (lives_left == 0){
+				window.clearInterval(interval);
+				window.clearInterval(intervalGhost);
+				if (bitcoin_obj.i != -1){
+					window.clearInterval(intervalBitcoin);
+				}
+				window.alert("Loser!");
+				return;
+			}
+
 			//Reboot Ghosts
 			RebootGhosts();
 			//Reboot Pac-Man
 			var emptyCell = findRandomEmptyCell(board);
 			shape.i = emptyCell[0];
 			shape.j = emptyCell[1];
+			board[shape.i][shape.j] = 2;
+			Draw();
+			return;
 
-			lives_left--;
 		}
 	}
-
-	if (lives_left == 0){
-		window.clearInterval(interval);
-		window.clearInterval(intervalGhost);
-		if (bitcoin_obj.i != -1){
-			window.clearInterval(intervalBitcoin);
-		}
-		window.alert("Loser!");
-		return;
-	}
-
+	
 	board[shape.i][shape.j] = 2;
 	var currentTime = new Date();
 	time_elapsed = (currentTime - start_time) / 1000;
@@ -340,7 +345,7 @@ function UpdatePosition() {
 		pac_color = "green";
 	}
 
-	if (score == 50) {
+	if (score == 1000) {
 		window.clearInterval(interval);
 		window.alert("Game completed");
 	} else {
@@ -415,7 +420,7 @@ function updateBitcoin(){
 function startIntervals(){
 	start_time = new Date();
 	interval = setInterval(UpdatePosition, 150);
-	intervalGhost = setInterval(updateGhosts, 450);
+	intervalGhost = setInterval(updateGhosts, 300);
 	intervalBitcoin = setInterval(updateBitcoin, 150);
 }
 
@@ -472,10 +477,6 @@ function addGhosts(){
 			cnt_loop++;
 		}
 	}
-}
-
-function PacmanVSGhost(){
-	
 }
 
 function RebootGhosts(){
