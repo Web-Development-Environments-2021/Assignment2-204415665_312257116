@@ -10,6 +10,8 @@ var interval;
 var intervalGhost;
 var intervalBitcoin;
 
+var lives_left = 5;
+
 var bitcoin_img = new Image();
 bitcoin_img.src = 'photos/bitcoin_icon.jpg';
 var bitcoin_obj = new Object();
@@ -25,6 +27,10 @@ $(document).ready(function() {
 	context = canvas.getContext("2d");
 	Start();
 });
+
+
+////////////////////////* Start */ ///////////////////////
+
 
 function Start() {
 	board = new Array();
@@ -66,35 +72,10 @@ function Start() {
 		}
 	}
 
-	//add monsters
-	var cnt_loop = 0;
-	while(cnt_loop != ghost_num)
-	{
-		var row = Math.floor(Math.random() * 10);
-		var col = Math.floor(Math.random() * 10);
-		if (row < 5){
-			row = 0;
-		} else{
-			row = 9;
-		}
-		if (col < 5){
-			col = 0;
-		} else{
-			col = 9;
-		}
-		if (ghost_pos_board[row][col] != 10){
+	//add Ghosts
+	addGhosts();
 
-			ghost_pos_board[row][col] = 10;
-
-			ghost_obj[cnt_loop] = new Object();
-			ghost_obj[cnt_loop].i = row;
-			ghost_obj[cnt_loop].j = col;
-
-			cnt_loop++;
-		}
-	}
-
-	//bonus 50 update
+	//bitcoin 50 update
 	bitcoin_obj.i = 5;
 	bitcoin_obj.j = 5;
 	
@@ -128,31 +109,10 @@ function Start() {
 	intervalBitcoin = setInterval(updateBitcoin, 250);
 }
 
-function findRandomEmptyCell(board) {
-	var i = Math.floor(Math.random() * 9 + 1);
-	var j = Math.floor(Math.random() * 9 + 1);
-	while (board[i][j] != 0) {
-		i = Math.floor(Math.random() * 9 + 1);
-		j = Math.floor(Math.random() * 9 + 1);
-	}
-	return [i, j];
-}
 
-  
-function GetKeyPressed() {
-	if (keysDown[38]) {
-		return 1;
-	}
-	if (keysDown[40]) {
-		return 2;
-	}
-	if (keysDown[37]) {
-		return 3;
-	}
-	if (keysDown[39]) {
-		return 4;
-	}
-}
+////////////////////////* Draw */////////////////////////
+
+
 
 function Draw() {
 	canvas.width = canvas.width; //clean board
@@ -273,26 +233,11 @@ function Draw() {
 		}
 	}
 }
-function onClick(element) {
-    document.getElementById("img01").src = element.src;
-    document.getElementById("modal01").style.display = "block";
-    var captionText = document.getElementById("caption");
-    captionText.innerHTML = element.alt;
-  }
-function DIV_none() {
-	var x = document.getElementById('DIV_none');
-	ar = document.getElementsByTagName("code");
-	for (i = 0; i < ar.length; ++i)
-   	ar[i].style.display = "none";
-
-	if (x.style.display === 'none') {
-	  x.style.display = 'block';
-	} else {
-	  x.style.display = 'none';
-	}
-  }
 
 
+
+
+////////////////////////* Update Positions */ ///////////////////////
 
   
 function UpdatePosition() {
@@ -322,15 +267,56 @@ function UpdatePosition() {
 			pac_dir = "right"
 		}
 	}
+
+	// regular points
 	if (board[shape.i][shape.j] == 1) {
 		score++;
 	}
+	// bitcoin points
+	if (shape.i == bitcoin_obj.i && shape.j == bitcoin_obj.j){
+		score += 50;
+
+		bitcoin_obj.i = -1;
+		bitcoin_obj.j = -1;
+		window.clearInterval(intervalBitcoin);
+		Draw();
+	}
+	// check if Pac-Man Hit By Ghost
+	for (var i = 0 ; i < ghost_obj.length ; i++){
+		if (ghost_obj[i].i == shape.i && ghost_obj[i].j == shape.j)
+		{
+			//decrease the Score
+			if (score < 10){
+				score = 0;
+			} else {
+				score -= 10;
+			}
+			//Reboot Ghosts
+			RebootGhosts();
+			//Reboot Pac-Man
+			var emptyCell = findRandomEmptyCell(board);
+			shape.i = emptyCell[0];
+			shape.j = emptyCell[1];
+
+			lives_left--;
+			break;
+		}
+	}
+
+	if (lives_left == 0){
+		window.clearInterval(interval);
+		window.clearInterval(intervalGhost);
+		window.alert("Game Over !");
+	}
+
 	board[shape.i][shape.j] = 2;
 	var currentTime = new Date();
 	time_elapsed = (currentTime - start_time) / 1000;
+
 	if (score >= 20 && time_elapsed <= 10) {
 		pac_color = "green";
 	}
+
 	if (score == 50) {
 		window.clearInterval(interval);
 		window.alert("Game completed");
@@ -338,17 +324,6 @@ function UpdatePosition() {
 		Draw();
 	}
 }
-////////////////////////////////////////////////////////////////////////////
-/* Disable scrolling page with arrows*/ 
-addEventListener(
-	"keydown",
-	function(e) {
-	if(["ArrowUp","ArrowDown","ArrowLeft","ArrowRight"].indexOf(e.code) > -1) {
-		e.preventDefault();
-	}
-	},
-	 false
-);
 
 
 function updateGhosts() {
@@ -412,9 +387,117 @@ function updateBitcoin(){
 }
 
 
+////////////////////////* Help Funtions To The Game *////////////////////////
 
 
-/* Menu Functions*/ 
+function findRandomEmptyCell(board) {
+	var i = Math.floor(Math.random() * 9 + 1);
+	var j = Math.floor(Math.random() * 9 + 1);
+	while (board[i][j] != 0) {
+		i = Math.floor(Math.random() * 9 + 1);
+		j = Math.floor(Math.random() * 9 + 1);
+	}
+	return [i, j];
+}
+
+  
+function GetKeyPressed() {
+	if (keysDown[38]) {
+		return 1;
+	}
+	if (keysDown[40]) {
+		return 2;
+	}
+	if (keysDown[37]) {
+		return 3;
+	}
+	if (keysDown[39]) {
+		return 4;
+	}
+}
+
+function addGhosts(){
+	var cnt_loop = 0;
+	while(cnt_loop != ghost_num)
+	{
+		var row = Math.floor(Math.random() * 10);
+		var col = Math.floor(Math.random() * 10);
+		if (row < 5){
+			row = 0;
+		} else{
+			row = 9;
+		}
+		if (col < 5){
+			col = 0;
+		} else{
+			col = 9;
+		}
+		if (ghost_pos_board[row][col] != 10){
+
+			ghost_pos_board[row][col] = 10;
+
+			ghost_obj[cnt_loop] = new Object();
+			ghost_obj[cnt_loop].i = row;
+			ghost_obj[cnt_loop].j = col;
+
+			cnt_loop++;
+		}
+	}
+}
+
+function RebootGhosts(){
+	for (var i=0 ; i < ghost_obj.length ; i++){
+		ghost_pos_board[ghost_obj[i].i][ghost_obj[i].j] = 0;
+	}
+	ghost_obj = new Array();
+	addGhosts();
+}
+
+
+////////////////////// Liad To Change Or Remove ///////////////////////////////////////////
+/* Disable scrolling page with arrows*/ 
+addEventListener(
+	"keydown",
+	function(e) {
+	if(["ArrowUp","ArrowDown","ArrowLeft","ArrowRight"].indexOf(e.code) > -1) {
+		e.preventDefault();
+	}
+	},
+	 false
+);
+
+
+
+
+////////////////////////* I Don't Know What Functions */ ///////////////////////
+
+
+
+function onClick(element) {
+    document.getElementById("img01").src = element.src;
+    document.getElementById("modal01").style.display = "block";
+    var captionText = document.getElementById("caption");
+    captionText.innerHTML = element.alt;
+  }
+
+
+function DIV_none() {
+	var x = document.getElementById('DIV_none');
+	ar = document.getElementsByTagName("code");
+	for (i = 0; i < ar.length; ++i)
+   	ar[i].style.display = "none";
+
+	if (x.style.display === 'none') {
+	  x.style.display = 'block';
+	} else {
+	  x.style.display = 'none';
+	}
+  }
+
+
+
+
+////////////////////////* Menu Functions */ ///////////////////////
 
 function resetElement() {
 	document.getElementById("welcome").style.display = "none";
