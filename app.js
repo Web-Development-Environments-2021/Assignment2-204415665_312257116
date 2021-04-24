@@ -336,7 +336,7 @@ function UpdatePosition() {
 
 		}
 	}
-	
+
 	board[shape.i][shape.j] = 2;
 	var currentTime = new Date();
 	time_elapsed = (currentTime - start_time) / 1000;
@@ -408,7 +408,7 @@ function updateBitcoin(){
 		bitcoin_obj.j++;
 	} else if(coin_dir == 2 && coin_row > 0 && board[coin_row - 1][coin_col] != 4){
 		bitcoin_obj.i--;
-	} else if(coin_dir == 3 && coin_col < 9 && board[coin_row + 1][coin_col] != 4){
+	} else if(coin_dir == 3 && coin_row < 9 && board[coin_row + 1][coin_col] != 4){
 		bitcoin_obj.i++;
 	}
 	
