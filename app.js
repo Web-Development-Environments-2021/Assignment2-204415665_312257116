@@ -10,7 +10,7 @@ var interval;
 var pac_dir = "right"
 var ghost_num = 2; // get from settings
 var ghost_pos_board = new Array();
-var ghost_pos
+var ghost_obj = new Array();
 
 
 
@@ -76,7 +76,13 @@ function Start() {
 			col = 9;
 		}
 		if (ghost_pos_board[row][col] != 10){
+
 			ghost_pos_board[row][col] = 10;
+
+			ghost_obj[cnt_loop] = new Object();
+			ghost_obj[cnt_loop].i = row;
+			ghost_obj[cnt_loop].j = col;
+
 			cnt_loop++;
 		}
 	}
@@ -102,6 +108,7 @@ function Start() {
 		false
 	);
 	interval = setInterval(UpdatePosition, 250);
+	var temp = setInterval(updateGhosts, 1000);
 }
 
 function findRandomEmptyCell(board) {
@@ -320,25 +327,46 @@ addEventListener(
 
 
 function updateGhosts() {
-	
+
+	for (var i = 0 ; i < ghost_obj.length ; i++){
+
+		var row_dis = 0;
+		var col_dis = 0;
+		var ghost_row = 0;
+		var ghost_col = 0;
+		var changed_pos = false;
+		ghost_row = ghost_obj[i].i;
+		ghost_col = ghost_obj[i].j;
+		row_dis = Math.abs(shape.i - ghost_row);
+		col_dis = Math.abs(shape.j - ghost_col);
+		if (row_dis > col_dis){ //left or right
+
+			if(shape.i - ghost_row > 0 && ghost_row < 9 && board[ghost_row + 1][ghost_col] != 4){ //right
+				ghost_pos_board[ghost_row][ghost_col] = 0;
+				ghost_pos_board[ghost_row + 1][ghost_col] = 10;
+				ghost_obj[i].i++;
+				changed_pos = true;
+			} else if(ghost_row > 0  && board[ghost_row - 1][ghost_col] != 4) { // left
+				ghost_pos_board[ghost_row][ghost_col] = 0;
+				ghost_pos_board[ghost_row - 1][ghost_col] = 10;
+				ghost_obj[i].i--;
+				changed_pos = true;
+			}
+		}
+		if(!changed_pos) { //up or down
+			if(shape.j - ghost_col > 0 && ghost_col < 9 && board[ghost_row][ghost_col + 1] !=4){ //down
+				ghost_pos_board[ghost_row][ghost_col] = 0;
+				ghost_pos_board[ghost_row][ghost_col + 1] = 10;
+				ghost_obj[i].j++;
+			} else if(ghost_col > 0 && board[ghost_row][ghost_col - 1] !=4){ //up
+				ghost_pos_board[ghost_row][ghost_col] = 0;
+				ghost_pos_board[ghost_row][ghost_col - 1] = 10;
+				ghost_obj[i].j--;
+			} 
+		}
+
+	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
