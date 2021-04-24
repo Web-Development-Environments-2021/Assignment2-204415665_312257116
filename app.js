@@ -6,7 +6,13 @@ var pac_color;
 var start_time;
 var time_elapsed;
 var interval;
+
 var intervalGhost;
+var intervalBitcoin;
+
+var bitcoin_img = new Image();
+bitcoin_img.src = 'photos/bitcoin_icon.jpg';
+var bitcoin_obj = new Object();
 
 var pac_dir = "right"
 var ghost_num = 2; // get from settings
@@ -87,12 +93,19 @@ function Start() {
 			cnt_loop++;
 		}
 	}
+
+	//bonus 50 update
+	bitcoin_obj.i = 5;
+	bitcoin_obj.j = 5;
+	
 		
 	while (food_remain > 0) {
 		var emptyCell = findRandomEmptyCell(board);
 		board[emptyCell[0]][emptyCell[1]] = 1;
 		food_remain--;
 	}
+
+
 	keysDown = {};
 	addEventListener(
 		"keydown",
@@ -108,10 +121,11 @@ function Start() {
 		},
 		false
 	);
-
+	
 
 	interval = setInterval(UpdatePosition, 250);
 	intervalGhost = setInterval(updateGhosts, 1000);
+	intervalBitcoin = setInterval(updateBitcoin, 250);
 }
 
 function findRandomEmptyCell(board) {
@@ -205,7 +219,7 @@ function Draw() {
 				context.rect(center.x - 30, center.y - 30, 60, 60);
 				context.fillStyle = "grey"; //color
 				context.fill();
-			}
+			} 
 			// Ghost
 			if (ghost_pos_board[i][j] == 10){
 				context.beginPath();
@@ -252,6 +266,10 @@ function Draw() {
 				context.fillStyle = "blue"; 
 				context.fill();
 			}
+			// bitcoin img
+			if (bitcoin_obj.i == i && bitcoin_obj.j == j){ 
+				context.drawImage(bitcoin_img ,  i*(canvas.height/10) , j*(canvas.width/10), 55, 55 * (bitcoin_img.height / bitcoin_img.width))
+			}
 		}
 	}
 }
@@ -273,6 +291,10 @@ function DIV_none() {
 	  x.style.display = 'none';
 	}
   }
+
+
+
+  
 function UpdatePosition() {
 	board[shape.i][shape.j] = 0;
 	var x = GetKeyPressed();
@@ -369,6 +391,24 @@ function updateGhosts() {
 		}
 
 	}
+}
+
+function updateBitcoin(){
+
+	var coin_row = bitcoin_obj.i;
+	var coin_col = bitcoin_obj.j;
+	var coin_dir = Math.floor(Math.random() * 4);// 0 - up | 1 - down | 2 - left | 3 - right 
+
+	if (coin_dir == 0 && coin_col > 0 && board[coin_row][coin_col - 1] != 4){
+		bitcoin_obj.j--;
+	} else if(coin_dir == 1 && coin_col < 9 && board[coin_row][coin_col + 1] != 4){
+		bitcoin_obj.j++;
+	} else if(coin_dir == 2 && coin_row > 0 && board[coin_row - 1][coin_col] != 4){
+		bitcoin_obj.i--;
+	} else if(coin_dir == 3 && coin_col < 9 && board[coin_row + 1][coin_col] != 4){
+		bitcoin_obj.i++;
+	}
+	
 }
 
 
