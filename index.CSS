@@ -80,6 +80,7 @@ span.psw {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
   left: 0;
   top: 0;
   width: 100%; /* Full width */
@@ -87,17 +88,61 @@ span.psw {
   overflow: auto; /* Enable scroll if needed */
   background-color: rgb(0,0,0); /* Fallback color */
   background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-  padding-top: 60px;
 }
 
-/* Modal Content/Box */
+/* Modal Content */
 .modal-content {
-  background-color: #f7f1ea;
-  margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+  position: relative;
+  background-color: #fefefe;
+  margin: auto;
+  padding: 0;
   border: 1px solid #888;
-  width: 80%; /* Could be more or less, depending on screen size */
-  border-radius: 25px;
+  width: 80%;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+  -webkit-animation-name: animatetop;
+  -webkit-animation-duration: 0.4s;
+  animation-name: animatetop;
+  animation-duration: 0.4s
+}
 
+/* Add Animation */
+@-webkit-keyframes animatetop {
+  from {top:-300px; opacity:0} 
+  to {top:0; opacity:1}
+}
+
+@keyframes animatetop {
+  from {top:-300px; opacity:0}
+  to {top:0; opacity:1}
+}
+
+/* The Close Button */
+.close {
+  color: white;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.modal-header {
+  padding: 2px 16px;
+  background-color: #5cb85c;
+  color: white;
+}
+
+.modal-body {padding: 2px 16px;}
+
+.modal-footer {
+  padding: 2px 16px;
+  background-color: #5cb85c;
+  color: white;
 }
 
 /* The Close Button (x) */
@@ -115,30 +160,51 @@ span.psw {
   color: red;
   cursor: pointer;
 }
-
-/* Add Zoom Animation */
-.animate {
-  -webkit-animation: animatezoom 0.6s;
-  animation: animatezoom 0.6s
-}
-
-@-webkit-keyframes animatezoom {
-  from {-webkit-transform: scale(0)} 
-  to {-webkit-transform: scale(1)}
-}
-
-@keyframes animatezoom {
-  from {transform: scale(0)} 
-  to {transform: scale(1)}
-}
-
-/* Change styles for span and cancel button on extra small screens */
-@media screen and (max-width: 300px) {
-  span.psw {
-     display: block;
-     float: none;
-  }
-}
 #welcome{
   background-color: #ebe7e7f5;
+}
+
+dialog{
+  display: block;
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  width: fit-content;
+  height: fit-content;
+  color: -internal-light-dark(black, white);
+  margin: auto;
+  border-width: initial;
+  border-style: solid;
+  border-color: initial;
+  border-image: initial;
+  padding: 1em;
+  background: -internal-light-dark(white, black);
+}
+
+
+dialog:not([open]) {
+  display: none;
+}
+
+.game_button {
+  display: inline-block;
+  padding: 15px 25px;
+  font-size: 20px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #ff9100e5;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px rgb(230, 149, 0);
+}
+
+.game_button:hover {background-color: #c97201e5}
+
+.game_button:active {
+  background-color: #6e4200;
+  box-shadow: 0 5px rgb(146, 95, 1);
+  transform: translateY(4px);
 }

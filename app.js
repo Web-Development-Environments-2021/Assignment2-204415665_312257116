@@ -9,6 +9,10 @@ var interval;
 var userDic={};
 userDic["k"]="k";
 var game_username;
+var ghost_num=2;
+
+/*all modals declaration*/ 
+
 
 $(document).ready(function() {
 
@@ -102,7 +106,36 @@ $(document).ready(function() {
 			let form = $("#logInForm");
 			form[0].reset();
 		}
+		
 	});
+	var logInmodal = document.getElementById('logIn');
+	var signInmodal = document.getElementById('signIn');
+	var settingmodal = document.getElementById('setting');
+	var aboutmodal = document.getElementById('about');
+	var UserScreenmodal = document.getElementById('UserScreen');
+	window.onclick = function(event) {
+		if (event.target == logInmodal) {
+			logInmodal.style.display = "none";
+			welcomeON();
+		}
+		if (event.target == signInmodal) {
+			signInmodal.style.display = "none";
+			welcomeON();
+		}
+		if (event.target == settingmodal) {
+			settingmodal.style.display = "none";
+			welcomeON();
+		}
+		if (event.target == aboutmodal) {
+			// document.getElementById('aboutDialog').close();
+			aboutmodal.style.display = "none";
+			welcomeON();
+		}
+		if (event.target == UserScreenmodal) {
+			UserScreenmodal.style.display = "none";
+			welcomeON();
+		}
+}
 });
 
 $(function() {
@@ -342,73 +375,43 @@ function resetElement() {
 
 }
 function welcomeON() {
-resetElement()
+	resetElement();
 	document.getElementById("welcome").style.display = "block";
 }
 function logInON() {
-resetElement()
+	resetElement();
 	document.getElementById("logIn").style.display = "block";
 }
 function signInON() {
-resetElement()
+	resetElement();
 	document.getElementById("signIn").style.display = "block";
 }
 function settingON() {
-resetElement()
+	resetElement();
 	document.getElementById("setting").style.display = "block";
 }
 function aboutON() {
-resetElement()
+	resetElement();
 	document.getElementById("about").style.display = "block";
+	document.getElementById("aboutDialog").showModal();
 }
 function UserScreenON() {
-resetElement()
+	resetElement();
 	document.getElementById("UserScreen").style.display = "block";
 }
 
 function UserScreenON() {
-resetElement()
+	resetElement();
 	document.getElementById("UserScreen").style.display = "block";
 }
 
-var logInmodal = document.getElementById('logIn');
-window.onclick = function(event) {
-	if (event.target == logInmodal) {
-		logInmodal.style.display = "none";
-		welcomeON()
-	}
-}
-var signInmodal = document.getElementById('signIn');
-window.onclick = function(event) {
-	if (event.target == signInmodal) {
-		signInmodal.style.display = "none";
-		welcomeON()
-	}
+/*-------span Close------- */
+function closeSpan(){
+	document.getElementById('aboutDialog').close();
+	document.getElementById('about').style.display = "none";
+	welcomeON();
 }
 
-var settingmodal = document.getElementById('setting');
-window.onclick = function(event) {
-	if (event.target == settingmodal) {
-		settingmodal.style.display = "none";
-		welcomeON()
-	}
-}
-
-var aboutmodal = document.getElementById('about');
-window.onclick = function(event) {
-	if (event.target == aboutmodal) {
-		aboutmodal.style.display = "none";
-		welcomeON()
-	}
-}
-
-var UserScreenmodal = document.getElementById('UserScreen');
-window.onclick = function(event) {
-	if (event.target == UserScreenmodal) {
-		UserScreenmodal.style.display = "none";
-		welcomeON()
-	}
-}
 /*-------setVolume------- */
 var Volslider = document.getElementById("Volume");
 var Voloutput = document.getElementById("Volume_val");
