@@ -8,7 +8,10 @@ var time_elapsed;
 var interval;
 
 var pac_dir = "right"
-var monster_num = 2; // get from settings
+var ghost_num = 2; // get from settings
+var ghost_pos_board = new Array();
+var ghost_pos
+
 
 
 $(document).ready(function() {
@@ -20,12 +23,13 @@ function Start() {
 	board = new Array();
 	score = 0;
 	pac_color = "yellow";
-	var cnt = 100 - monster_num;
+	var cnt = 100;
 	var food_remain = 50;
 	var pacman_remain = 1;
 	start_time = new Date();
 	for (var i = 0; i < 10; i++) {
 		board[i] = new Array();
+		ghost_pos_board[i] = new Array();
 		//put obstacles in (i=3,j=3) and (i=3,j=4) and (i=3,j=5), (i=6,j=1) and (i=6,j=2)
 		for (var j = 0; j < 10; j++) {
 			if (
@@ -41,7 +45,8 @@ function Start() {
 				if (randomNum <= (1.0 * food_remain) / cnt) {
 					food_remain--;
 					board[i][j] = 1;
-				} else if (randomNum < (1.0 * (pacman_remain + food_remain)) / cnt) {
+				} else if (randomNum < (1.0 * (pacman_remain + food_remain)) / cnt && (
+					!(i==0 && j==0) && !(i==0 && j==9) && !(i==9 && j==0) && !(i==9 && j==9))){
 					shape.i = i;
 					shape.j = j;
 					pacman_remain--;
@@ -55,8 +60,8 @@ function Start() {
 	}
 
 	//add monsters
-	var monster_count = monster_num;
-	while(monster_count != 0)
+	var cnt_loop = 0;
+	while(cnt_loop != ghost_num)
 	{
 		var row = Math.floor(Math.random() * 10);
 		var col = Math.floor(Math.random() * 10);
@@ -68,11 +73,11 @@ function Start() {
 		if (col < 5){
 			col = 0;
 		} else{
-			col = 9
+			col = 9;
 		}
-		if (board[row][col] != 10){
-			board[row][col] = 10;
-			monster_count--;
+		if (ghost_pos_board[row][col] != 10){
+			ghost_pos_board[row][col] = 10;
+			cnt_loop++;
 		}
 	}
 		
@@ -190,7 +195,9 @@ function Draw() {
 				context.rect(center.x - 30, center.y - 30, 60, 60);
 				context.fillStyle = "grey"; //color
 				context.fill();
-			} else if (board[i][j] == 10){
+			}
+			// Ghost
+			if (ghost_pos_board[i][j] == 10){
 				context.beginPath();
 				context.arc(center.x, center.y, 20, 1 * Math.PI, 2 * Math.PI); // head
 				context.fillStyle = "blue";
@@ -311,6 +318,32 @@ addEventListener(
 	 false
 );
 
+
+function updateGhosts() {
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Menu Functions*/ 
 
 function resetElement() {
 	document.getElementById("welcome").style.display = "none";
