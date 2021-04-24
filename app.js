@@ -6,6 +6,7 @@ var pac_color;
 var start_time;
 var time_elapsed;
 var interval;
+var intervalGhost;
 
 var pac_dir = "right"
 var ghost_num = 2; // get from settings
@@ -107,8 +108,10 @@ function Start() {
 		},
 		false
 	);
+
+
 	interval = setInterval(UpdatePosition, 250);
-	var temp = setInterval(updateGhosts, 1000);
+	intervalGhost = setInterval(updateGhosts, 1000);
 }
 
 function findRandomEmptyCell(board) {
