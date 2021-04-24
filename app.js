@@ -10,16 +10,16 @@ var interval;
 var intervalGhost;
 var intervalBitcoin;
 
-var lives_left = 5;
+var lives_left;
 
 var bitcoin_img = new Image();
 bitcoin_img.src = 'photos/bitcoin_icon.jpg';
-var bitcoin_obj = new Object();
+var bitcoin_obj;
 
 var pac_dir = "right"
 var ghost_num = 2; // get from settings
-var ghost_pos_board = new Array();
-var ghost_obj = new Array();
+var ghost_pos_board;
+var ghost_obj;
 
 
 
@@ -33,13 +33,21 @@ $(document).ready(function() {
 
 
 function Start() {
+
 	board = new Array();
+	ghost_pos_board = new Array();
+	ghost_obj = new Array();
+	bitcoin_obj = new Object();
 	score = 0;
+	lives_left = 5;
+
 	pac_color = "yellow";
 	var cnt = 100;
 	var food_remain = 50;
 	var pacman_remain = 1;
-	start_time = new Date();
+
+	// start_time = new Date();
+
 	for (var i = 0; i < 10; i++) {
 		board[i] = new Array();
 		ghost_pos_board[i] = new Array();
@@ -69,6 +77,18 @@ function Start() {
 				}
 				cnt--;
 			}
+		}
+	}
+
+	while(pacman_remain != 0){
+		var emptyCell = findRandomEmptyCell(board);
+		var i = emptyCell[0];
+		var j = emptyCell[1];
+		if(!(i==0 && j==0) && !(i==0 && j==9) && !(i==9 && j==0) && !(i==9 && j==9)){
+			shape.i = i;
+			shape.j = j;
+			pacman_remain--;
+			board[i][j] = 2;
 		}
 	}
 
@@ -104,9 +124,9 @@ function Start() {
 	);
 	
 
-	interval = setInterval(UpdatePosition, 250);
-	intervalGhost = setInterval(updateGhosts, 1000);
-	intervalBitcoin = setInterval(updateBitcoin, 250);
+	// interval = setInterval(UpdatePosition, 150);
+	// intervalGhost = setInterval(updateGhosts, 450);
+	// intervalBitcoin = setInterval(updateBitcoin, 150);
 }
 
 
@@ -118,7 +138,7 @@ function Draw() {
 	canvas.width = canvas.width; //clean board
 	lblScore.value = score;
 	lblTime.value = time_elapsed;
-	lblLives.value = lives_left;
+	lblLives.value = lives_left - 1;
 	for (var i = 0; i < 10; i++) {
 		for (var j = 0; j < 10; j++) {
 			var center = new Object();
@@ -268,20 +288,21 @@ function UpdatePosition() {
 			pac_dir = "right"
 		}
 	}
-
+	
+	// bitcoin points
+	if (shape.i == bitcoin_obj.i && shape.j == bitcoin_obj.j){
+		score += 50;
+		bitcoin_obj.i = -1;
+		bitcoin_obj.j = -1;
+		window.clearInterval(intervalBitcoin);
+	}
 	// regular points
 	if (board[shape.i][shape.j] == 1) {
 		score++;
 	}
-	// bitcoin points
-	if (shape.i == bitcoin_obj.i && shape.j == bitcoin_obj.j){
-		score += 50;
-
-		bitcoin_obj.i = -1;
-		window.clearInterval(intervalBitcoin);
-	}
-	// check if Pac-Man Hit By Ghost
-	for (var i = 0 ; i < ghost_obj.length ; i++){
+	// // check if Pac-Man Hit By Ghost
+	for (var i = 0 ; i < ghost_obj.length ; i++)
+	{
 		if (ghost_obj[i].i == shape.i && ghost_obj[i].j == shape.j)
 		{
 			//decrease the Score
@@ -298,7 +319,6 @@ function UpdatePosition() {
 			shape.j = emptyCell[1];
 
 			lives_left--;
-			break;
 		}
 	}
 
@@ -309,6 +329,7 @@ function UpdatePosition() {
 			window.clearInterval(intervalBitcoin);
 		}
 		window.alert("Loser!");
+		return;
 	}
 
 	board[shape.i][shape.j] = 2;
@@ -344,25 +365,25 @@ function updateGhosts() {
 		if (row_dis > col_dis){ //left or right
 
 			if(shape.i - ghost_row > 0 && ghost_row < 9 && board[ghost_row + 1][ghost_col] != 4){ //right
-				ghost_pos_board[ghost_row][ghost_col] = 0;
 				ghost_pos_board[ghost_row + 1][ghost_col] = 10;
+				ghost_pos_board[ghost_row][ghost_col] = 0;
 				ghost_obj[i].i++;
 				changed_pos = true;
 			} else if(ghost_row > 0  && board[ghost_row - 1][ghost_col] != 4) { // left
-				ghost_pos_board[ghost_row][ghost_col] = 0;
 				ghost_pos_board[ghost_row - 1][ghost_col] = 10;
+				ghost_pos_board[ghost_row][ghost_col] = 0;
 				ghost_obj[i].i--;
 				changed_pos = true;
 			}
 		}
 		if(!changed_pos) { //up or down
 			if(shape.j - ghost_col > 0 && ghost_col < 9 && board[ghost_row][ghost_col + 1] !=4){ //down
-				ghost_pos_board[ghost_row][ghost_col] = 0;
 				ghost_pos_board[ghost_row][ghost_col + 1] = 10;
+				ghost_pos_board[ghost_row][ghost_col] = 0;
 				ghost_obj[i].j++;
 			} else if(ghost_col > 0 && board[ghost_row][ghost_col - 1] !=4){ //up
-				ghost_pos_board[ghost_row][ghost_col] = 0;
 				ghost_pos_board[ghost_row][ghost_col - 1] = 10;
+				ghost_pos_board[ghost_row][ghost_col] = 0;
 				ghost_obj[i].j--;
 			} 
 		}
@@ -391,6 +412,12 @@ function updateBitcoin(){
 
 ////////////////////////* Help Funtions To The Game *////////////////////////
 
+function startIntervals(){
+	start_time = new Date();
+	interval = setInterval(UpdatePosition, 150);
+	intervalGhost = setInterval(updateGhosts, 450);
+	intervalBitcoin = setInterval(updateBitcoin, 150);
+}
 
 function findRandomEmptyCell(board) {
 	var i = Math.floor(Math.random() * 9 + 1);
@@ -445,6 +472,10 @@ function addGhosts(){
 			cnt_loop++;
 		}
 	}
+}
+
+function PacmanVSGhost(){
+	
 }
 
 function RebootGhosts(){
@@ -534,6 +565,7 @@ resetElement()
 function UserScreenON() {
 resetElement()
 	document.getElementById("UserScreen").style.display = "block";
+	startIntervals();
 }
 
 
