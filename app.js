@@ -118,6 +118,7 @@ function Draw() {
 	canvas.width = canvas.width; //clean board
 	lblScore.value = score;
 	lblTime.value = time_elapsed;
+	lblLives.value = lives_left;
 	for (var i = 0; i < 10; i++) {
 		for (var j = 0; j < 10; j++) {
 			var center = new Object();
@@ -277,9 +278,7 @@ function UpdatePosition() {
 		score += 50;
 
 		bitcoin_obj.i = -1;
-		bitcoin_obj.j = -1;
 		window.clearInterval(intervalBitcoin);
-		Draw();
 	}
 	// check if Pac-Man Hit By Ghost
 	for (var i = 0 ; i < ghost_obj.length ; i++){
@@ -306,7 +305,10 @@ function UpdatePosition() {
 	if (lives_left == 0){
 		window.clearInterval(interval);
 		window.clearInterval(intervalGhost);
-		window.alert("Game Over !");
+		if (bitcoin_obj.i != -1){
+			window.clearInterval(intervalBitcoin);
+		}
+		window.alert("Loser!");
 	}
 
 	board[shape.i][shape.j] = 2;
