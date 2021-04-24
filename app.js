@@ -12,50 +12,59 @@ var game_username;
 
 $(document).ready(function() {
 
+	context = canvas.getContext("2d");
+	Start();
 
 	//register
 	$("#registerForm").validate({
 		rules: {
 			register_username: {
-				required: true
+				required: true,
+				isUserExists: true
 			},
 			register_password: {
 				required: true,
-				minlength: 6,
-				validPassword: true
+				strongPassword: true
 			},
 			register_name: {
 				required: true,
-				validName: true
+				lettersonly: true
 			},
 			register_email: {
 				required: true,
 				email: true
+			},
+			register_dates: {
+				required: true
 			}
 		},
-
 		messages: {
-			register_username: "Please enter username",
+			register_username: {
+				required: "Please enter valid username address.",
+				isUserExists: "this Username already taken."
+			},
 			register_password: {
-				required: "Please enter a password",
-				minlength: "Password must consist at least 6 characters",
-				validPassword: "Please enter a valid password"
+				required: "Please enter an password",
+				strongPassword: "your password must contain at least one character and one number."
 			},
 			register_name: {
-				required: "Please enter your full name",
-				validName: "Name can only consist alphabetic chars"
+				required: "Please enter a name.",
+				lettersonly: "your Full name can be only letters."
 			},
 			register_email: {
-				required: "Please enter your Email",
-				email: "Please enter valid Email"
+				required: "Please enter an email address.",
+				email: "Please enter a valid email."
+			},
+			register_dates: {
+				required: "Please enter a birth day."
 			}
 		},
 
 		submitHandler: function() {
 			//add user to users dic
 
-			let username = document.getElementById("register_username").value;
-			let password = document.getElementById("register_password").value;
+			let username = document.getElementById("register_username_id").value;
+			let password = document.getElementById("register_password_id").value;
 
 			userDic[username] = password;
 			let form = $("#registerForm");
@@ -81,36 +90,60 @@ $(document).ready(function() {
 			},
 			logIn_password: {
 				required: "Please enter an password",
-				// validateUser: "Username or password are not valid."
+				validateUser: "Username or password is not valid."
 			}
 		},
 		submitHandler: function () {
 
-			// game_username = document.getElementById("login_username_id").value;
-			let username = document.getElementById("logIn_name").value;
-			let password = document.getElementById("logIn_password").value;
+			document.getElementById("NotLogIn").style.display = "none";
+			UserScreenON();
 
-			if(userDic[username]==password){
-				document.getElementById("NotLogIn").style.display = "none";
-				document.getElementById("UserScreen").style.display = "block";
-				context = canvas.getContext("2d");
-				Start();
-
-
-			}
-			else{
-
-			}
 			//reset form details
 			let form = $("#logInForm");
 			form[0].reset();
-
-			
-
-		},
+		}
 	});
 });
 
+$(function() {
+
+	//Password must contain at least 6 digit and contain one number and one char.
+	$.validator.addMethod('strongPassword', function (value, element) {
+		return this.optional(element) ||
+			value.length >= 6 &&
+			/\d/.test(value) &&
+			/[a-z]/i.test(value);
+	});
+
+
+    //check if username already exists
+	$.validator.addMethod('isUserExists', function (users, element) {
+		if(users in userDic) {
+			return false;
+		}
+		else{
+			return true;
+		}
+	});
+
+	//check if password match user
+	$.validator.addMethod('validateUser', function (password, element) {
+
+		let user_input_username = document.getElementById("logIn_name_id").value;
+
+		let user_logIn_password = userDic[user_input_username];
+
+		if(!(user_input_username in userDic)) {
+			return false;
+		}
+		else if(user_logIn_password === password) {
+			return true;
+		}
+
+		return false;
+	});
+
+	});
 
 const isUserExists = (users, key) => {
 
@@ -333,6 +366,11 @@ resetElement()
 	document.getElementById("UserScreen").style.display = "block";
 }
 
+function UserScreenON() {
+resetElement()
+	document.getElementById("UserScreen").style.display = "block";
+}
+
 var logInmodal = document.getElementById('logIn');
 window.onclick = function(event) {
 	if (event.target == logInmodal) {
@@ -407,48 +445,4 @@ lifeslider.oninput = function() {
 
 
 
-
-
-$.validator.addMethod('validateUsername', function (value, element) {
-	return !isUserExists(value);
-});
-
-$.validator.addMethod("validPassword", function(value) {
-    return /^(?=.[A-Za-z])(?=.\d)[A-Za-z\d]{6,}$/.test(value);
-});
-
-$.validator.addMethod("validName", function(value) {
-    return /^[a-zA-Z ]+$/.test(value);
-});
-
-$.validator.addMethod("passwordMatch", function() {
-    let username = $('#uname').val();
-    let password = $('#pass').val();
-
-    let validUserName = "";
-    let validPassword = "";
-    for (var i = 0; i < users.length; i++) {
-        if (users[i][0] == username) {
-            validUserName = users[i][0];
-
-            if (users[i][1] == password) {
-                validPassword = users[i][1];
-                break;
-            }
-        }
-    }
-    if (validUserName != "") {
-        if (password == "") {
-            return false;
-
-        } else if (validPassword == "") {
-            return false;
-
-        } else {
-            return true;
-        }
-    } else {
-        return false;
-    }
-});
 

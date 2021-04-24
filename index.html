@@ -34,35 +34,35 @@
 				  <a href="#" class="w3-bar-item w3-button w3-padding-large p3" onclick="welcomeON()">HOME</a>
 				  <a href="#about"class="w3-bar-item w3-button w3-padding-large w3-hide-small p3" onclick="aboutON()">About</a>
 				  <a href="#setting"class="w3-bar-item w3-button w3-padding-large w3-hide-small p3" onclick="settingON()">Setting</a>
-				  <a href="#signIn"class="w3-bar-item w3-button w3-padding-large w3-hide-small p3" onclick="signInON()">Sign in</a>
-				  <a href="#logIn"class="w3-bar-item w3-button w3-padding-large w3-hide-small p3" onclick="logInON()">Log in</a>
+				  <a href="#signIn"class="w3-bar-item w3-button w3-padding-large w3-hide-small p3" onclick="signInON()">Signup</a>
+				  <a href="#logIn"class="w3-bar-item w3-button w3-padding-large w3-hide-small p3" onclick="logInON()">Login</a>
 
 				</div>
 			</div>
 			<div id="welcome" class="w3-content w3-container w3-padding-64 w3-center" style="max-width:2000px;">
 				<h2 class="w3-wide w3-center">welcome</h2>
 				  <img SRC="https://cdn.dribbble.com/users/761988/screenshots/2510880/giffas_pacman.gif" class="w3-center"><br>
-				  <a href="#signIn"class="w3-bar-item w3-button w3-padding-large w3-hide-small p3" onclick="signInON()">Sing in</a>
-				  <a href="#logIn"class="w3-bar-item w3-button w3-padding-large w3-hide-small p3" onclick="logInON()">Log in</a>
+				  <a href="#signIn"class="w3-bar-item w3-button w3-padding-large w3-hide-small p3" onclick="signInON()">Signup</a>
+				  <a href="#logIn"class="w3-bar-item w3-button w3-padding-large w3-hide-small p3" onclick="logInON()">Login</a>
 			</div>
 			
 			<div id="signIn" class="w3-content w3-container w3-padding-64 container modal" style="max-width:2000px;margin-top:46px ;display:none;">
-                    <form id="registerForm" enctype="text/plain" class="cmxform modal-content w3-round animate"style="max-width:1000px;margin-top:46px">
-						<span onclick="document.getElementById('signIn').style.display='none'" class="close" title="Close Modal">&times;</span>
-                    	<div class="w3-content w3-container w3-padding-64 " style="max-width:2000px;margin-top:46px">
-							    <h2 class="w3-wide w3-center">signIn</h2><br><br>
-								<input class="w3-round-xxlarge w3-input w3-border" type="text"     name="register_name"       placeholder="fullName"       required/><br>
-								<input class="w3-round-xxlarge w3-input w3-border" type="text"     name="register_username"   placeholder="User Name"      required/><br>
-								<input class="w3-round-xxlarge w3-input w3-border" type="password" name="register_password"   placeholder="Enter Password" required/><br>
-								<input class="w3-round-xxlarge w3-input w3-border" type="email"    name="register_email"      placeholder="Enter Email"    required/><br>
-								<input class="w3-round-xxlarge w3-input w3-border" type="date"     name="register_dates" placeholder="yyyy-mm-dd" min="1920-01-01" max="2021-12-31" required><br>
+				<form id="registerForm" enctype="text/plain" class="cmxform modal-content w3-round animate"style="max-width:1000px;margin-top:46px">
+					<span onclick="document.getElementById('signIn').style.display='none'" class="close" title="Close Modal">&times;</span>
+					<div class="w3-content w3-container w3-padding-64 " style="max-width:2000px;margin-top:46px">
+						<h2 class="w3-wide w3-center">signIn</h2><br><br>
+						<input class="w3-round-xxlarge w3-input w3-border" type="text"     name="register_name"       placeholder="fullName"       required/><br>
+						<input class="w3-round-xxlarge w3-input w3-border" type="text"     name="register_username"   placeholder="User Name"      id ="register_username_id" required/><br>
+						<input class="w3-round-xxlarge w3-input w3-border" type="password" name="register_password"   placeholder="Enter Password" id ="register_password_id" required/><br>
+						<input class="w3-round-xxlarge w3-input w3-border" type="email"    name="register_email"      placeholder="Enter Email"    required/><br>
+						<input class="w3-round-xxlarge w3-input w3-border" type="date"     name="register_dates" placeholder="yyyy-mm-dd" min="1920-01-01" max="2021-12-31" required><br>
 
-								<input class="w3-round-xxlarge w3-button w3-gray w3-text-white w3-section w3-center" type="submit" value="Register" id="register_submit">
-								<input class="w3-round-xxlarge w3-button w3-gray w3-text-white w3-section w3-center" type="reset" value="Reset" id="register_Reset" >
-								<input class="w3-round-xxlarge w3-button w3-gray w3-text-white w3-section w3-center" type="button" value="Cancel" id="register_Cancel" onclick="welcomeON()">
-								<input class="w3-round-xxlarge w3-button w3-gray w3-text-white w3-section w3-right"  type="button" value="Already registered" id="isRegister" onclick="logInON()">
-						</div>
-                  </form>
+						<input class="w3-round-xxlarge w3-button w3-gray w3-text-white w3-section w3-center" type="submit" value="Register" id="register_submit">
+						<input class="w3-round-xxlarge w3-button w3-gray w3-text-white w3-section w3-center" type="reset" value="Reset" id="register_Reset" >
+						<input class="w3-round-xxlarge w3-button w3-gray w3-text-white w3-section w3-center" type="button" value="Cancel" id="register_Cancel" onclick="welcomeON()">
+						<input class="w3-round-xxlarge w3-button w3-gray w3-text-white w3-section w3-right"  type="button" value="Already registered" id="isRegister" onclick="logInON()">
+					</div>
+				</form>
 			</div>
 			
 			<div id="logIn" class="w3-content w3-container w3-padding-64 modal" style="max-width:2000px;margin-top:46px;display:none;">
@@ -70,8 +70,8 @@
 					<span onclick="document.getElementById('logIn').style.display='none'" class="close" title="Close Modal">&times;</span>
 					<div class="w3-content w3-container w3-padding-64 " style="max-width:2000px;margin-top:46px">
 						<h2 class="w3-wide w3-center">User Login</h2><br><br>
-						<input class="w3-round-xxlarge w3-input w3-border" 	    type="text" name="logIn_name"     placeholder="User Name"       required><br>
-						<input class="w3-round-xxlarge w3-input w3-border" 		type="text" name="logIn_password" placeholder="Enter Password"  required><br>
+						<input class="w3-round-xxlarge w3-input w3-border" 	    type="text"     id="logIn_name_id"     name="logIn_name"     placeholder="User Name"       required><br>
+						<input class="w3-round-xxlarge w3-input w3-border" 		type="password" id="logIn_password_id" name="logIn_password" placeholder="Enter Password"  required><br>
 
 						<input class="w3-round-xxlarge w3-button w3-gray w3-text-white w3-section w3-center" type="submit" value="LogIn" id="logIn_submit">
 						<input class="w3-round-xxlarge w3-button w3-gray w3-text-white w3-section w3-center" type="button" value="Cancel" id="logIn_Cancel" onclick="welcomeON()">
