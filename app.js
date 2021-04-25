@@ -17,7 +17,7 @@ bitcoin_img.src = 'photos/bitcoin_icon.jpg';
 var bitcoin_obj;
 
 var pac_dir = "right"
-var ghost_num = 2; // get from settings
+var ghost_num = 4; // get from settings
 var ghost_pos_board;
 var ghost_obj;
 
@@ -123,10 +123,6 @@ function Start() {
 		false
 	);
 	
-
-	// interval = setInterval(UpdatePosition, 150);
-	// intervalGhost = setInterval(updateGhosts, 450);
-	// intervalBitcoin = setInterval(updateBitcoin, 150);
 }
 
 
