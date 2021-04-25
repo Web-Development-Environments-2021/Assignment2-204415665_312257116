@@ -3,15 +3,11 @@ body {
   margin: 0;
 }
 
-.slidecontainer {
-  width: 100%;
-}
-
-
 .slider {
   -webkit-appearance: none;
-  width: 100%;
-  height: 25px;
+  width: 50%;
+  height: 15px;
+  border-radius: 5px;
   background: #d3d3d3;
   outline: none;
   opacity: 0.7;
@@ -28,6 +24,7 @@ body {
   appearance: none;
   width: 25px;
   height: 25px;
+  border-radius: 50%;
   background: #4CAF50;
   cursor: pointer;
 }
@@ -35,6 +32,7 @@ body {
 .slider::-moz-range-thumb {
   width: 25px;
   height: 25px;
+  border-radius: 50%;
   background: #4CAF50;
   cursor: pointer;
 }
@@ -80,6 +78,7 @@ span.psw {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
   left: 0;
   top: 0;
   width: 100%; /* Full width */
@@ -87,17 +86,61 @@ span.psw {
   overflow: auto; /* Enable scroll if needed */
   background-color: rgb(0,0,0); /* Fallback color */
   background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-  padding-top: 60px;
 }
 
-/* Modal Content/Box */
+/* Modal Content */
 .modal-content {
-  background-color: #f7f1ea;
-  margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+  position: relative;
+  background-color: #fefefe;
+  margin: auto;
+  padding: 0;
   border: 1px solid #888;
-  width: 80%; /* Could be more or less, depending on screen size */
-  border-radius: 25px;
+  width: 80%;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+  -webkit-animation-name: animatetop;
+  -webkit-animation-duration: 0.4s;
+  animation-name: animatetop;
+  animation-duration: 0.4s
+}
 
+/* Add Animation */
+@-webkit-keyframes animatetop {
+  from {top:-300px; opacity:0} 
+  to {top:0; opacity:1}
+}
+
+@keyframes animatetop {
+  from {top:-300px; opacity:0}
+  to {top:0; opacity:1}
+}
+
+/* The Close Button */
+.close {
+  color: white;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.modal-header {
+  padding: 2px 16px;
+  background-color: #5cb85c;
+  color: white;
+}
+
+.modal-body {padding: 2px 16px;}
+
+.modal-footer {
+  padding: 2px 16px;
+  background-color: #5cb85c;
+  color: white;
 }
 
 /* The Close Button (x) */
@@ -115,30 +158,308 @@ span.psw {
   color: red;
   cursor: pointer;
 }
-
-/* Add Zoom Animation */
-.animate {
-  -webkit-animation: animatezoom 0.6s;
-  animation: animatezoom 0.6s
+#welcome,#UserScreenWelcome{
+  background-color: #ebe7e7f5;
+  
 }
 
-@-webkit-keyframes animatezoom {
-  from {-webkit-transform: scale(0)} 
-  to {-webkit-transform: scale(1)}
+dialog{
+  display: block;
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  width: fit-content;
+  height: fit-content;
+  color: -internal-light-dark(black, white);
+  margin: auto;
+  border-width: initial;
+  border-style: solid;
+  border-color: initial;
+  border-image: initial;
+  padding: 1em;
+  background: -internal-light-dark(white, black);
 }
 
-@keyframes animatezoom {
-  from {transform: scale(0)} 
-  to {transform: scale(1)}
+
+dialog:not([open]) {
+  display: none;
 }
 
-/* Change styles for span and cancel button on extra small screens */
-@media screen and (max-width: 300px) {
-  span.psw {
-     display: block;
-     float: none;
+.game_button {
+  display: inline-block;
+  padding: 15px 25px;
+  font-size: 20px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #ff9100e5;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px rgb(230, 149, 0);
+}
+
+.game_button:hover {background-color: #c97201e5}
+
+.game_button:active {
+  background-color: #6e4200;
+  box-shadow: 0 5px rgb(146, 95, 1);
+  transform: translateY(4px);
+
+}.setting_button {
+  display: inline-block;
+  padding: 5px 10px;
+  font-size: 10px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #4158dbe5;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px rgb(48, 29, 155);
+}
+
+.setting_button:hover {background-color: #c97201e5}
+
+.setting_button:active {
+  background-color: #6e4200;
+  box-shadow: 0 5px rgb(146, 95, 1);
+  transform: translateY(4px);
+}
+h2{
+
+font-family: 'Monoton', cursive;
+font-family: 'Press Start 2P', cursive;
+/* animation: color-change 1s infinite; */
+font-size: xx-large;
+}
+
+/* 
+
+@keyframes color-change {
+  0% { color: rgb(50, 211, 9); }
+  15% { color: rgb(0, 255, 170); }
+  30% { color: rgb(135, 207, 0); }
+  45% { color: rgb(255, 166, 0); }
+  60% { color: rgb(69, 69, 226); }
+  75% { color: red; }
+  85% { color: rgb(82, 6, 6); }
+  100% { color: rgb(255, 0, 119); }
+} */
+
+label.error {
+	display: inline;
+	color: red;
+}
+
+label.error {
+	display: block;
+	margin-left: 5em;
+	width: auto;
+}
+@font-face {
+  font-family: Clip;
+  src: url("https://acupoftee.github.io/fonts/Clip.ttf");
+}
+
+.sign {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  height: 50%;
+  /* background-image: radial-gradient(
+    ellipse 50% 35% at 50% 50%,
+    #919191,
+    transparent
+  ); */
+  transform: translate(-50%, -50%);
+  letter-spacing: 2;
+  left: 50%;
+  /* top: 37%; */
+  font-family: "Clip";
+  text-transform: uppercase;
+  font-size: 6em;
+  color: #ffe6ff;
+  text-shadow: 0 0 0.6rem #d1ce02, 0 0 1.5rem #eb4527,
+    -0.2rem 0.1rem 1rem #918700, 0.2rem 0.1rem 1rem #ff65bd,
+    0 -0.5rem 2rem #e09b07, 0 0.5rem 3rem #8a6604;
+  animation: shine 2s forwards, flicker 3s infinite;
+}
+
+@keyframes blink {
+  0%,
+  22%,
+  36%,
+  75% {
+    color: #ffe364;
+    text-shadow: 0 0 0.6rem #da6b05, 0 0 1.5rem #ccae04,
+      -0.2rem 0.1rem 1rem #fcb900, 0.2rem 0.1rem 1rem #574200,
+      0 -0.5rem 2rem #ff6924, 0 0.5rem 3rem #be6600;
+  }
+  28%,
+  33% {
+    color: #ffd000;
+    text-shadow: none;
+  }
+  82%,
+  97% {
+    color: #f7b500;
+    text-shadow: none;
   }
 }
+
+.flicker {
+  animation: shine 2s forwards, blink 3s 2s infinite;
+}
+
+.fast-flicker {
+  animation: shine 2s forwards, blink 10s 1s infinite;
+}
+
+@keyframes shine {
+  0% {
+    color: #f0b904;
+    text-shadow: none;
+  }
+  100% {
+    color: #f0cc01;
+    /* text-shadow: 0 0 0.6rem #ffe6ff, 0 0 1.5rem #ff65bd,
+      -0.2rem 0.1rem 1rem #ff65bd, 0.2rem 0.1rem 1rem #ff65bd,
+      0 -0.5rem 2rem #ff2483, 0 0.5rem 3rem #ff2483; */
+  }
+}
+
+@keyframes flicker {
+  from {
+    opacity: 1;
+  }
+
+  4% {
+    opacity: 0.9;
+  }
+
+  6% {
+    opacity: 0.85;
+  }
+
+  8% {
+    opacity: 0.95;
+  }
+
+  10% {
+    opacity: 0.9;
+  }
+
+  11% {
+    opacity: 0.922;
+  }
+
+  12% {
+    opacity: 0.9;
+  }
+
+  14% {
+    opacity: 0.95;
+  }
+
+  16% {
+    opacity: 0.98;
+  }
+
+  17% {
+    opacity: 0.9;
+  }
+
+  19% {
+    opacity: 0.93;
+  }
+
+  20% {
+    opacity: 0.99;
+  }
+
+  24% {
+    opacity: 1;
+  }
+
+  26% {
+    opacity: 0.94;
+  }
+
+  28% {
+    opacity: 0.98;
+  }
+
+  37% {
+    opacity: 0.93;
+  }
+
+  38% {
+    opacity: 0.5;
+  }
+
+  39% {
+    opacity: 0.96;
+  }
+
+  42% {
+    opacity: 1;
+  }
+
+  44% {
+    opacity: 0.97;
+  }
+
+  46% {
+    opacity: 0.94;
+  }
+
+  56% {
+    opacity: 0.9;
+  }
+
+  58% {
+    opacity: 0.9;
+  }
+
+  60% {
+    opacity: 0.99;
+  }
+
+  68% {
+    opacity: 1;
+  }
+
+  70% {
+    opacity: 0.9;
+  }
+
+  72% {
+    opacity: 0.95;
+  }
+
+  93% {
+    opacity: 0.93;
+  }
+
+  95% {
+    opacity: 0.95;
+  }
+
+  97% {
+    opacity: 0.93;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+<<<<<<< HEAD
 #welcome{
   background-color: #ebe7e7f5;
 }
@@ -164,3 +485,5 @@ dialog{
 dialog:not([open]) {
   display: none;
 }
+=======
+>>>>>>> 425cb089527c6dcb7647224add2fa6e3c96c4530

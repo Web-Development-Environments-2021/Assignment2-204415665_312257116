@@ -5,158 +5,234 @@
 		<link rel="icon" type="image/png" href="https://lh3.googleusercontent.com/fzveNYn7UQC7PQLv3nUR5pb8-1wTiJtGyUs94o6gNmraFRYHF7xCdSRSvZPxDXHyK1Yn7l_Ijry6IJRE5-0gwb3EaNT1preSWnyjfBmiP-adZuqt3xvgg6cx1OOeRzfma1RWa4c7TUY=w2400" sizes="16x16">
 	</header>
 	<head>
+
 		<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-colors-2021.css">
-		<script type="text/javascript" src="jquery.js"></script>
+		
+		<!-- css -->
 		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 		<link rel="stylesheet" href="mycode.scss">
 		<link rel="stylesheet" href="index.CSS">
+
+		<!--font  -->
+		<link rel="preconnect" href="https://fonts.gstatic.com">
+		<link href="https://fonts.googleapis.com/css2?family=Monoton&family=Press+Start+2P&display=swap" rel="stylesheet">
+
+		<!-- js -->
+		<script type="text/javascript" src="jquery.js"></script>
 		<script src="./jquery-3.4.1.slim.min.js"></script>
 		<script type="text/javascript" src="./app.js"></script>
-        
-        
+		<script src="https://cdn.jsdelivr.net/jquery.validation/1.15.1/jquery.validate.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/additional-methods.js"></script>
+		
+		<meta name="viewport" content="width=device-width, initial-scale=1">	
+        <!-- icons -->
+        <meta name='viewport' content='width=device-width, initial-scale=1'>
+		<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 
 	</head>
 
 	<body>
+		<div id="fb-root"></div>
+
+	<!-- ----------------------------UserLogout------------------------------ -->
 
 		<div id="NotLogIn" class="w3-content w3-container w3-padding-64 " style="max-width:2000px;margin-top:46px">
 			<div class="w3-top">
-				<div id="fb-root"></div>
-				<div class="w3-bar w3-white w3-card">
-
-				  <a href="#" class="w3-bar-item w3-button w3-padding-large p3" onclick="welcomeON()">HOME</a>
-				  <a href="#about"class="w3-bar-item w3-button w3-padding-large w3-hide-small p3" onclick="aboutON()">About</a>
-				  <a href="#setting"class="w3-bar-item w3-button w3-padding-large w3-hide-small p3" onclick="settingON()">Setting</a>
-				  <a href="#signIn"class="w3-bar-item w3-button w3-padding-large w3-hide-small p3" onclick="signInON()">Sing in</a>
-				  <a href="#logIn"class="w3-bar-item w3-button w3-padding-large w3-hide-small p3" onclick="logInON()">Log in</a>
-
-
-				  <a herf="#shortCut" Class="w3-bar-item w3-button w3-padding-large w3-hide-small p3" onclick="UserScreenON()">ShortCut</a>
-
+				<div class="w3-bar w3-white w3-card w3-dark-gray">
+				  <a href="#about"class="w3-bar-item w3-button w3-padding-large w3-hide-small p3 w3-dark-gray" onclick="aboutON()">About</a>
+				  <a href="#signIn"class="w3-bar-item w3-button w3-padding-large w3-hide-small p3 w3-dark-gray" onclick="signInON()">Signup</a>
+				  <a href="#logIn"class="w3-bar-item w3-button w3-padding-large w3-hide-small p3 w3-dark-gray" onclick="logInON()">Login</a>
 				</div>
 			</div>
+
+			<!-- ----------------------------welcome------------------------------ -->
 			<div id="welcome" class="w3-content w3-container w3-padding-64 w3-center" style="max-width:2000px;">
-				<h2 class="w3-wide w3-center">welcome</h2>
-				  <img SRC="https://cdn.dribbble.com/users/761988/screenshots/2510880/giffas_pacman.gif" class="w3-center">
+				<div class="sign"style="font-family: 'Monoton', cursive;font-family: 'Press Start 2P', cursive;">
+					<span class="fast-flicker">P</span>ac- <span class="flicker">M</span>an
+				  </div>
+				<h2 class="sign w3-wide w3-center" style="font-family: 'Monoton', cursive;font-family: 'Press Start 2P', cursive;font-size: small;">
+					
+				</h2>
+				  <img SRC="https://cdn.dribbble.com/users/761988/screenshots/2510880/giffas_pacman.gif" class="w3-center"><br>
+				  <a href="#signIn"class="game_button" onclick="signInON()">Signup</a>
+				  <a href="#logIn"class="game_button" onclick="logInON()">Login</a>
+			</div>
+
+			<!-- ----------------------------signIn------------------------------ -->
+
+			<div id="signIn" class="modal" style="display:none;">
+				<form id="registerForm" enctype="text/plain" class="cmxform modal-content w3-round animate"style="max-width:1000px;margin-top:46px">
+					<span onclick="welcomeON()" class="close" title="Close Modal">&times;</span>
+					<div class="w3-content w3-container w3-padding-64 " style="max-width:2000px;margin-top:46px">
+						<h2 class="w3-wide w3-center">signIn</h2><br><br>
+						<input class="w3-round w3-input" type="text"     name="register_name"       placeholder="fullName"       required/><br>
+						<input class="w3-round w3-input" type="text"     name="register_username"   placeholder="User Name"      id ="register_username_id" required/><br>
+						<input class="w3-round w3-input" type="password" name="register_password"   placeholder="Enter Password" id ="register_password_id" required/><br>
+						<input class="w3-round w3-input" type="email"    name="register_email"      placeholder="Enter Email"    required/><br>
+						<input class="w3-round w3-input" type="date"     name="register_dates" placeholder="yyyy-mm-dd" min="1920-01-01" max="2021-12-31" required><br>
+
+						<input class="game_button" type="submit" value="Register" id="register_submit">
+						<input class="game_button" type="reset" value="Reset" id="register_Reset" >
+						<input class="game_button" type="button" value="Cancel" id="register_Cancel" onclick="welcomeON()">
+						<input class="game_button w3-right"  type="button" value="Already registered" id="isRegister" onclick="logInON()">
+					</div>
+				</form>
+			</div>
+
+			<!-- ----------------------------logIn------------------------------ -->
+
+			<div id="logIn" class=" modal" style="display:none;">
+				<form id="logInForm" enctype="text/plain" class="cmxform modal-content w3-round animate"style="max-width:1000px;margin-top:46px">
+					<span onclick="welcomeON()" class="close" title="Close Modal">&times;</span>
+					<div class="w3-content w3-container w3-padding-64 " style="max-width:2000px;margin-top:46px">
+						<h2 class="w3-wide w3-center">User Login</h2><br><br>
+						<input class="w3-round w3-input" 	    type="text"     id="logIn_name_id"     name="logIn_name"     placeholder="User Name"       required><br>
+						<input class="w3-round w3-input" 		type="password" id="logIn_password_id" name="logIn_password" placeholder="Enter Password"  required><br>
+
+						<input class="game_button" type="submit" value="LogIn" id="logIn_submit">
+						<input class="game_button" type="button" value="Cancel" id="logIn_Cancel" onclick="welcomeON()">
+						<input class="game_button w3-right"  type="button" value="New User" id="NotRegister" onclick="signInON()">
+					</div>  
+				</form>
 			</div>
 			
-			<div_none id="signIn" class="w3-content w3-container w3-padding-64 container modal" style="max-width:2000px;margin-top:46px">
-					
-                    <form method="post" id="signIn" enctype="text/plain" class="modal-content w3-round animate"style="max-width:1000px;margin-top:46px">
-                    <div class="w3-content w3-container w3-padding-64 " style="max-width:2000px;margin-top:46px">
-                    <h2 class="w3-wide w3-center">signIn</h2><br><br>
-                        <input class="w3-round-xxlarge w3-input w3-border" type="text" name="name"  placeholder="fullName" required><br>
-                        <input class="w3-round-xxlarge w3-input w3-border" type="text" name="username"  placeholder="User Name" required><br>
-                        <input class="w3-round-xxlarge w3-input w3-border" type="text" placeholder="Enter Password" name="password" required><br>
-                        <input class="w3-round-xxlarge w3-input w3-border" type="text" placeholder="Enter Email" name="email" required><br>
-                  		<input class="w3-round-xxlarge w3-input w3-border" type="date" placeholder="Enter Email-yyyy-mm-dd" name="trip-start"
-                         min="1920-01-01" max="2021-12-31" required><br>
-                        <input class="w3-round-xxlarge w3-button w3-gray w3-text-white w3-section w3-center" type="submit" value="Send">
-						<input class="w3-round-xxlarge w3-button w3-gray w3-text-white w3-section w3-center" type="reset" value="Reset">
-                        <input class="w3-round-xxlarge w3-button w3-gray w3-text-white w3-section w3-center" type="button" value="Cancel" onclick="welcomeON()">
+			
+			<!-- ----------------------------about------------------------------ -->
 
-                        <input class="w3-round-xxlarge w3-button w3-gray w3-text-white w3-section w3-right" type="submit" value="Already registered" onclick="logInON()">
-                  </div>
-                  </form>
-			</div_none>
-			<div_none id="logIn" class="w3-content w3-container w3-padding-64 modal" style="max-width:2000px;margin-top:46px">
-					<form method="post" enctype="text/plain" class="modal-content animate">
-                    <span onclick="document.getElementById('logIn').style.display='none'" class="close" title="Close Modal">&times;</span>
-                    <div class="w3-content w3-container w3-padding-64 " style="max-width:2000px;margin-top:46px">
-							<h2 class="w3-wide w3-center">User Login</h2><br><br>
-							<input class="w3-round-xxlarge w3-input w3-border" type="text" name="uname" required placeholder="User Name" ><br>
-							<input class="w3-round-xxlarge w3-input w3-border" type="text" placeholder="Enter Password" name="psw" required><br>
-							<input class="w3-round-xxlarge w3-button w3-gray w3-text-white w3-section w3-center" type="submit" value="Send">
-							<input class="w3-round-xxlarge w3-button w3-gray w3-text-white w3-section w3-center" type="button" value="Cancel" onclick="welcomeON()">
-                            <input class="w3-round-xxlarge w3-button w3-gray w3-text-white w3-section w3-right" type="submit" value="new user" onclick="signInON()">
-
-                          </div>  
-					</form>
-			</div_none>
-			<div_none id="setting" class="w3-content w3-container w3-padding-64 w3-center modal" style="max-width:2000px;margin-top:46px">
-            <form method="post" enctype="text/plain" id ="setting_form" class="modal-content animate">
-            			<h2 class="w3-wide w3-center">setting</h2>
-
-            	  <span onclick="document.getElementById('setting').style.display='none'" class="close" title="Close Modal">&times;</span>
-                  <div class="w3-content w3-container w3-padding-64 " style="max-width:2000px;margin-top:46px">
-                  <input type="range" min="1" max="100" value="50" id="Volume"><p>Value: <span id="Volume_val"></span></p>
-				  <input type="range" min="1" max="4" value="2"  id="lifeNum"><p>Number of life: <span id="life_val"></span></p>
-                  <input type="range" min="1" max="4" value="2"  id="enemNum"><p>Number of enemies: <span id="enem_val"></span></p>
-                  
-                 <input class="w3-round-xxlarge w3-button w3-gray w3-text-white w3-section" type="submit" value="Send">
-				 <input class="w3-round-xxlarge w3-button w3-gray w3-text-white w3-section" type="reset" value="Reset">
-                 <input class="w3-round-xxlarge w3-button w3-gray w3-text-white w3-section w3-center" type="button" value="Cancel" onclick="welcomeON()">
-                 </div>
-            </form>
-			</div_none>
-
-			<div_none id="about" class="w3-content w3-container w3-padding-64 w3-center modal" style="max-width:2000px;margin-top:46px">
-				<dialog id="aboutDialog">
-					<span onclick="closeSpan()" class="close">&times;</span>
-					<br>
-					<p id="aboutPara">
-						Moshe Biran - 204415665 <br>
-						Daniel Dinshtein - 312257116 <br>
-						jQuery Plugin Usage : ... <br>
-						Template Usage : ...
-					</p>
-				</dialog>
-            	<!-- <form action="mailto:biranmos@post.bgu.ac.il" method="post" enctype="text/plain" class="modal-content animate">
-					<h2 class="w3-wide w3-center">CONTACT</h2>
-					<div class="w3-row w3-padding-32">
-						<span onclick="document.getElementById('about').style.display='none'" class="close" title="Close Modal">&times;</span>
-						<div class="w3-content w3-container w3-padding-64 " style="max-width:2000px;margin-top:46px">
-							<i class="fa fa-map-marker" style="width:30px"></i> Lod, israel <br>
-							<i class="fa fa-phone" style="width:30px"></i> Phone: +972-054-7565967<br>
-							<i class="fa fa-envelope" style="width:30px"> </i> Email: biranmos@post.bgu.ac.il<br><br>
-							<input class="w3-round-xxlarge w3-input w3-border" type="text" name="name" placeholder="Name" ><br>
-							<input class="w3-round-xxlarge w3-input w3-border" type="text" name="mail"placeholder="Email"><br>
-							<input class="w3-round-xxlarge w3-input w3-border"type="text" name="comment" placeholder="Message"><br>
-							<input class="w3-round-xxlarge w3-button w3-gray w3-text-white w3-text-bold w3-section" type="submit" value="Send">
-							<input class="w3-round-xxlarge w3-button w3-gray w3-text-white w3-section" type="reset" value="Reset">
-                            <input class="w3-round-xxlarge w3-button w3-gray w3-text-white w3-section w3-center" type="button" value="Cancel" onclick="welcomeON()">
-						</div>
-					</div>
-				</form> -->
-			</div_none> 
+			<dialog id="about" class="w3-center modal" style="display:none;">
+				<div id ="aboutDialog" class="modal-content animate">
+					  <h2 class="w3-wide w3-center">About</h2>
+					  <span onclick="welcomeON()" class="close" title="Close Modal">&times;</span>
+					  <br>
+					  <p id="aboutPara">
+						  Moshe Biran - 204415665 <br>
+						  Daniel Dinshtein - 312257116 <br>
+						  jQuery Plugin Usage : ... <br>
+						  Template Usage : ...<br>
+						  <input class="game_button" type="button" value="Close" id="setting_Cancel" onclick="welcomeON()">
+					  </p>
+				</div>
+			</dialog>
 	</div>
 
-	<div_none id="UserScreen">
+	<!-- ----------------------------UserLogin------------------------------ -->
+	<div id="UserScreen" class="w3-content w3-container w3-padding-64 " style="max-width:2000px;margin-top:46px;display:none;">
 		<div class="w3-top">
 			<div id="fb-root"></div>
-			<div class="w3-bar w3-white w3-card">
-				<a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
-				<a href="#" class="w3-bar-item w3-button w3-padding-large p3">HOME</a>
-				<a href="#about"class="w3-bar-item w3-button w3-padding-large w3-hide-small p3" onclick="myFunction()">About</a>
-				<a href="#setting"class="w3-bar-item w3-button w3-padding-large w3-hide-small p3" onclick="myFunction()">Satting</a>
-				<a href="#welcome"class="w3-bar-item w3-button w3-padding-large w3-hide-small p3" onclick="myFunction()">Log Out</a>
-				<a href="javascript:void(0)" class="w3-padding-large w3-hover-red w3-hide-small w3-right p3"><i class="fa fa-search"></i></a>
+			<div class="w3-bar w3-dark-gray w3-card">
+				<a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right w3-dark-gray" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+				<a href="#UserScreenAbout"class="w3-bar-item w3-button w3-padding-large w3-hide-small p3 w3-dark-gray" onclick="UserScreenAboutON()">About</a>
+				<a href="#setting"class="w3-bar-item w3-button w3-padding-large w3-hide-small p3 w3-dark-gray"  onclick="settingON()">Setting</a>
+				<a href="#welcome"class="w3-bar-item w3-button w3-padding-large w3-hide-small p3 w3-dark-gray" onclick="logOutON()">Logout</a>
+				<a class="w3-padding-large w3-red w3-hide-small w3-right p3" style="font-family: 'Monoton', cursive;font-family: 'Press Start 2P', cursive;font-size: small;">
+					welcome: <input id="game_username_disply" class='fas fa-user-alt' type="image"></input>
+				</a>
 			</div>
 		</div>
-		<div id="lives_left">
-			<label for="lblLives">Lives Left :</label>
-			<input id="lblLives" type="text" />
+	<!-- ----------------------------UserScreenWelcome------------------------------ -->
+
+		<div id="UserScreenWelcome" class="w3-content w3-container w3-padding-64 w3-center" style="max-width:2000px;">
+				<div class="sign"style="font-family: 'Monoton', cursive;font-family: 'Press Start 2P', cursive;">
+					<span class="fast-flicker">P</span>ac- <span class="flicker">M</span>an
+				</div>
+
+				<img SRC="https://cdn.dribbble.com/users/761988/screenshots/2510880/giffas_pacman.gif" class="w3-center"><br>
+				<a href="#setting"class="game_button" onclick="settingON()">Setting</a>
+				<a href="#welcome"class="game_button" onclick="logOutON()">Logout</a>
+	
 		</div>
-		<div id="score" >
-			<label for="lblScore">Score :</label>
-			<input id="lblScore" type="text" />
+
+	<!-- ----------------------------setting------------------------------ -->
+
+		<div id="setting" class=" w3-center modal w3-small" style="display:none;">
+				<form enctype="text/plain" id ="setting_form" class="cmxform modal-content animate">
+						<h2 class="w3-wide w3-center">setting</h2>
+						<span onclick="UserScreenWelcomeON()" class="close" title="Close Modal">&times;</span>
+						<div class="w3-content w3-container w3-padding-64 " style="max-width:2000px;margin-top:46px">
+								<input type="range" min="1" max="100" value="50" id="Volume" class="slider"><p>Value: <span id="Volume_val"></span></p>
+								<input type="range" min="1" max="4" value="2"  id="ghost_num_id" class="slider"><p>Number of enemies: <span id="enem_val"></span></p>
+								<div>
+									Up:
+									<input class="setting_button" type="button" id="UP" name="UP_name" onclick="configurationUpdate('up')" value="ArrowUp"/>
+									Down:
+									<input class="setting_button" type="button" id="DOWN" name="DOWN_name" onclick="configurationUpdate('down')" value="ArrowDown"/>
+									Left:
+									<input class="setting_button" type="button" id="LEFT" name="LEFT_name" onclick="configurationUpdate('left')" value="ArrowLeft"/>
+									Right:
+									<input class="setting_button" type="button" id="RIGHT" name="RIGHT_name" onclick="configurationUpdate('right')" value="ArrowRight"/>
+							</div><br><br>
+
+							<a>5 Points:
+								<input type="color" id="5_Color_id" onclick="update_color('5')" value="#D058C9" style="display: inline-block" />
+							</a>
+							<a>15 Points:
+								<input type="color" id="15_Color_id" onclick="update_color('15')" value="#61F7B5" style="display: inline-block" />
+							</a>
+							<a>25 Points:
+								<input type="color" id="25_Color_id" onclick="update_color('25')" value="#FF373A" style="display: inline-block" />
+							</a>
+							<br><br>
+							<input type="range" min="50" max="90" value="70"  id="foodNum" class="slider" readonly="readonly"><p>Amount of Food Points: <span id="food_val"></span></p>
+							<label>Game Duration:
+								<input class="w3-round w3-input w3-small" type="number" id="duration_id" name="duration_name" min="60" value="100" onclick="update_time()"/>
+							</label>
+							<br><br>
+
+							<input class="game_button" type="submit" value="Start Game" id="setting_start_game" >
+							<input class="game_button" type="button" value="Random" id="setting_Random" onclick='randomConfigurations()'>
+							<input class="game_button" type="button" value="Cancel" id="setting_Cancel" onclick="UserScreenWelcomeON()">
+						</div>
+				</form>
 		</div>
-		<div id="time">
-			<label for="lblTime">Time :</label>
-			<input id="lblTime" type="text" />
-		</div>
-		<div id="game" style="max-width:2000px;margin-top:46px">
-			<canvas id="canvas" height="600" width="600"></canvas>
+	<!-- ----------------------------UserScreenAbout------------------------------ -->
+
+		<dialog id="UserScreenAbout" class="w3-center modal" style="display:none;">
+			<div id ="UserScreenaboutDialog" class="modal-content animate">
+				  <h2 class="w3-wide w3-center">About</h2>
+				  <span onclick="UserScreenWelcomeON()" class="close" title="Close Modal">&times;</span>
+				  <br>
+				  <p id="aboutPara">
+					  Moshe Biran - 204415665 <br>
+					  Daniel Dinshtein - 312257116 <br>
+					  jQuery Plugin Usage : ... <br>
+					  Template Usage : ...<br>
+					  <input class="game_button" type="button" value="Close" id="setting_Cancel" onclick="UserScreenWelcomeON()">
+				  </p>
+			 </div>
+		</dialog>
+	<!-- ----------------------------UserLogin------------------------------ -->
+
+		<div id="UserScreenConsole"  class="w3-center" style="display:none;">
+
+			<div id="score" >
+				<label for="lblScore">SCORE:</label>
+				<input id="lblScore" type="text" />
+			</div>
+
+			<div id="time">
+				<label for="lblTime">TIME:</label>
+				<input id="lblTime" type="text" />
+			</div>
+
+			<div id="game" style="max-width:2000px;margin-top:46px">
+				<canvas id="canvas" height="600" width="600"></canvas>
+			</div>
 		</div>
 	</div_none>
 		
 
 	</body>
   <!-- Footer -->
-    <footer class="w3-container w3-padding-64 w3-center w3-opacity w3-light-grey w3-xlarge">
+     <footer class="w3-container w3-padding-64 w3-center w3-opacity w3-light-grey w3-xlarge">
+		<a>Moshe Biran:</a>
+		<a href="https://www.facebook.com/moshe.biran.7/?viewas=100000686899395"> <i class="fa fa-facebook-official w3-hover-opacity"></i></a>
+		<a href="https://www.instagram.com/moshebiran/"><i class="fa fa-instagram w3-hover-opacity"></i></a>
+		<a href="https://www.facebook.com/moshe.biran.7/?viewas=100000686899395"><i class="fa fa-twitter w3-hover-opacity"></i></a>
+		<a href="https://www.linkedin.com/in/moshe-biran/"><i class="fa fa-linkedin w3-hover-opacity"></i></a>
+		<a>Daniel Dinshtein:</a>
 		<a href="https://www.facebook.com/moshe.biran.7/?viewas=100000686899395"> <i class="fa fa-facebook-official w3-hover-opacity"></i></a>
 		<a href="https://www.instagram.com/moshebiran/"><i class="fa fa-instagram w3-hover-opacity"></i></a>
 		<a href="https://www.facebook.com/moshe.biran.7/?viewas=100000686899395"><i class="fa fa-twitter w3-hover-opacity"></i></a>
