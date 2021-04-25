@@ -155,8 +155,7 @@ function Draw() {
 					context.arc(center.x + 15, center.y - 5, 5, 0, 2 * Math.PI); // circle
 					context.fillStyle = "black"; //color
 					context.fill();
-				}
-				if (pac_dir == "down"){
+				} else if (pac_dir == "down"){
 					context.beginPath();
 					context.arc(center.x, center.y, 30, 0.65 * Math.PI, 0.35 * Math.PI,false); // half circle
 					context.lineTo(center.x, center.y);
@@ -166,8 +165,7 @@ function Draw() {
 					context.arc(center.x + 15, center.y - 5, 5, 0, 2 * Math.PI); // circle
 					context.fillStyle = "black"; //color
 					context.fill();
-				}
-				if (pac_dir == "left"){
+				} else if (pac_dir == "left"){
 					context.beginPath();
 					context.arc(center.x, center.y, 30, 1.15 * Math.PI, 0.85 * Math.PI); // half circle
 					context.lineTo(center.x, center.y);
@@ -177,8 +175,7 @@ function Draw() {
 					context.arc(center.x + 5, center.y - 15, 5, 0, 2 * Math.PI); // circle
 					context.fillStyle = "black"; //color
 					context.fill();
-				}
-				if (pac_dir == "right"){
+				} else if (pac_dir == "right"){
 					context.beginPath();
 					context.arc(center.x, center.y, 30, 0.15 * Math.PI, 1.85 * Math.PI); // half circle
 					context.lineTo(center.x, center.y);
@@ -257,13 +254,13 @@ function Draw() {
 
 
 
-
 ////////////////////////* Update Positions */ ///////////////////////
 
   
 function UpdatePosition() {
 	board[shape.i][shape.j] = 0;
 	var x = GetKeyPressed();
+	var ateByGhost = false;
 	if (x == 1) {
 		if (shape.j > 0 && board[shape.i][shape.j - 1] != 4) {
 			shape.j--;
@@ -289,67 +286,41 @@ function UpdatePosition() {
 		}
 	}
 
-	// bitcoin points
-	if (shape.i == bitcoin_obj.i && shape.j == bitcoin_obj.j){
-		score += 50;
-		bitcoin_obj.i = -1;
-		bitcoin_obj.j = -1;
-		window.clearInterval(intervalBitcoin);
-	}
-	// regular points
-	if (board[shape.i][shape.j] == 1) {
-		score++;
-	}
-
 	// check if Pac-Man Hit By Ghost
 	for (var i = 0 ; i < ghost_obj.length ; i++)
 	{
 		if ((ghost_obj[i].i == shape.i && ghost_obj[i].j == shape.j ) || ghost_pos_board[shape.i][shape.j] == 10)
 		{
-			//decrease the Score
-			if (score < 10){
-				score = 0;
-			} else {
-				score -= 10;
-			}
-
-			lives_left--;
-			if (lives_left == 0){
-				window.clearInterval(interval);
-				window.clearInterval(intervalGhost);
-				if (bitcoin_obj.i != -1){
-					window.clearInterval(intervalBitcoin);
-				}
-				window.alert("Loser!");
-				return;
-			}
-
-			//Reboot Ghosts
-			RebootGhosts();
-			//Reboot Pac-Man
-			var emptyCell = findRandomEmptyCell(board);
-			shape.i = emptyCell[0];
-			shape.j = emptyCell[1];
-			board[shape.i][shape.j] = 2;
-			Draw();
-			return;
-
+			GhostEatPacman();
+			ateByGhost = true;
+			break;
 		}
 	}
 
-	board[shape.i][shape.j] = 2;
-	var currentTime = new Date();
-	time_elapsed = (currentTime - start_time) / 1000;
+	if(!ateByGhost){
+		// bitcoin points
+		if (shape.i == bitcoin_obj.i && shape.j == bitcoin_obj.j){
+			PacmanEatBitcoin();
+		}
+		// regular points
+		if (board[shape.i][shape.j] == 1) {
+			score++;
+		}
 
-	if (score >= 20 && time_elapsed <= 10) {
-		pac_color = "green";
-	}
+		board[shape.i][shape.j] = 2;
+		var currentTime = new Date();
+		time_elapsed = (currentTime - start_time) / 1000;
 
-	if (score == 1000) {
-		window.clearInterval(interval);
-		window.alert("Game completed");
-	} else {
-		Draw();
+		if (score >= 20 && time_elapsed <= 10) {
+			pac_color = "green";
+		}
+
+		if (score == 1000) { // TODO : Game Finished
+			clearAllIntervals();
+			window.alert("Game completed");
+		} else {
+			Draw();
+		}
 	}
 }
 
@@ -360,39 +331,50 @@ function updateGhosts() {
 
 		var row_dis = 0;
 		var col_dis = 0;
-		var ghost_row = 0;
-		var ghost_col = 0;
+		var ghost_row = ghost_obj[i].i;
+		var ghost_col = ghost_obj[i].j;
 		var changed_pos = false;
-		ghost_row = ghost_obj[i].i;
-		ghost_col = ghost_obj[i].j;
+
+		if (board[ghost_row][ghost_col] == 2 || (ghost_row == shape.i && ghost_col == shape.j) || ghost_pos_board[shape.i][shape.j] == 10){
+			GhostEatPacman();
+			break;
+		}
+
 		row_dis = Math.abs(shape.i - ghost_row);
 		col_dis = Math.abs(shape.j - ghost_col);
 		if (row_dis > col_dis){ //left or right
 
-			if(shape.i - ghost_row > 0 && ghost_row < 9 && board[ghost_row + 1][ghost_col] != 4){ //right
+			if(shape.i - ghost_row > 0 && ghost_row < 9 && board[ghost_row + 1][ghost_col] != 4 && ghost_pos_board[ghost_row + 1][ghost_col] != 10){ //right
 				ghost_pos_board[ghost_row + 1][ghost_col] = 10;
 				ghost_pos_board[ghost_row][ghost_col] = 0;
 				ghost_obj[i].i++;
+				ghost_row = ghost_obj[i].i;
 				changed_pos = true;
-			} else if(ghost_row > 0  && board[ghost_row - 1][ghost_col] != 4) { // left
+			} else if(ghost_row > 0  && board[ghost_row - 1][ghost_col] != 4 && ghost_pos_board[ghost_row - 1][ghost_col] != 10) { // left
 				ghost_pos_board[ghost_row - 1][ghost_col] = 10;
 				ghost_pos_board[ghost_row][ghost_col] = 0;
 				ghost_obj[i].i--;
+				ghost_row = ghost_obj[i].i;
 				changed_pos = true;
 			}
 		}
 		if(!changed_pos) { //up or down
-			if(shape.j - ghost_col > 0 && ghost_col < 9 && board[ghost_row][ghost_col + 1] !=4){ //down
+			if(shape.j - ghost_col > 0 && ghost_col < 9 && board[ghost_row][ghost_col + 1] !=4  && ghost_pos_board[ghost_row][ghost_col + 1] != 10){ //down
 				ghost_pos_board[ghost_row][ghost_col + 1] = 10;
 				ghost_pos_board[ghost_row][ghost_col] = 0;
 				ghost_obj[i].j++;
-			} else if(ghost_col > 0 && board[ghost_row][ghost_col - 1] !=4){ //up
+			} else if(ghost_col > 0 && board[ghost_row][ghost_col - 1] !=4 && ghost_pos_board[ghost_row][ghost_col - 1] != 10){ //up
 				ghost_pos_board[ghost_row][ghost_col - 1] = 10;
 				ghost_pos_board[ghost_row][ghost_col] = 0;
 				ghost_obj[i].j--;
-			} 
+			}
+			ghost_col = ghost_obj[i].j;
 		}
 
+		if (board[ghost_row][ghost_col] == 2 || (ghost_row == shape.i && ghost_col == shape.j) || ghost_pos_board[shape.i][shape.j] == 10){
+			GhostEatPacman();
+			break;
+		}
 	}
 }
 
@@ -411,6 +393,10 @@ function updateBitcoin(){
 	} else if(coin_dir == 3 && coin_row < 9 && board[coin_row + 1][coin_col] != 4){
 		bitcoin_obj.i++;
 	}
+
+	if( (bitcoin_obj.i == shape.i && bitcoin_obj.j == shape.j) || board[bitcoin_obj.i][bitcoin_obj.j] == 2){
+		PacmanEatBitcoin();
+	}
 	
 }
 
@@ -422,6 +408,14 @@ function startIntervals(){
 	interval = setInterval(UpdatePosition, 150);
 	intervalGhost = setInterval(updateGhosts, 300);
 	intervalBitcoin = setInterval(updateBitcoin, 150);
+}
+
+function clearAllIntervals(){
+	window.clearInterval(interval);
+	window.clearInterval(intervalGhost);
+	if (bitcoin_obj.i != -1 || bitcoin_obj.j != -1){
+		window.clearInterval(intervalBitcoin);
+	}
 }
 
 function findRandomEmptyCell(board) {
@@ -487,9 +481,77 @@ function RebootGhosts(){
 	addGhosts();
 }
 
-// function pacmanEat(){
+function GhostEatPacman(){
+	
+	board[shape.i][shape.j] = 0;
 
+	//decrease the Score
+	if (score < 10){
+		score = 0;
+	} else{
+		score -= 10;
+	}
+
+	lives_left--;
+	if (lives_left == 0){
+		clearAllIntervals();
+		window.alert("Loser!");
+
+	} else{
+		//Reboot Ghosts
+		RebootGhosts();
+		//Reboot Pac-Man
+		var emptyCell = findRandomEmptyCell(board);
+		shape.i = emptyCell[0];
+		shape.j = emptyCell[1];
+		board[shape.i][shape.j] = 2;
+		Draw();
+	}
+}
+
+function PacmanEatBitcoin(){
+	if (bitcoin_obj.i != -1 || bitcoin_obj.j != -1){
+		window.clearInterval(intervalBitcoin);
+	}
+	score += 50;
+	bitcoin_obj.i = -1;
+	bitcoin_obj.j = -1;
+}
+
+
+
+////////////////////// Origin Code For Update ///////////////////////////////////////////
+
+// //decrease the Score
+// if (score < 10){
+// 	score = 0;
+// } else {
+// 	score -= 10;
 // }
+
+// lives_left--;
+// if (lives_left == 0){
+// 	window.clearInterval(interval);
+// 	window.clearInterval(intervalGhost);
+// 	if (bitcoin_obj.i != -1){
+// 		window.clearInterval(intervalBitcoin);
+// 	}
+// 	window.alert("Loser!");
+// 	return;
+// }
+
+// //Reboot Ghosts
+// RebootGhosts();
+// //Reboot Pac-Man
+// var emptyCell = findRandomEmptyCell(board);
+// shape.i = emptyCell[0];
+// shape.j = emptyCell[1];
+// board[shape.i][shape.j] = 2;
+// Draw();
+// return;
+
+
+
 
 
 ////////////////////// Liad To Change Or Remove ///////////////////////////////////////////
