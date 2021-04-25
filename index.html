@@ -7,7 +7,8 @@
 	<head>
 
 		<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-colors-2021.css">
-		<script type="text/javascript" src="jquery.js"></script>
+		
+		<!-- css -->
 		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -15,16 +16,21 @@
 		<link rel="stylesheet" href="mycode.scss">
 		<link rel="stylesheet" href="index.CSS">
 
+		<!--font  -->
 		<link rel="preconnect" href="https://fonts.gstatic.com">
 		<link href="https://fonts.googleapis.com/css2?family=Monoton&family=Press+Start+2P&display=swap" rel="stylesheet">
 
+		<!-- js -->
+		<script type="text/javascript" src="jquery.js"></script>
 		<script src="./jquery-3.4.1.slim.min.js"></script>
 		<script type="text/javascript" src="./app.js"></script>
 		<script src="https://cdn.jsdelivr.net/jquery.validation/1.15.1/jquery.validate.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/additional-methods.js"></script>
+		
 		<meta name="viewport" content="width=device-width, initial-scale=1">	
-        
-        
+        <!-- icons -->
+        <meta name='viewport' content='width=device-width, initial-scale=1'>
+		<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 
 	</head>
 
@@ -35,10 +41,10 @@
 
 		<div id="NotLogIn" class="w3-content w3-container w3-padding-64 " style="max-width:2000px;margin-top:46px;">
 			<div class="w3-top">
-				<div class="w3-bar w3-white w3-card ">
-				  <a href="#about"class="w3-bar-item w3-button w3-padding-large w3-hide-small p3" onclick="aboutON()">About</a>
-				  <a href="#signIn"class="w3-bar-item w3-button w3-padding-large w3-hide-small p3" onclick="signInON()">Signup</a>
-				  <a href="#logIn"class="w3-bar-item w3-button w3-padding-large w3-hide-small p3" onclick="logInON()">Login</a>
+				<div class="w3-bar w3-white w3-card w3-dark-gray">
+				  <a href="#about"class="w3-bar-item w3-button w3-padding-large w3-hide-small p3 w3-dark-gray" onclick="aboutON()">About</a>
+				  <a href="#signIn"class="w3-bar-item w3-button w3-padding-large w3-hide-small p3 w3-dark-gray" onclick="signInON()">Signup</a>
+				  <a href="#logIn"class="w3-bar-item w3-button w3-padding-large w3-hide-small p3 w3-dark-gray" onclick="logInON()">Login</a>
 				</div>
 			</div>
 
@@ -116,27 +122,30 @@
 	<div id="UserScreen" class="w3-content w3-container w3-padding-64 " style="max-width:2000px;margin-top:46px;display:none;">
 		<div class="w3-top">
 			<div id="fb-root"></div>
-			<div class="w3-bar w3-white w3-card">
-				<a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
-				<a href="#UserScreenAbout"class="w3-bar-item w3-button w3-padding-large w3-hide-small p3" onclick="UserScreenaboutON()">About</a>
-				<a href="#setting"class="w3-bar-item w3-button w3-padding-large w3-hide-small p3" onclick="settingON()">Setting</a>
-				<a href="#welcome"class="w3-bar-item w3-button w3-padding-large w3-hide-small p3" onclick="logOutON()">Logout</a>
+			<div class="w3-bar w3-dark-gray w3-card">
+				<a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right w3-dark-gray" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+				<a href="#UserScreenAbout"class="w3-bar-item w3-button w3-padding-large w3-hide-small p3 w3-dark-gray" onclick="UserScreenAboutON()">About</a>
+				<a href="#setting"class="w3-bar-item w3-button w3-padding-large w3-hide-small p3 w3-dark-gray"  onclick="settingON()">Setting</a>
+				<a href="#welcome"class="w3-bar-item w3-button w3-padding-large w3-hide-small p3 w3-dark-gray" onclick="logOutON()">Logout</a>
+				<a class="w3-padding-large w3-red w3-hide-small w3-right p3" style="font-family: 'Monoton', cursive;font-family: 'Press Start 2P', cursive;font-size: small;">
+					welcome: <input id="game_username_disply" class='fas fa-user-alt' type="image"></input>
+				</a>
 			</div>
 		</div>
-welcome
+	<!-- ----------------------------UserScreenWelcome------------------------------ -->
+
 		<div id="UserScreenWelcome" class="w3-content w3-container w3-padding-64 w3-center" style="max-width:2000px;">
 				<div class="sign"style="font-family: 'Monoton', cursive;font-family: 'Press Start 2P', cursive;">
 					<span class="fast-flicker">P</span>ac- <span class="flicker">M</span>an
 				</div>
-				<h class="w3-center w3-bottom" style="font-family: 'Monoton', cursive;font-family: 'Press Start 2P', cursive;font-size: small;">
-					welcome: <input id="game_username" type="button" readonly="readonly"/>
-				</h>
+
 				<img SRC="https://cdn.dribbble.com/users/761988/screenshots/2510880/giffas_pacman.gif" class="w3-center"><br>
 				<a href="#setting"class="game_button" onclick="settingON()">Setting</a>
 				<a href="#welcome"class="game_button" onclick="logOutON()">Logout</a>
 	
 		</div>
 
+	<!-- ----------------------------setting------------------------------ -->
 
 		<div id="setting" class=" w3-center modal w3-small" style="display:none;">
 				<form enctype="text/plain" id ="setting_form" class="cmxform modal-content animate">
@@ -178,9 +187,10 @@ welcome
 						</div>
 				</form>
 		</div>
+	<!-- ----------------------------UserScreenAbout------------------------------ -->
 
 		<dialog id="UserScreenAbout" class="w3-center modal" style="display:none;">
-			<div id ="aboutDialog" class="modal-content animate">
+			<div id ="UserScreenaboutDialog" class="modal-content animate">
 				  <h2 class="w3-wide w3-center">About</h2>
 				  <span onclick="UserScreenWelcomeON()" class="close" title="Close Modal">&times;</span>
 				  <br>
@@ -193,6 +203,7 @@ welcome
 				  </p>
 			 </div>
 		</dialog>
+	<!-- ----------------------------UserLogin------------------------------ -->
 
 		<div id="UserScreenConsole"  class="w3-center" style="display:none;">
 

@@ -197,7 +197,8 @@ $(document).ready(function() {
 	var settingmodal = document.getElementById('setting');
 	var aboutmodal = document.getElementById('about');
 	var UserScreenmodal = document.getElementById('UserScreen');
-	
+	var UserScreenaboutmodal = document.getElementById('UserScreenAbout');
+
 	window.onclick = function(event) {
 		if (event.target == logInmodal) {
 			logInmodal.style.display = "none";
@@ -207,10 +208,7 @@ $(document).ready(function() {
 			signInmodal.style.display = "none";
 			welcomeON();
 		}
-		if (event.target == settingmodal) {
-			settingmodal.style.display = "none";
-			welcomeON();
-		}
+
 		if (event.target == aboutmodal) {
 			// document.getElementById('aboutDialog').close();
 			aboutmodal.style.display = "none";
@@ -218,9 +216,17 @@ $(document).ready(function() {
 		}
 		if (event.target == UserScreenmodal) {
 			UserScreenmodal.style.display = "none";
-			welcomeON();
+			UserScreenWelcomeON();
+		}
+		if (event.target == UserScreenaboutmodal) {
+			UserScreenaboutmodal.style.display = "none";
+			UserScreenWelcomeON();
 		}
 
+		if (event.target == settingmodal) {
+			settingmodal.style.display = "none";
+			UserScreenWelcomeON();
+		}
 
 	/*---------------------------slider-------------------------*/
 
@@ -518,9 +524,9 @@ function initialGameValues() {
 	start_time = new Date();
 	ghost_num = parseInt(document.getElementById('ghost_num_id').value.substring(0,1));
 	food_amount = chosen_food_amount;
-
+	game_username_disply
 	document.getElementById("game_username").value = game_username;
-
+	document.getElementById("game_username_disply").value = game_username;
 	chosen_game_duration = parseInt(document.getElementById('duration_id').value);
 
 	//color
@@ -663,7 +669,7 @@ function aboutON() {
 /*-----------------------login user screen-------------------------------- */
 function UserScreenON() {
 	resetElement();
-	document.getElementById("game_username").value = game_username;
+	document.getElementById("game_username_disply").value = game_username;
 	document.getElementById("NotLogIn").style.display = "none";
 	document.getElementById("UserScreen").style.display = "block";
 }
