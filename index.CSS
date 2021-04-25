@@ -459,31 +459,3 @@ label.error {
     opacity: 1;
   }
 }
-<<<<<<< HEAD
-#welcome{
-  background-color: #ebe7e7f5;
-}
-
-dialog{
-  display: block;
-  position: absolute;
-  left: 0px;
-  right: 0px;
-  width: fit-content;
-  height: fit-content;
-  color: -internal-light-dark(black, white);
-  margin: auto;
-  border-width: initial;
-  border-style: solid;
-  border-color: initial;
-  border-image: initial;
-  padding: 1em;
-  background: -internal-light-dark(white, black);
-}
-
-
-dialog:not([open]) {
-  display: none;
-}
-=======
->>>>>>> 425cb089527c6dcb7647224add2fa6e3c96c4530
