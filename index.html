@@ -29,21 +29,20 @@
 	</head>
 
 	<body>
+		<div id="fb-root"></div>
+
+	<!-- ----------------------------UserLogout------------------------------ -->
 
 		<div id="NotLogIn" class="w3-content w3-container w3-padding-64 " style="max-width:2000px;margin-top:46px;">
 			<div class="w3-top">
-				<div id="fb-root"></div>
 				<div class="w3-bar w3-white w3-card ">
-
-				  <a href="#" class="w3-bar-item w3-button w3-padding-large p3" onclick="welcomeON()">HOME</a>
 				  <a href="#about"class="w3-bar-item w3-button w3-padding-large w3-hide-small p3" onclick="aboutON()">About</a>
-				  <a href="#setting"class="w3-bar-item w3-button w3-padding-large w3-hide-small p3" onclick="settingON()">Setting</a>
 				  <a href="#signIn"class="w3-bar-item w3-button w3-padding-large w3-hide-small p3" onclick="signInON()">Signup</a>
 				  <a href="#logIn"class="w3-bar-item w3-button w3-padding-large w3-hide-small p3" onclick="logInON()">Login</a>
-
 				</div>
 			</div>
-			
+
+			<!-- ----------------------------welcome------------------------------ -->
 			<div id="welcome" class="w3-content w3-container w3-padding-64 w3-center" style="max-width:2000px;">
 				<div class="sign"style="font-family: 'Monoton', cursive;font-family: 'Press Start 2P', cursive;">
 					<span class="fast-flicker">P</span>ac- <span class="flicker">M</span>an
@@ -55,7 +54,9 @@
 				  <a href="#signIn"class="game_button" onclick="signInON()">Signup</a>
 				  <a href="#logIn"class="game_button" onclick="logInON()">Login</a>
 			</div>
-			
+
+			<!-- ----------------------------signIn------------------------------ -->
+
 			<div id="signIn" class="modal" style="display:none;">
 				<form id="registerForm" enctype="text/plain" class="cmxform modal-content w3-round animate"style="max-width:1000px;margin-top:46px">
 					<span onclick="welcomeON()" class="close" title="Close Modal">&times;</span>
@@ -74,7 +75,9 @@
 					</div>
 				</form>
 			</div>
-			
+
+			<!-- ----------------------------logIn------------------------------ -->
+
 			<div id="logIn" class=" modal" style="display:none;">
 				<form id="logInForm" enctype="text/plain" class="cmxform modal-content w3-round animate"style="max-width:1000px;margin-top:46px">
 					<span onclick="welcomeON()" class="close" title="Close Modal">&times;</span>
@@ -90,47 +93,9 @@
 				</form>
 			</div>
 			
-			<div id="setting" class=" w3-center modal w3-small" style="display:none;">
-				<form enctype="text/plain" id ="setting_form" class="cmxform modal-content animate">
-					<h2 class="w3-wide w3-center">setting</h2>
-					<span onclick="welcomeON()" class="close" title="Close Modal">&times;</span>
-					<div class="w3-content w3-container w3-padding-64 " style="max-width:2000px;margin-top:46px">
-						<input type="range" min="1" max="100" value="50" id="Volume" class="slider"><p>Value: <span id="Volume_val"></span></p>
-						<input type="range" min="1" max="4" value="2"  id="ghost_num_id" class="slider"><p>Number of enemies: <span id="enem_val"></span></p>
-						<div>
-							Up:
-							<input class="setting_button" type="button" id="UP" name="UP_name" onclick="configurationUpdate('up')" value="ArrowUp"/>
-							Down:
-							<input class="setting_button" type="button" id="DOWN" name="DOWN_name" onclick="configurationUpdate('down')" value="ArrowDown"/>
-							Left:
-							<input class="setting_button" type="button" id="LEFT" name="LEFT_name" onclick="configurationUpdate('left')" value="ArrowLeft"/>
-							Right:
-							<input class="setting_button" type="button" id="RIGHT" name="RIGHT_name" onclick="configurationUpdate('right')" value="ArrowRight"/>
-						</div><br><br>
-
-						<a>5 Points:
-							<input type="color" id="5_Color_id" onclick="update_color('5')" value="#D058C9" style="display: inline-block" />
-						</a>
-						<a>15 Points:
-							<input type="color" id="15_Color_id" onclick="update_color('15')" value="#61F7B5" style="display: inline-block" />
-						</a>
-						<a>25 Points:
-							<input type="color" id="25_Color_id" onclick="update_color('25')" value="#FF373A" style="display: inline-block" />
-						</a>
-						<br><br>
-						<input type="range" min="50" max="90" value="70"  id="foodNum" class="slider" readonly="readonly"><p>Amount of Food Points: <span id="food_val"></span></p>
-						
-						<label>Game Duration:
-							<input class="w3-round w3-input w3-small" type="number" id="duration_id" name="duration_name" min="60" value="100" onclick="update_time()"/>
-						</label>
-						<br><br>
-						<input class="game_button" type="submit" value="Start Game" id="setting_start_game" >
-						<input class="game_button" type="button" value="Random" id="setting_Random" onclick='randomConfigurations()'>
-						<input class="game_button" type="button" value="Cancel" id="setting_Cancel" onclick="welcomeON()">
-					</div>
-				</form>
-			</div>
 			
+			<!-- ----------------------------about------------------------------ -->
+
 			<dialog id="about" class="w3-center modal" style="display:none;">
 				<div id ="aboutDialog" class="modal-content animate">
 					  <h2 class="w3-wide w3-center">About</h2>
@@ -143,35 +108,93 @@
 						  Template Usage : ...<br>
 						  <input class="game_button" type="button" value="Close" id="setting_Cancel" onclick="welcomeON()">
 					  </p>
-					 </div>
 				</div>
 			</dialog>
 	</div>
 
+	<!-- ----------------------------UserLogin------------------------------ -->
 	<div id="UserScreen" class="w3-content w3-container w3-padding-64 " style="max-width:2000px;margin-top:46px;display:none;">
 		<div class="w3-top">
 			<div id="fb-root"></div>
 			<div class="w3-bar w3-white w3-card">
 				<a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
-				<a href="#" class="w3-bar-item w3-button w3-padding-large p3" onclick="welcomeON()">HOME</a>
-				<a href="#about"class="w3-bar-item w3-button w3-padding-large w3-hide-small p3" onclick="aboutON()">About</a>
+				<a href="#UserScreenAbout"class="w3-bar-item w3-button w3-padding-large w3-hide-small p3" onclick="UserScreenaboutON()">About</a>
 				<a href="#setting"class="w3-bar-item w3-button w3-padding-large w3-hide-small p3" onclick="settingON()">Setting</a>
-				<a href="#logIn"class="w3-bar-item w3-button w3-padding-large w3-hide-small p3" onclick="logOutON()">Logout</a>
+				<a href="#welcome"class="w3-bar-item w3-button w3-padding-large w3-hide-small p3" onclick="logOutON()">Logout</a>
 			</div>
 		</div>
+welcome
 		<div id="UserScreenWelcome" class="w3-content w3-container w3-padding-64 w3-center" style="max-width:2000px;">
-			<div class="sign"style="font-family: 'Monoton', cursive;font-family: 'Press Start 2P', cursive;">
-				<span class="fast-flicker">P</span>ac- <span class="flicker">M</span>an
-			  </div>
-			<h2 class="sign w3-wide w3-center" style="font-family: 'Monoton', cursive;font-family: 'Press Start 2P', cursive;font-size: small;">
-				
-			</h2>
-			  <img SRC="https://cdn.dribbble.com/users/761988/screenshots/2510880/giffas_pacman.gif" class="w3-center"><br>
-			  <a href="#signIn"class="game_button" onclick="settingON()">Setting</a>
-			  <a href="#logIn"class="game_button" onclick="logOutON()">Logout</a>
+				<div class="sign"style="font-family: 'Monoton', cursive;font-family: 'Press Start 2P', cursive;">
+					<span class="fast-flicker">P</span>ac- <span class="flicker">M</span>an
+				</div>
+				<h class="w3-center w3-bottom" style="font-family: 'Monoton', cursive;font-family: 'Press Start 2P', cursive;font-size: small;">
+					welcome: <input id="game_username" type="button" readonly="readonly"/>
+				</h>
+				<img SRC="https://cdn.dribbble.com/users/761988/screenshots/2510880/giffas_pacman.gif" class="w3-center"><br>
+				<a href="#setting"class="game_button" onclick="settingON()">Setting</a>
+				<a href="#welcome"class="game_button" onclick="logOutON()">Logout</a>
+	
 		</div>
-		
-		<div id="console">
+
+
+		<div id="setting" class=" w3-center modal w3-small" style="display:none;">
+				<form enctype="text/plain" id ="setting_form" class="cmxform modal-content animate">
+						<h2 class="w3-wide w3-center">setting</h2>
+						<span onclick="UserScreenWelcomeON()" class="close" title="Close Modal">&times;</span>
+						<div class="w3-content w3-container w3-padding-64 " style="max-width:2000px;margin-top:46px">
+								<input type="range" min="1" max="100" value="50" id="Volume" class="slider"><p>Value: <span id="Volume_val"></span></p>
+								<input type="range" min="1" max="4" value="2"  id="ghost_num_id" class="slider"><p>Number of enemies: <span id="enem_val"></span></p>
+								<div>
+									Up:
+									<input class="setting_button" type="button" id="UP" name="UP_name" onclick="configurationUpdate('up')" value="ArrowUp"/>
+									Down:
+									<input class="setting_button" type="button" id="DOWN" name="DOWN_name" onclick="configurationUpdate('down')" value="ArrowDown"/>
+									Left:
+									<input class="setting_button" type="button" id="LEFT" name="LEFT_name" onclick="configurationUpdate('left')" value="ArrowLeft"/>
+									Right:
+									<input class="setting_button" type="button" id="RIGHT" name="RIGHT_name" onclick="configurationUpdate('right')" value="ArrowRight"/>
+							</div><br><br>
+
+							<a>5 Points:
+								<input type="color" id="5_Color_id" onclick="update_color('5')" value="#D058C9" style="display: inline-block" />
+							</a>
+							<a>15 Points:
+								<input type="color" id="15_Color_id" onclick="update_color('15')" value="#61F7B5" style="display: inline-block" />
+							</a>
+							<a>25 Points:
+								<input type="color" id="25_Color_id" onclick="update_color('25')" value="#FF373A" style="display: inline-block" />
+							</a>
+							<br><br>
+							<input type="range" min="50" max="90" value="70"  id="foodNum" class="slider" readonly="readonly"><p>Amount of Food Points: <span id="food_val"></span></p>
+							<label>Game Duration:
+								<input class="w3-round w3-input w3-small" type="number" id="duration_id" name="duration_name" min="60" value="100" onclick="update_time()"/>
+							</label>
+							<br><br>
+
+							<input class="game_button" type="submit" value="Start Game" id="setting_start_game" >
+							<input class="game_button" type="button" value="Random" id="setting_Random" onclick='randomConfigurations()'>
+							<input class="game_button" type="button" value="Cancel" id="setting_Cancel" onclick="UserScreenWelcomeON()">
+						</div>
+				</form>
+		</div>
+
+		<dialog id="UserScreenAbout" class="w3-center modal" style="display:none;">
+			<div id ="aboutDialog" class="modal-content animate">
+				  <h2 class="w3-wide w3-center">About</h2>
+				  <span onclick="UserScreenWelcomeON()" class="close" title="Close Modal">&times;</span>
+				  <br>
+				  <p id="aboutPara">
+					  Moshe Biran - 204415665 <br>
+					  Daniel Dinshtein - 312257116 <br>
+					  jQuery Plugin Usage : ... <br>
+					  Template Usage : ...<br>
+					  <input class="game_button" type="button" value="Close" id="setting_Cancel" onclick="UserScreenWelcomeON()">
+				  </p>
+			 </div>
+		</dialog>
+
+		<div id="UserScreenConsole"  class="w3-center" style="display:none;">
 
 			<div id="score" >
 				<label for="lblScore">SCORE:</label>
@@ -186,13 +209,19 @@
 			<div id="game" style="max-width:2000px;margin-top:46px">
 				<canvas id="canvas" height="600" width="600"></canvas>
 			</div>
-	</div>
+		</div>
 	</div>
 		
 
 	</body>
   <!-- Footer -->
-    <footer class="w3-container w3-padding-64 w3-center w3-opacity w3-light-grey w3-xlarge">
+     <footer class="w3-container w3-padding-64 w3-center w3-opacity w3-light-grey w3-xlarge">
+		<a>Moshe Biran:</a>
+		<a href="https://www.facebook.com/moshe.biran.7/?viewas=100000686899395"> <i class="fa fa-facebook-official w3-hover-opacity"></i></a>
+		<a href="https://www.instagram.com/moshebiran/"><i class="fa fa-instagram w3-hover-opacity"></i></a>
+		<a href="https://www.facebook.com/moshe.biran.7/?viewas=100000686899395"><i class="fa fa-twitter w3-hover-opacity"></i></a>
+		<a href="https://www.linkedin.com/in/moshe-biran/"><i class="fa fa-linkedin w3-hover-opacity"></i></a>
+		<a>Daniel Dinshtein:</a>
 		<a href="https://www.facebook.com/moshe.biran.7/?viewas=100000686899395"> <i class="fa fa-facebook-official w3-hover-opacity"></i></a>
 		<a href="https://www.instagram.com/moshebiran/"><i class="fa fa-instagram w3-hover-opacity"></i></a>
 		<a href="https://www.facebook.com/moshe.biran.7/?viewas=100000686899395"><i class="fa fa-twitter w3-hover-opacity"></i></a>

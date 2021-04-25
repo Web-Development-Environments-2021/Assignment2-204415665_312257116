@@ -42,7 +42,7 @@ var foodoutput;
 $(document).ready(function() {
 
 	context = canvas.getContext("2d");
-	Start();
+
 
 	//register
 	$("#registerForm").validate({
@@ -74,7 +74,7 @@ $(document).ready(function() {
 			},
 			register_password: {
 				required: "Please enter an password",
-				strongPassword: "your password must contain at least one character and one number."
+				strongPassword: "your password must contain at least 6 character and least one letter and one number."
 			},
 			register_name: {
 				required: "Please enter a name.",
@@ -124,6 +124,8 @@ $(document).ready(function() {
 		},
 		submitHandler: function () {
 			game_username = document.getElementById("logIn_name_id").value;
+			document.getElementById("NotLogIn").style.display = "none";
+			UserScreenON();
 			settingON();
 			//reset form details
 			let form = $("#logInForm");
@@ -179,10 +181,9 @@ $(document).ready(function() {
 			}
 		},
 		submitHandler: function () {
-
-
-			document.getElementById("NotLogIn").style.display = "none";
-			UserScreenON();
+			Start();
+			UserScreenConsoleON();
+			
 			// Start();
 
 			//reset form details
@@ -427,6 +428,7 @@ $(function() {
 	
 	
 function Start() {
+	initialGameValues();
 	board = new Array();
 	score = 0;
 	pac_color = "yellow";
@@ -510,6 +512,23 @@ function GetKeyPressed() {
 	if (keysDown[39]) {
 		return 4;
 	}
+}
+function initialGameValues() {
+
+	start_time = new Date();
+	ghost_num = parseInt(document.getElementById('ghost_num_id').value.substring(0,1));
+	food_amount = chosen_food_amount;
+
+	document.getElementById("game_username").value = game_username;
+
+	chosen_game_duration = parseInt(document.getElementById('duration_id').value);
+
+	//color
+	chosen_food_5_color = document.getElementById('5_Color_id').value;
+	chosen_food_15_color = document.getElementById('15_Color_id').value;
+	chosen_food_25_color = document.getElementById('25_Color_id').value;
+	destination = 0;
+
 }
 
 function Draw() {
@@ -606,11 +625,22 @@ function resetElement() {
 	document.getElementById("welcome").style.display = "none";
     document.getElementById("logIn").style.display = "none";
 	document.getElementById("signIn").style.display = "none";
-	document.getElementById("setting").style.display = "none";
 	document.getElementById("about").style.display = "none";
-	document.getElementById("UserScreen").style.display = "none";
+	document.getElementById("setting").style.display = "none";
+	document.getElementById("UserScreenWelcome").style.display = "none";
+	document.getElementById("UserScreenAbout").style.display = "none";
+	document.getElementById("UserScreenConsole").style.display = "none";
 
 }
+/*-----------------------logout user screen-------------------------------- */
+function logOutON(){
+	game_username = "";
+	resetElement();
+	document.getElementById("UserScreen").style.display = "none";
+	document.getElementById("NotLogIn").style.display = "block";
+	welcomeON();
+}
+
 function welcomeON() {
 	resetElement();
 	document.getElementById("welcome").style.display = "block";
@@ -623,33 +653,41 @@ function signInON() {
 	resetElement();
 	document.getElementById("signIn").style.display = "block";
 }
-function settingON() {
-	resetElement();
-	document.getElementById("setting").style.display = "block";
-}
+
 function aboutON() {
 	resetElement();
 	document.getElementById("about").style.display = "block";
 	document.getElementById("aboutDialog").showModal();
 }
+
+/*-----------------------login user screen-------------------------------- */
 function UserScreenON() {
 	resetElement();
+	document.getElementById("game_username").value = game_username;
+	document.getElementById("NotLogIn").style.display = "none";
 	document.getElementById("UserScreen").style.display = "block";
 }
 
-
-function logOutON(){
-	game_username = "";
+function settingON() {
 	resetElement();
-	document.getElementById("NotLogIn").style.display = "block";
-	document.getElementById("welcome").style.display = "block";
-
-
+	document.getElementById("setting").style.display = "block";
 }
-function UserScreenaboutON() {
+
+function UserScreenWelcomeON() {
 	resetElement();
-	document.getElementById("UserScreenabout").style.display = "block";
+	document.getElementById("UserScreenWelcome").style.display = "block";
 }
+
+function UserScreenAboutON() {
+	resetElement();
+	document.getElementById("UserScreenAbout").style.display = "block";
+}
+
+function UserScreenConsoleON() {
+	resetElement();
+	document.getElementById("UserScreenConsole").style.display = "block";
+}
+
 // /*-------span Close------- */
 // function closeSpan(){
 // 	document.getElementById('aboutDialog').close();

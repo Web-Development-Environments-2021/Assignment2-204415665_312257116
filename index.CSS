@@ -158,7 +158,7 @@ span.psw {
   color: red;
   cursor: pointer;
 }
-#welcome{
+#welcome,#UserScreenWelcome{
   background-color: #ebe7e7f5;
   
 }
