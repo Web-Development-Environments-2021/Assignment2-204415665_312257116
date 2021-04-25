@@ -67,7 +67,7 @@ function Start() {
 					food_remain--;
 					board[i][j] = 1;
 				} else if (randomNum < (1.0 * (pacman_remain + food_remain)) / cnt && (
-					!(i==0 && j==0) && !(i==0 && j==9) && !(i==9 && j==0) && !(i==9 && j==9))){
+					!(i==0 && j==0) && !(i==0 && j==9) && !(i==9 && j==0) && !(i==9 && j==9) && !(i==5 && j==5))){
 					shape.i = i;
 					shape.j = j;
 					pacman_remain--;
@@ -79,12 +79,12 @@ function Start() {
 			}
 		}
 	}
-
+	//Add Pac-Man if Not Added Yet
 	while(pacman_remain != 0){
 		var emptyCell = findRandomEmptyCell(board);
 		var i = emptyCell[0];
 		var j = emptyCell[1];
-		if(!(i==0 && j==0) && !(i==0 && j==9) && !(i==9 && j==0) && !(i==9 && j==9)){
+		if(!(i==0 && j==0) && !(i==0 && j==9) && !(i==9 && j==0) && !(i==9 && j==9) && !(i==5 && j==5)){
 			shape.i = i;
 			shape.j = j;
 			pacman_remain--;
@@ -92,14 +92,14 @@ function Start() {
 		}
 	}
 
-	//add Ghosts
+	//Add Ghosts
 	addGhosts();
 
-	//bitcoin 50 update
+	//Add bitcoin 50
 	bitcoin_obj.i = 5;
 	bitcoin_obj.j = 5;
 	
-		
+	//Add Food Remain
 	while (food_remain > 0) {
 		var emptyCell = findRandomEmptyCell(board);
 		board[emptyCell[0]][emptyCell[1]] = 1;
@@ -486,6 +486,10 @@ function RebootGhosts(){
 	ghost_obj = new Array();
 	addGhosts();
 }
+
+// function pacmanEat(){
+
+// }
 
 
 ////////////////////// Liad To Change Or Remove ///////////////////////////////////////////
