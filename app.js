@@ -48,6 +48,11 @@ var bitcoin_obj;
 var pac_dir = "right"
 var ghost_pos_board;
 var ghost_obj;
+
+var food_5_points_num; // in board = 5
+var food_15_points_num; // in board = 15
+var food_25_points_num; // in board = 25
+
 	
 	
 function Start() {
@@ -82,8 +87,21 @@ function Start() {
 			} else {
 				var randomNum = Math.random();
 				if (randomNum <= (1.0 * food_remain) / cnt) {
+					randomNum = Math.floor(Math.random() * 3);
+					if (randomNum == 0 && food_5_points_num != 0){
+						food_5_points_num--;
+						board[i][j] = 5;
+					} else if(randomNum == 1 && food_15_points_num != 0){
+						food_15_points_num--;
+						board[i][j] = 15;
+					} else if(randomNum == 2 && food_25_points_num != 0){
+						food_25_points_num--;
+						board[i][j] = 25;
+					} else{
+						food_remain++;
+						board[i][j] = 0;
+					}
 					food_remain--;
-					board[i][j] = 1;
 				} else if (randomNum < (1.0 * (pacman_remain + food_remain)) / cnt && (
 					!(i==0 && j==0) && !(i==0 && j==9) && !(i==9 && j==0) && !(i==9 && j==9) && !(i==5 && j==5))){
 					shape.i = i;
@@ -109,6 +127,21 @@ function Start() {
 			board[i][j] = 2;
 		}
 	}
+	//Add Food Remain
+	while (food_remain > 0) {
+		var emptyCell = findRandomEmptyCell(board);
+		if (food_5_points_num != 0){
+			food_5_points_num--;
+			board[emptyCell[0]][emptyCell[1]] = 5;
+		} else if(food_15_points_num != 0){
+			food_15_points_num--;
+			board[emptyCell[0]][emptyCell[1]] = 15;
+		} else if(food_25_points_num != 0){
+			food_25_points_num--;
+			board[emptyCell[0]][emptyCell[1]] = 25;
+		}
+		food_remain--;
+	}
 
 	//Add Ghosts
 	addGhosts();
@@ -117,13 +150,6 @@ function Start() {
 	bitcoin_obj.i = 5;
 	bitcoin_obj.j = 5;
 	
-	//Add Food Remain
-	while (food_remain > 0) {
-		var emptyCell = findRandomEmptyCell(board);
-		board[emptyCell[0]][emptyCell[1]] = 1;
-		food_remain--;
-	}
-
 
 	keysDown = {};
 	addEventListener(
@@ -177,6 +203,14 @@ function initialGameValues() {
 	chosen_food_15_color = document.getElementById('15_Color_id').value;
 	chosen_food_25_color = document.getElementById('25_Color_id').value;
 
+	//food numbers
+	food_5_points_num = Math.floor(food_amount * 0.6);
+	food_15_points_num = Math.floor(food_amount * 0.3);
+	food_25_points_num = Math.floor(food_amount * 0.1);
+	while ((food_5_points_num + food_15_points_num + food_25_points_num) != food_amount){
+		food_5_points_num++;
+	}
+
 }
 
 function Draw() {
@@ -189,7 +223,7 @@ function Draw() {
 			var center = new Object();
 			center.x = i * 60 + 30;
 			center.y = j * 60 + 30;
-			if (board[i][j] == 2) {
+			if (board[i][j] == 2) { // Pac-Man
 				if (pac_dir == "up"){
 					context.beginPath();
 					context.arc(center.x, center.y, 30, 1.65 * Math.PI, 1.35 * Math.PI); // half circle
@@ -232,12 +266,22 @@ function Draw() {
 					context.fill();
 				}
 
-			} else if (board[i][j] == 1) {
+			} else if (board[i][j] == 5) { // 5 Points Food
 				context.beginPath();
 				context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle
-				context.fillStyle = "black"; //color
+				context.fillStyle = chosen_food_5_color; //color
 				context.fill();
-			} else if (board[i][j] == 4) {
+			} else if (board[i][j] == 15) { // 15 Points Food
+				context.beginPath();
+				context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle
+				context.fillStyle = chosen_food_15_color; //color
+				context.fill();
+			} else if (board[i][j] == 25) { // 25 Points Food
+				context.beginPath();
+				context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle
+				context.fillStyle = chosen_food_25_color; //color
+				context.fill();
+			} else if (board[i][j] == 4) { // Wall
 				context.beginPath();
 				context.rect(center.x - 30, center.y - 30, 60, 60);
 				context.fillStyle = "grey"; //color
@@ -249,30 +293,24 @@ function Draw() {
 				context.arc(center.x, center.y, 20, 1 * Math.PI, 2 * Math.PI); // head
 				context.fillStyle = "blue";
 				context.fill();
-
 				context.beginPath();
 				context.arc(center.x + 10, center.y - 5 , 5, 0, 2 * Math.PI); // right eye
 				context.fillStyle = "white"; 
 				context.fill();
-
 				context.beginPath();
 				context.arc(center.x + 10, center.y - 5 , 2, 0, 2 * Math.PI); // in right eye
 				context.fillStyle = "black";
 				context.fill();
-
 				context.beginPath();
 				context.arc(center.x - 10, center.y - 5, 5, 0, 2 * Math.PI); // left eye
 				context.fillStyle = "white"; 
 				context.fill();
-
 				context.beginPath();
 				context.arc(center.x - 10, center.y - 5 , 2, 0, 2 * Math.PI); // in left eye
 				context.fillStyle = "black"; 
 				context.fill();
-
 				context.beginPath(); // legs
 				context.moveTo(center.x, center.y);
-
 				context.lineTo(center.x + 20 , center.y);
 				context.lineTo(center.x + 20 , center.y + 20);
 				context.lineTo(center.x + 15 , center.y + 15);
@@ -284,7 +322,6 @@ function Draw() {
 				context.lineTo(center.x - 15 , center.y + 15);
 				context.lineTo(center.x - 20 , center.y + 20);
 				context.lineTo(center.x - 20 , center.y);
-				
 				context.lineTo(center.x, center.y);
 				context.fillStyle = "blue"; 
 				context.fill();
@@ -343,21 +380,35 @@ function UpdatePosition() {
 	}
 
 	if(!ateByGhost){
-		// bitcoin points
+		// Bitcoin Points
 		if (shape.i == bitcoin_obj.i && shape.j == bitcoin_obj.j){
 			PacmanEatBitcoin();
 		}
-		// regular points
-		if (board[shape.i][shape.j] == 1) {
-			score++;
+		//  Points
+		if (board[shape.i][shape.j] == 5) {// 5 Points
+			score+=5;
+		} else if (board[shape.i][shape.j] == 15) {// 15 Points
+			score+=15;
+		} else if (board[shape.i][shape.j] == 25) {// 25 Points
+			score+=25;
 		}
 
 		board[shape.i][shape.j] = 2;
 		var currentTime = new Date();
 		time_elapsed = (currentTime - start_time) / 1000;
 
-		if (score >= 20 && time_elapsed <= 10) {
+		if (score >= 2000 && time_elapsed <= 10) { //  TODO : What to do with this?
 			pac_color = "green";
+		}
+
+		if (time_elapsed >= chosen_game_duration){
+			if (score < 100){
+				clearAllIntervals();
+				window.alert("You are better than" + score + "points!");
+			} else{
+				clearAllIntervals();
+				window.alert("Winner!!!");
+			}
 		}
 
 		if (score == 1000) { // TODO : Game Finished
