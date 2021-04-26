@@ -73,6 +73,25 @@ var food_25_points_num; // in board = 25
 
 var boardRow = 15;
 var boardCol = 15;
+
+
+var TemplateForBoard = [
+							'000000000000000',
+							'0##0#00#0000#00',
+							'0#00000#000##00',
+							'0####00##000#00',
+							'000000##00###00',
+							'000000000000000',
+							'0####00000####0',
+							'0000#000000#000',
+							'00#0#00#0####00',
+							'0##0#00#0000000',
+							'00#0#00#0000000',
+							'00#0000#######0',
+							'0##00#0000#0000',
+							'00000#00#0#0000',
+							'000000000000000'
+];
 	
 
 
@@ -97,12 +116,12 @@ function Start() {
 		ghost_pos_board[i] = new Array();
 		//put obstacles in (i=3,j=3) and (i=3,j=4) and (i=3,j=5), (i=6,j=1) and (i=6,j=2)
 		for (var j = 0; j < boardCol ; j++) {
-			if (
-				(i == 3 && j == 3) ||
-				(i == 3 && j == 4) ||
-				(i == 3 && j == 5) ||
-				(i == 6 && j == 1) ||
-				(i == 6 && j == 2)
+			if ( TemplateForBoard[j][i] == '#'
+				// (i == 3 && j == 3) ||
+				// (i == 3 && j == 4) ||
+				// (i == 3 && j == 5) ||
+				// (i == 6 && j == 1) ||
+				// (i == 6 && j == 2)
 			) {
 				board[i][j] = 4;
 			} else {
@@ -433,7 +452,7 @@ function UpdatePosition() {
 		if (time_elapsed >= chosen_game_duration){
 			if (score < 100){
 				clearAllIntervals();
-				window.alert("You are better than" + score + "points!");
+				window.alert("You are better than " + score + " points!");
 			} else{
 				clearAllIntervals();
 				window.alert("Winner!!!");
@@ -1218,19 +1237,19 @@ function UserScreenON() {
 function settingON() {
 	resetElement();
 	document.getElementById("setting").style.display = "block";
-	clearAllIntervals();
+	// clearAllIntervals();
 }
 
 function UserScreenWelcomeON() {
 	resetElement();
 	document.getElementById("UserScreenWelcome").style.display = "block";
-	clearAllIntervals();
+	// clearAllIntervals();
 }
 
 function UserScreenAboutON() {
 	resetElement();
 	document.getElementById("UserScreenAbout").style.display = "block";
-	clearAllIntervals();
+	// clearAllIntervals();
 }
 
 function UserScreenConsoleON() {
