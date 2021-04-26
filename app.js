@@ -9,6 +9,8 @@ var interval;
 
 var intervalGhost;
 var intervalBitcoin;
+var intervalClockObj;
+var	intervalHeartObj;
 
 var lives_left;
 var userDic={};
@@ -41,9 +43,24 @@ var enemoutput;
 var foodslider;
 var foodoutput;
 
+
+/////////*  Images */////////
+
 var bitcoin_img = new Image();
 bitcoin_img.src = 'photos/bitcoin_icon.jpg';
 var bitcoin_obj;
+
+var clock_img = new Image();
+clock_img.src = 'photos/clock_icon.jpg';
+var clock_obj; // in board = 11
+
+var heart_img = new Image();
+heart_img.src = 'photos/heart_icon.jpg';
+var heart_obj; // in board = 12
+
+var timerOfHeart;
+var timerOfClock;
+
 
 var pac_dir = "right"
 var ghost_pos_board;
@@ -60,6 +77,8 @@ function Start() {
 	ghost_pos_board = new Array();
 	ghost_obj_arr = new Array();
 	bitcoin_obj = new Object();
+	clock_obj = new Object();
+	heart_obj = new Object();
 	score = 0;
 	lives_left = 5;
 
@@ -67,8 +86,6 @@ function Start() {
 	var cnt = 100;
 	var food_remain = chosen_food_amount;
 	var pacman_remain = 1;
-
-	// start_time = new Date();
 
 	for (var i = 0; i < 10; i++) {
 		board[i] = new Array();
@@ -149,6 +166,12 @@ function Start() {
 	//Add bitcoin 50
 	bitcoin_obj.i = 5;
 	bitcoin_obj.j = 5;
+
+	//Bonus Init
+	heart_obj.onBorad = false;
+	heart_obj.ate = false;
+	clock_obj.onBorad = false; 
+	clock_obj.ate = false;
 	
 
 	keysDown = {};
@@ -286,7 +309,11 @@ function Draw() {
 				context.rect(center.x - 30, center.y - 30, 60, 60);
 				context.fillStyle = "grey"; //color
 				context.fill();
-			} 
+			} else if (board[i][j] == 11) { // Clock
+				context.drawImage(clock_img ,  i*(canvas.height/10) , j*(canvas.width/10), 55, 55 * (clock_img.height / clock_img.width));
+			} else if (board[i][j] == 12) { // Heart
+				context.drawImage(heart_img ,  i*(canvas.height/10) , j*(canvas.width/10), 55, 55 * (heart_img.height / heart_img.width));
+			}
 			// Ghost
 			if (ghost_pos_board[i][j] == 10){
 				context.beginPath();
@@ -328,7 +355,7 @@ function Draw() {
 			}
 			// bitcoin img
 			if (bitcoin_obj.i == i && bitcoin_obj.j == j){ 
-				context.drawImage(bitcoin_img ,  i*(canvas.height/10) , j*(canvas.width/10), 55, 55 * (bitcoin_img.height / bitcoin_img.width))
+				context.drawImage(bitcoin_img ,  i*(canvas.height/10) , j*(canvas.width/10), 55, 55 * (bitcoin_img.height / bitcoin_img.width));
 			}
 		}
 	}
@@ -391,6 +418,18 @@ function UpdatePosition() {
 			score+=15;
 		} else if (board[shape.i][shape.j] == 25) {// 25 Points
 			score+=25;
+		} else if (board[shape.i][shape.j] == 11) {// Clock Bonus
+			if (!clock_obj.ate){
+				chosen_game_duration+=15;
+				clock_obj.ate = true;
+				window.clearInterval(intervalClockObj);
+			}
+		} else if (board[shape.i][shape.j] == 12) {// Heart Bonus
+			if ( !heart_obj.ate){
+				lives_left++;
+				heart_obj.ate = true;
+				window.clearInterval(intervalHeartObj);
+			}
 		}
 
 		board[shape.i][shape.j] = 2;
@@ -501,9 +540,13 @@ function updateBitcoin(){
 
 function startIntervals(){
 	start_time = new Date();
+	timerOfClock = new Date();
+	timerOfHeart = new Date();
 	interval = setInterval(UpdatePosition, 150);
 	intervalGhost = setInterval(updateGhosts, 300);
 	intervalBitcoin = setInterval(updateBitcoin, 150);
+	intervalClockObj = setInterval(checkTimerOfClock, 450);
+	intervalHeartObj = setInterval(checkTimerOfHeart, 450);
 }
 
 function clearAllIntervals(){
@@ -511,6 +554,12 @@ function clearAllIntervals(){
 	window.clearInterval(intervalGhost);
 	if (bitcoin_obj.i != -1 || bitcoin_obj.j != -1){
 		window.clearInterval(intervalBitcoin);
+	}
+	if ( !clock_obj.ate){
+		window.clearInterval(intervalClockObj);
+	}
+	if ( !heart_obj.ate){
+		window.clearInterval(intervalHeartObj);
 	}
 }
 
@@ -638,6 +687,46 @@ function GetGhostByLocation(g_row, g_col){
 	for (var i = 0 ; i < ghost_obj_arr.length ; i ++){
 		if (ghost_obj_arr[i].i == g_row && ghost_obj_arr[i].j == g_col){
 			return ghost_obj_arr[i];
+		}
+	}
+}
+
+function checkTimerOfClock(){
+	var time_c_now = new Date();
+	if (!clock_obj.ate){
+		if (clock_obj.onBorad && (time_c_now - timerOfClock)/1000 >= 10){
+			board[clock_obj.i][clock_obj.j] = 0;
+			clock_obj.i = 0;
+			clock_obj.j = 0;
+			clock_obj.onBorad = false;
+			timerOfClock = time_c_now;
+		} else if  (!clock_obj.onBorad && (time_c_now - timerOfClock)/1000 >= 10){
+			var emptyCell = findRandomEmptyCell(board);
+			clock_obj.i = emptyCell[0];
+			clock_obj.j = emptyCell[1];
+			board[clock_obj.i][clock_obj.j] = 11; // in board = 11
+			clock_obj.onBorad = true;
+			timerOfClock = time_c_now;
+		}
+	}
+}
+
+function checkTimerOfHeart(){
+	var time_h_now = new Date();
+	if (!heart_obj.ate){
+		if (heart_obj.onBorad && (time_h_now - timerOfHeart)/1000 >= 10){
+			board[heart_obj.i][heart_obj.j] = 0;
+			heart_obj.i = 0;
+			heart_obj.j = 0;
+			heart_obj.onBorad = false;
+			timerOfHeart = time_h_now;
+		} else if ( !heart_obj.onBorad && (time_h_now - timerOfHeart)/1000 >= 10){
+			var emptyCell = findRandomEmptyCell(board);
+			heart_obj.i = emptyCell[0];
+			heart_obj.j = emptyCell[1];
+			board[heart_obj.i][heart_obj.j] = 12; // in board = 12
+			heart_obj.onBorad = true;
+			timerOfHeart = time_h_now;
 		}
 	}
 }
