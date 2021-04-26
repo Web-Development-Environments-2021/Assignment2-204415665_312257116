@@ -755,7 +755,7 @@ $(document).ready(function() {
 			// form[0].reset();
 		}
 	});
-/*-----------------------------------div setting--------------------------------------*/
+	/*-----------------------------------div setting--------------------------------------*/
 	var logInmodal = document.getElementById('logIn');
 	var signInmodal = document.getElementById('signIn');
 	var settingmodal = document.getElementById('setting');
@@ -772,7 +772,6 @@ $(document).ready(function() {
 			signInmodal.style.display = "none";
 			welcomeON();
 		}
-
 		if (event.target == aboutmodal) {
 			// document.getElementById('aboutDialog').close();
 			aboutmodal.style.display = "none";
@@ -794,8 +793,6 @@ $(document).ready(function() {
 
 	/*---------------------------slider-------------------------*/
 
-		// Volslider = document.getElementById("Volume");
-		// let Voloutput = document.getElementById("Volume_val");
 
 		enemslider = document.getElementById("ghost_num_id");
 		let enemoutput = document.getElementById("enem_val");
@@ -803,11 +800,7 @@ $(document).ready(function() {
 		foodslider = document.getElementById("foodNum");
 		let lifeoutput = document.getElementById("food_val");
 
-		// Voloutput.innerHTML = Volslider.value; // Display the default slider value
-		// Update the current slider value (each time you drag the slider handle)
-		// Volslider.oninput = function() {
-		// Voloutput.innerHTML = this.value;
-		// }
+
 		
 		enemoutput.innerHTML = enemslider.value; // Display the default slider value
 		// Update the current slider value (each time you drag the slider handle)
@@ -821,20 +814,11 @@ $(document).ready(function() {
 		lifeoutput.innerHTML = this.value;
 		}
 	}
-	window.onkeydown = function(event){
-		if(event.key==='Escape'){
-			if (event.target == aboutmodal) {
-				// document.getElementById('aboutDialog').close();
-				aboutmodal.style.display = "none";
-				welcomeON();
-			}
-			if (event.target == UserScreenaboutmodal) {
-				UserScreenaboutmodal.style.display = "none";
-				UserScreenWelcomeON();
-			}
-		}
-	}
+
+
 });
+
+
 
 /*----------------------------------validator function---------------------------------------*/
 $(function() {
@@ -871,6 +855,10 @@ $(function() {
 		return false;
 	});
 	//chack if key already taken by another action
+	$.validator.addMethod("keyChange_up", function(value, element, param) {
+		return value != $(param).val();
+	});
+
 	$.validator.addMethod("keyChange1", function(value, element, param) {
 		return value != $(param).val();
 	});
@@ -886,6 +874,7 @@ $(function() {
 	});
 
 });
+
 
 	/*---------------------------configuration setting-----------------------------------*/
 function update_time(){
@@ -1043,7 +1032,7 @@ function signInON() {
 function aboutON() {
 	resetElement();
 	document.getElementById("about").style.display = "block";
-	document.getElementById("aboutDialog").showModal();
+	// document.getElementById("aboutDialog").showModal();
 }
 
 /*-----------------------login user screen-------------------------------- */
@@ -1077,14 +1066,6 @@ function UserScreenConsoleON() {
 	startIntervals();
 }
 
-// /*-------span Close------- */
-// function closeSpan(){
-// 	document.getElementById('aboutDialog').close();
-// 	document.getElementById('about').style.display = "none";
-// 	welcomeON();
-// }
-
-
 function show_key() {
 
 	document.getElementById('key_up_display').value = chosen_key_up;
@@ -1103,9 +1084,79 @@ function show_key() {
 
 
 }
+/*-----------------------Music Function---------------------- */
+function playMusic() {
+	document.getElementById("Background_Music_id").play();
+	document.getElementById("Background_Music_id").volume = 0.4;
+}
+
+function stopMusic()
+{
+	document.getElementById("Background_Music_id").pause();
+	document.getElementById("Background_Music_id").currentTime = 0;
+}
+
+function ChangeIconMusic()
+ {
+	 var music_icon = document.getElementById("music_box_icon");
+	 if(document.getElementById("Background_Music_id").currentTime>0){
+		$('#music_box_icon').find("i").toggleClass("fa-volume-up  fa-volume-mute");
+		stopMusic();
+	 }
+	 else{
+		$('#music_box_icon').find("i").toggleClass("fa-volume-mute fa-volume-up");
+		playMusic();
+	 }
+ }
+ 
+//  alert('Esc key pressed.');
+
+/*--------------------------------------------------------------------*/
+// When the user clicks on ESC button, close the modal
+$(document).on(
+	'keydown', function(event) {
+		var aboutmodal = document.getElementById('about');
+		var UserScreenaboutmodal = document.getElementById('UserScreenAbout');
+	  if (event.key == "Escape") {
+		if (aboutmodal.style.display == "block") {
+			aboutmodal.style.display = "none";
+			welcomeON();
+		}
+		else if (UserScreenaboutmodal.style.display == "block") {
+			UserScreenaboutmodal.style.display = "none";
+			UserScreenWelcomeON();
+		}
+	  }
+  });
+// function esckeypress(){
+
+
+// 	if(event.key==='Escape'){
+// 		if (event.target === aboutmodal) {
+// 			aboutmodal.style.display = "none";
+// 			welcomeON();
+// 		}
+// 		if (event.target === UserScreenaboutmodal) {
+// 			UserScreenaboutmodal.style.display = "none";
+// 			UserScreenWelcomeON();
+// 		}
+// 	}
+// }
+
+// var modal = document.getElementById("modal");
+
+// document.addEventListener('keydown', function(e) {
+//     let keyCode = e.keyCode;
+//     document.getElementById("result").innerHTML = "Key Code: "+keyCode+"<br/> Key: "+e.key+"<br/>";
+//     if (keyCode === 27) {//keycode is an Integer, not a String
+//       modal.classList.remove('modal-visible');
+//     }
+// });	
+/*------------------------------------------*/
 function init_all() {
 	initialGameValues();
 	show_key();
+	playMusic();
 }
-s
+
 
