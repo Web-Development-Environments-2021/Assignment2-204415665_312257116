@@ -32,8 +32,9 @@ var chosen_food_25_color;
 var chosen_game_duration = 60;
 var ghost_num = 2;
 
+
 // var Volslider;
-// var Voloutput;
+// var s;
 
 var myAudio;
 
@@ -73,9 +74,10 @@ var food_25_points_num; // in board = 25
 var boardRow = 15;
 var boardCol = 15;
 	
-	
+
+
 function Start() {
-	initialGameValues();
+	init_all();
 	board = new Array();
 	ghost_pos_board = new Array();
 	ghost_obj_arr = new Array();
@@ -199,21 +201,7 @@ function Start() {
 ////////////////////////* Draw */////////////////////////
 
 
-  
-function GetKeyPressed() {
-	if (keysDown[38]) {
-		return 1;
-	}
-	if (keysDown[40]) {
-		return 2;
-	}
-	if (keysDown[37]) {
-		return 3;
-	}
-	if (keysDown[39]) {
-		return 4;
-	}
-}
+
 
 function initialGameValues() {
 
@@ -575,21 +563,21 @@ function findRandomEmptyCell(board) {
 	return [i, j];
 }
 
-  
 function GetKeyPressed() {
-	if (keysDown[38]) {
-		return 1;
+	if (keysDown[chosen_key_code_up]) {
+		return  1;
 	}
-	if (keysDown[40]) {
+	else if (keysDown[chosen_key_code_down]) {
 		return 2;
 	}
-	if (keysDown[37]) {
+	else if (keysDown[chosen_key_code_left]) {
 		return 3;
 	}
-	if (keysDown[39]) {
+	else if (keysDown[chosen_key_code_right]) {
 		return 4;
 	}
 }
+  
 
 function addGhosts(){
 	var cnt_loop = 0;
@@ -903,18 +891,24 @@ $(document).ready(function() {
 		messages: {
 			UP_name: {			
 				keyChange1: "This key already taken by another action.",
-
+				keyChange2: "This key already taken by another action.",
+				keyChange3: "This key already taken by another action.",
 			},
 			DOWN_name: {
 				keyChange1: "This key already taken by another action.",
-
+				keyChange2: "This key already taken by another action.",
+				keyChange3: "This key already taken by another action.",
 					},
 			LEFT_name: {
 				keyChange1: "This key already taken by another action.",
+				keyChange2: "This key already taken by another action.",
+				keyChange3: "This key already taken by another action.",
 
 						},
 			RIGHT_name: {
 				keyChange1: "This key already taken by another action.",
+				keyChange2: "This key already taken by another action.",
+				keyChange3: "This key already taken by another action.",
 
 					},
 			duration_name: {
@@ -931,7 +925,7 @@ $(document).ready(function() {
 			// form[0].reset();
 		}
 	});
-/*-----------------------------------div setting--------------------------------------*/
+	/*-----------------------------------div setting--------------------------------------*/
 	var logInmodal = document.getElementById('logIn');
 	var signInmodal = document.getElementById('signIn');
 	var settingmodal = document.getElementById('setting');
@@ -948,7 +942,6 @@ $(document).ready(function() {
 			signInmodal.style.display = "none";
 			welcomeON();
 		}
-
 		if (event.target == aboutmodal) {
 			// document.getElementById('aboutDialog').close();
 			aboutmodal.style.display = "none";
@@ -970,8 +963,6 @@ $(document).ready(function() {
 
 	/*---------------------------slider-------------------------*/
 
-		Volslider = document.getElementById("Volume");
-		let Voloutput = document.getElementById("Volume_val");
 
 		enemslider = document.getElementById("ghost_num_id");
 		let enemoutput = document.getElementById("enem_val");
@@ -979,11 +970,7 @@ $(document).ready(function() {
 		foodslider = document.getElementById("foodNum");
 		let lifeoutput = document.getElementById("food_val");
 
-		Voloutput.innerHTML = Volslider.value; // Display the default slider value
-		// Update the current slider value (each time you drag the slider handle)
-		Volslider.oninput = function() {
-		Voloutput.innerHTML = this.value;
-		}
+
 		
 		enemoutput.innerHTML = enemslider.value; // Display the default slider value
 		// Update the current slider value (each time you drag the slider handle)
@@ -997,7 +984,11 @@ $(document).ready(function() {
 		lifeoutput.innerHTML = this.value;
 		}
 	}
+
+
 });
+
+
 
 /*----------------------------------validator function---------------------------------------*/
 $(function() {
@@ -1034,6 +1025,10 @@ $(function() {
 		return false;
 	});
 	//chack if key already taken by another action
+	$.validator.addMethod("keyChange_up", function(value, element, param) {
+		return value != $(param).val();
+	});
+
 	$.validator.addMethod("keyChange1", function(value, element, param) {
 		return value != $(param).val();
 	});
@@ -1049,6 +1044,7 @@ $(function() {
 	});
 
 });
+
 
 	/*---------------------------configuration setting-----------------------------------*/
 function update_time(){
@@ -1132,7 +1128,6 @@ function checkChosenKey(key_code)
 
 function randomConfigurations()
 {
-	//set pacman controls keys to thr arrows keys:
 	chosen_key_up = "ArrowUp";
 	chosen_key_down = "ArrowDown";
 	chosen_key_left = "ArrowLeft";
@@ -1142,7 +1137,6 @@ function randomConfigurations()
 	document.getElementById('DOWN').value = chosen_key_down;
 	document.getElementById('LEFT').value = chosen_key_left;
 	document.getElementById('RIGHT').value = chosen_key_right;
-
 
 
 	//random food amount
@@ -1172,12 +1166,12 @@ function randomConfigurations()
 }
 
 function resetElement() {
-	document.getElementById("welcome").style.display = "none";
+	// document.getElementById("welcome").style.display = "none";
     document.getElementById("logIn").style.display = "none";
 	document.getElementById("signIn").style.display = "none";
 	document.getElementById("about").style.display = "none";
 	document.getElementById("setting").style.display = "none";
-	document.getElementById("UserScreenWelcome").style.display = "none";
+	// document.getElementById("UserScreenWelcome").style.display = "none";
 	document.getElementById("UserScreenAbout").style.display = "none";
 	document.getElementById("UserScreenConsole").style.display = "none";
 
@@ -1186,6 +1180,7 @@ function resetElement() {
 function logOutON(){
 	game_username = "";
 	resetElement();
+	document.getElementById("UserScreenWelcome").style.display = "none";
 	document.getElementById("UserScreen").style.display = "none";
 	document.getElementById("NotLogIn").style.display = "block";
 	welcomeON();
@@ -1207,7 +1202,7 @@ function signInON() {
 function aboutON() {
 	resetElement();
 	document.getElementById("about").style.display = "block";
-	document.getElementById("aboutDialog").showModal();
+	// document.getElementById("aboutDialog").showModal();
 }
 
 /*-----------------------login user screen-------------------------------- */
@@ -1216,6 +1211,7 @@ function UserScreenON() {
 	document.getElementById("game_username_disply").value = game_username;
 	document.getElementById("NotLogIn").style.display = "none";
 	document.getElementById("UserScreen").style.display = "block";
+	UserScreenWelcomeON();
 }
 
 function settingON() {
@@ -1235,20 +1231,102 @@ function UserScreenAboutON() {
 
 function UserScreenConsoleON() {
 	resetElement();
+	document.getElementById("UserScreenWelcome").style.display = "none";
 	document.getElementById("UserScreenConsole").style.display = "block";
 	startIntervals();
 }
 
-// /*-------span Close------- */
-// function closeSpan(){
-// 	document.getElementById('aboutDialog').close();
-// 	document.getElementById('about').style.display = "none";
-// 	welcomeON();
+function show_key() {
+
+	document.getElementById('key_up_display').value = chosen_key_up;
+	document.getElementById('key_down_display').value = chosen_key_down;
+	document.getElementById('key_right_display').value = chosen_key_right;
+	document.getElementById('key_left_display').value = chosen_key_left;
+
+	document.getElementById('5_points_display').value = chosen_food_5_color;
+	document.getElementById('15_points_display').value = chosen_food_15_color;
+	document.getElementById('25_points_display').value = chosen_food_25_color;
+	
+	document.getElementById('duration_display').value = chosen_game_duration;
+	document.getElementById('ghost_display').value = ghost_num;
+
+	document.getElementById('food_amount_display').value = chosen_food_amount;
+
+
+}
+/*-----------------------Music Function---------------------- */
+function playMusic() {
+	document.getElementById("Background_Music_id").play();
+	document.getElementById("Background_Music_id").volume = 0.4;
+}
+
+function stopMusic()
+{
+	document.getElementById("Background_Music_id").pause();
+	document.getElementById("Background_Music_id").currentTime = 0;
+}
+
+function ChangeIconMusic()
+ {
+	 var music_icon = document.getElementById("music_box_icon");
+	 if(document.getElementById("Background_Music_id").currentTime>0){
+		$('#music_box_icon').find("i").toggleClass("fa-volume-up  fa-volume-mute");
+		stopMusic();
+	 }
+	 else{
+		$('#music_box_icon').find("i").toggleClass("fa-volume-mute fa-volume-up");
+		playMusic();
+	 }
+ }
+ 
+//  alert('Esc key pressed.');
+
+/*--------------------------------------------------------------------*/
+// When the user clicks on ESC button, close the modal
+$(document).on(
+	'keydown', function(event) {
+		var aboutmodal = document.getElementById('about');
+		var UserScreenaboutmodal = document.getElementById('UserScreenAbout');
+	  if (event.key == "Escape") {
+		if (aboutmodal.style.display == "block") {
+			aboutmodal.style.display = "none";
+			welcomeON();
+		}
+		else if (UserScreenaboutmodal.style.display == "block") {
+			UserScreenaboutmodal.style.display = "none";
+			UserScreenWelcomeON();
+		}
+	  }
+  });
+// function esckeypress(){
+
+
+// 	if(event.key==='Escape'){
+// 		if (event.target === aboutmodal) {
+// 			aboutmodal.style.display = "none";
+// 			welcomeON();
+// 		}
+// 		if (event.target === UserScreenaboutmodal) {
+// 			UserScreenaboutmodal.style.display = "none";
+// 			UserScreenWelcomeON();
+// 		}
+// 	}
 // }
 
+// var modal = document.getElementById("modal");
 
-
-
-
+// document.addEventListener('keydown', function(e) {
+//     let keyCode = e.keyCode;
+//     document.getElementById("result").innerHTML = "Key Code: "+keyCode+"<br/> Key: "+e.key+"<br/>";
+//     if (keyCode === 27) {//keycode is an Integer, not a String
+//       modal.classList.remove('modal-visible');
+//     }
+// });	
+/*------------------------------------------*/
+function init_all() {
+	initialGameValues();
+	show_key();
+	playMusic();
+}
 
 
