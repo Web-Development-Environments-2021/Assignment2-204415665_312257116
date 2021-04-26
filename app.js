@@ -1218,19 +1218,19 @@ function UserScreenON() {
 function settingON() {
 	resetElement();
 	document.getElementById("setting").style.display = "block";
-	clearAllIntervals();
+	// clearAllIntervals();
 }
 
 function UserScreenWelcomeON() {
 	resetElement();
 	document.getElementById("UserScreenWelcome").style.display = "block";
-	clearAllIntervals();
+	// clearAllIntervals();
 }
 
 function UserScreenAboutON() {
 	resetElement();
 	document.getElementById("UserScreenAbout").style.display = "block";
-	clearAllIntervals();
+	// clearAllIntervals();
 }
 
 function UserScreenConsoleON() {

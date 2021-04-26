@@ -478,7 +478,7 @@ label.error {
   box-sizing: border-box;
 }
 .menu {
-  width:15%;
+  width:10%;
   height: 100%;
   text-align:center;
   background-color:#181818;
@@ -491,7 +491,7 @@ label.error {
 
 .menu a {
   /* background-color:#e5e5e5; */
-  padding:8px;
+  padding:4px;
   margin-top:7px;
   display:block;
   width:100%;
@@ -502,9 +502,13 @@ label.error {
   font-family: 'Press Start 2P', cursive;
 }
 .main {
-  float:none;
-  width:60%;
-  padding:0 10px;
+  float:left;
+  width:80%;
+}
+@media screen and (max-width: 600px) {
+  .main, .menu .div {
+    width: 100%;
+  }
 }
 
 
@@ -557,5 +561,7 @@ input[type=color]::-webkit-color-swatch-wrapper {
 }
 
 /*----------------------------------------------------------------*/
-
+/* #canvas{
+  border: black;
+} */
 
