@@ -608,10 +608,18 @@ function GhostEatPacman(whoEatPacman){
 		//Reboot Ghosts
 		RebootGhosts();
 		//Reboot Pac-Man
-		var emptyCell = findRandomEmptyCell(board);
-		shape.i = emptyCell[0];
-		shape.j = emptyCell[1];
-		board[shape.i][shape.j] = 2;
+		var FoundRondomCell = false;
+		while(!FoundRondomCell){
+			var emptyCell = findRandomEmptyCell(board);
+			var i = emptyCell[0];
+			var j = emptyCell[1];
+			if(!(i==0 && j==0) && !(i==0 && j==9) && !(i==9 && j==0) && !(i==9 && j==9) && !(i==5 && j==5)){
+				shape.i = i;
+				shape.j = j;
+				board[i][j] = 2;
+				FoundRondomCell = true;
+			}
+		}
 		Draw();
 	}
 }
