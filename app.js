@@ -476,20 +476,6 @@ function GetKeyPressed() {
 	}
 }
   
-// function GetKeyPressed() {
-// 	if (keysDown[38]) {
-// 		return 1;
-// 	}
-// 	if (keysDown[40]) {
-// 		return 2;
-// 	}
-// 	if (keysDown[37]) {
-// 		return 3;
-// 	}
-// 	if (keysDown[39]) {
-// 		return 4;
-// 	}
-// }
 
 function addGhosts(){
 	var cnt_loop = 0;
