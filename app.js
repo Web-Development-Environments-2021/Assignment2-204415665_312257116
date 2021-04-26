@@ -551,6 +551,7 @@ function clearAllIntervals(){
 	if ( !heart_obj.ate){
 		window.clearInterval(intervalHeartObj);
 	}
+	stopMusic();
 }
 
 function findRandomEmptyCell(board) {
@@ -1217,16 +1218,19 @@ function UserScreenON() {
 function settingON() {
 	resetElement();
 	document.getElementById("setting").style.display = "block";
+	clearAllIntervals();
 }
 
 function UserScreenWelcomeON() {
 	resetElement();
 	document.getElementById("UserScreenWelcome").style.display = "block";
+	clearAllIntervals();
 }
 
 function UserScreenAboutON() {
 	resetElement();
 	document.getElementById("UserScreenAbout").style.display = "block";
+	clearAllIntervals();
 }
 
 function UserScreenConsoleON() {
@@ -1298,30 +1302,7 @@ $(document).on(
 		}
 	  }
   });
-// function esckeypress(){
 
-
-// 	if(event.key==='Escape'){
-// 		if (event.target === aboutmodal) {
-// 			aboutmodal.style.display = "none";
-// 			welcomeON();
-// 		}
-// 		if (event.target === UserScreenaboutmodal) {
-// 			UserScreenaboutmodal.style.display = "none";
-// 			UserScreenWelcomeON();
-// 		}
-// 	}
-// }
-
-// var modal = document.getElementById("modal");
-
-// document.addEventListener('keydown', function(e) {
-//     let keyCode = e.keyCode;
-//     document.getElementById("result").innerHTML = "Key Code: "+keyCode+"<br/> Key: "+e.key+"<br/>";
-//     if (keyCode === 27) {//keycode is an Integer, not a String
-//       modal.classList.remove('modal-visible');
-//     }
-// });	
 /*------------------------------------------*/
 function init_all() {
 	initialGameValues();
