@@ -220,22 +220,11 @@
 		</dialog>
 	<!-- ----------------------------ScreenConsole------------------------------ -->
 
-		<div id="UserScreenConsole" style="overflow:auto;display:none;">
+		<div id="UserScreenConsole" class="w3-padding-16 "style="overflow:auto;display:none;">
 				<!-- <input class="game_button w3-left" type="button" id="new_game_id" onclick="settingON()"><i class="fas fa-redo" style='font-size:36px'></i> -->
 
-				<div class="menu  w3-center ">
+				<div class="menu  w3-center"style="float:right;">
 						<a>
-							<!-- <label for="key_up_display" class="label" readonly="readonly">     Up:</label>
-							<input id="key_up_display" type="button" readonly="readonly"/>
-							<br><br>
-							<label for="key_down_display" class="label" readonly="readonly"> Down:</label>
-							<input id="key_down_display" type="button" readonly="readonly"/><br><br>
-							<label for="key_left_display" class="label" readonly="readonly"> Left:</label>
-							<input id="key_left_display" type="button" readonly="readonly"/><br><br>
-							<label for="key_right_display" class="label" readonly="readonly"> Right:</label>
-							<input id="key_right_display" type="button" readonly="readonly"/><br><br>
- -->
-
 							<div class=" w3-center">
 								<i class="arrow up"></i><br>
 								<input class="setting_button" type="button" id="key_up_display" style="width:20%;text-align: center;" readonly="readonly"><br><br>
@@ -250,20 +239,22 @@
 								<i class="arrow down"></i>
 							</div><br><br>
 
-							<label for="food_amount_display" readonly="readonly">Food amout:</label>
+							<label for="food_amount_display" readonly="readonly">Food amout:</label><br>
 							<input id="food_amount_display" type="text" readonly="readonly"/><br><br>
+							<label for="duration_display" readonly="readonly">Game duration:</label><br>
+							<input id="duration_display" type="text" readonly="readonly"/><br><br>
+							<label for="ghost_display" class="label" readonly="readonly">Ghosts:</label><br>
+							<input id="ghost_display" type="text" readonly="readonly"/><br><br>
 							<label for="5_points_display" class="label" readonly="readonly">5 Poins:</label>
 							<input id="5_points_display" type="color" readonly="readonly"/><br><br>
 							<label for="15_points_display" readonly="readonly">15 Poins:</label>
 							<input id="15_points_display" type="color" readonly="readonly"/><br><br>
 							<label for="25_points_display" class="label" readonly="readonly">25 Poins:</label>
 							<input id="25_points_display" type="color" readonly="readonly"/><br><br>
-							<label for="duration_display" readonly="readonly">Game duration:</label>
-							<input id="duration_display" type="text" readonly="readonly"/><br><br>
-							<label for="ghost_display" class="label" readonly="readonly">Ghosts:</label>
-							<input id="ghost_display" type="text" readonly="readonly"/><br><br>
-						</a>
 
+						</a>
+					</div>
+					<div class="menu w3-center "style="float:left;">
 						<a id="lives_left">
 							<label for="lblLives">Lives Left :</label><br>
 							<input id="lblLives" type="text" value="Lives Left"/>
@@ -279,10 +270,11 @@
 							<input id="lblTime" type="text" value="TIME"/>
 						
 
-
+						<br><br><br><br><br><br><br><br><br><br><br><br><br>
 						<a id="new_game_id">
 							<button style='font-size:24px' class="game_button "  onclick="settingON()">New Game <i class='fas fa-redo'></i></button>
 						</a>
+						<br><br>
 				</div>
 
 				<div id="game" class="main">
