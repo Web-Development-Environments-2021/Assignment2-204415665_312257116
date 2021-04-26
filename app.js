@@ -545,8 +545,8 @@ function startIntervals(){
 	interval = setInterval(UpdatePosition, 150);
 	intervalGhost = setInterval(updateGhosts, 300);
 	intervalBitcoin = setInterval(updateBitcoin, 150);
-	intervalClockObj = setInterval(checkTimerOfClock, 450);
-	intervalHeartObj = setInterval(checkTimerOfHeart, 450);
+	intervalClockObj = setInterval(checkTimerOfClock, 200);
+	intervalHeartObj = setInterval(checkTimerOfHeart, 200);
 }
 
 function clearAllIntervals(){
