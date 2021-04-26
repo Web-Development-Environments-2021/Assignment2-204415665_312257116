@@ -30,8 +30,9 @@ var chosen_food_25_color;
 var chosen_game_duration = 100;
 var ghost_num = 2;
 
+
 // var Volslider;
-// var Voloutput;
+// var s;
 
 var myAudio;
 
@@ -49,9 +50,10 @@ var pac_dir = "right"
 var ghost_pos_board;
 var ghost_obj;
 	
-	
+
+
 function Start() {
-	initialGameValues();
+	init_all();
 	board = new Array();
 	ghost_pos_board = new Array();
 	ghost_obj = new Array();
@@ -147,21 +149,7 @@ function Start() {
 ////////////////////////* Draw */////////////////////////
 
 
-  
-function GetKeyPressed() {
-	if (keysDown[38]) {
-		return 1;
-	}
-	if (keysDown[40]) {
-		return 2;
-	}
-	if (keysDown[37]) {
-		return 3;
-	}
-	if (keysDown[39]) {
-		return 4;
-	}
-}
+
 
 function initialGameValues() {
 
@@ -473,21 +461,35 @@ function findRandomEmptyCell(board) {
 	return [i, j];
 }
 
-  
 function GetKeyPressed() {
-	if (keysDown[38]) {
-		return 1;
+	if (keysDown[chosen_key_code_up]) {
+		return  1;
 	}
-	if (keysDown[40]) {
+	else if (keysDown[chosen_key_code_down]) {
 		return 2;
 	}
-	if (keysDown[37]) {
+	else if (keysDown[chosen_key_code_left]) {
 		return 3;
 	}
-	if (keysDown[39]) {
+	else if (keysDown[chosen_key_code_right]) {
 		return 4;
 	}
 }
+  
+// function GetKeyPressed() {
+// 	if (keysDown[38]) {
+// 		return 1;
+// 	}
+// 	if (keysDown[40]) {
+// 		return 2;
+// 	}
+// 	if (keysDown[37]) {
+// 		return 3;
+// 	}
+// 	if (keysDown[39]) {
+// 		return 4;
+// 	}
+// }
 
 function addGhosts(){
 	var cnt_loop = 0;
@@ -733,18 +735,24 @@ $(document).ready(function() {
 		messages: {
 			UP_name: {			
 				keyChange1: "This key already taken by another action.",
-
+				keyChange2: "This key already taken by another action.",
+				keyChange3: "This key already taken by another action.",
 			},
 			DOWN_name: {
 				keyChange1: "This key already taken by another action.",
-
+				keyChange2: "This key already taken by another action.",
+				keyChange3: "This key already taken by another action.",
 					},
 			LEFT_name: {
 				keyChange1: "This key already taken by another action.",
+				keyChange2: "This key already taken by another action.",
+				keyChange3: "This key already taken by another action.",
 
 						},
 			RIGHT_name: {
 				keyChange1: "This key already taken by another action.",
+				keyChange2: "This key already taken by another action.",
+				keyChange3: "This key already taken by another action.",
 
 					},
 			duration_name: {
@@ -800,8 +808,8 @@ $(document).ready(function() {
 
 	/*---------------------------slider-------------------------*/
 
-		Volslider = document.getElementById("Volume");
-		let Voloutput = document.getElementById("Volume_val");
+		// Volslider = document.getElementById("Volume");
+		// let Voloutput = document.getElementById("Volume_val");
 
 		enemslider = document.getElementById("ghost_num_id");
 		let enemoutput = document.getElementById("enem_val");
@@ -809,11 +817,11 @@ $(document).ready(function() {
 		foodslider = document.getElementById("foodNum");
 		let lifeoutput = document.getElementById("food_val");
 
-		Voloutput.innerHTML = Volslider.value; // Display the default slider value
+		// Voloutput.innerHTML = Volslider.value; // Display the default slider value
 		// Update the current slider value (each time you drag the slider handle)
-		Volslider.oninput = function() {
-		Voloutput.innerHTML = this.value;
-		}
+		// Volslider.oninput = function() {
+		// Voloutput.innerHTML = this.value;
+		// }
 		
 		enemoutput.innerHTML = enemslider.value; // Display the default slider value
 		// Update the current slider value (each time you drag the slider handle)
@@ -825,6 +833,19 @@ $(document).ready(function() {
 		// Update the current slider value (each time you drag the slider handle)
 		foodslider.oninput = function() {
 		lifeoutput.innerHTML = this.value;
+		}
+	}
+	window.onkeydown = function(event){
+		if(event.key==='Escape'){
+			if (event.target == aboutmodal) {
+				// document.getElementById('aboutDialog').close();
+				aboutmodal.style.display = "none";
+				welcomeON();
+			}
+			if (event.target == UserScreenaboutmodal) {
+				UserScreenaboutmodal.style.display = "none";
+				UserScreenWelcomeON();
+			}
 		}
 	}
 });
@@ -962,7 +983,6 @@ function checkChosenKey(key_code)
 
 function randomConfigurations()
 {
-	//set pacman controls keys to thr arrows keys:
 	chosen_key_up = "ArrowUp";
 	chosen_key_down = "ArrowDown";
 	chosen_key_left = "ArrowLeft";
@@ -972,7 +992,6 @@ function randomConfigurations()
 	document.getElementById('DOWN').value = chosen_key_down;
 	document.getElementById('LEFT').value = chosen_key_left;
 	document.getElementById('RIGHT').value = chosen_key_right;
-
 
 
 	//random food amount
@@ -1002,12 +1021,12 @@ function randomConfigurations()
 }
 
 function resetElement() {
-	document.getElementById("welcome").style.display = "none";
+	// document.getElementById("welcome").style.display = "none";
     document.getElementById("logIn").style.display = "none";
 	document.getElementById("signIn").style.display = "none";
 	document.getElementById("about").style.display = "none";
 	document.getElementById("setting").style.display = "none";
-	document.getElementById("UserScreenWelcome").style.display = "none";
+	// document.getElementById("UserScreenWelcome").style.display = "none";
 	document.getElementById("UserScreenAbout").style.display = "none";
 	document.getElementById("UserScreenConsole").style.display = "none";
 
@@ -1016,6 +1035,7 @@ function resetElement() {
 function logOutON(){
 	game_username = "";
 	resetElement();
+	document.getElementById("UserScreenWelcome").style.display = "none";
 	document.getElementById("UserScreen").style.display = "none";
 	document.getElementById("NotLogIn").style.display = "block";
 	welcomeON();
@@ -1046,6 +1066,7 @@ function UserScreenON() {
 	document.getElementById("game_username_disply").value = game_username;
 	document.getElementById("NotLogIn").style.display = "none";
 	document.getElementById("UserScreen").style.display = "block";
+	UserScreenWelcomeON();
 }
 
 function settingON() {
@@ -1065,6 +1086,7 @@ function UserScreenAboutON() {
 
 function UserScreenConsoleON() {
 	resetElement();
+	document.getElementById("UserScreenWelcome").style.display = "none";
 	document.getElementById("UserScreenConsole").style.display = "block";
 	startIntervals();
 }
@@ -1077,8 +1099,27 @@ function UserScreenConsoleON() {
 // }
 
 
+function show_key() {
+
+	document.getElementById('key_up_display').value = chosen_key_up;
+	document.getElementById('key_down_display').value = chosen_key_down;
+	document.getElementById('key_right_display').value = chosen_key_right;
+	document.getElementById('key_left_display').value = chosen_key_left;
+
+	document.getElementById('5_points_display').value = chosen_food_5_color;
+	document.getElementById('15_points_display').value = chosen_food_15_color;
+	document.getElementById('25_points_display').value = chosen_food_25_color;
+	
+	document.getElementById('duration_display').value = chosen_game_duration;
+	document.getElementById('ghost_display').value = ghost_num;
+
+	document.getElementById('food_amount_display').value = chosen_food_amount;
 
 
-
-
+}
+function init_all() {
+	initialGameValues();
+	show_key();
+}
+s
 
