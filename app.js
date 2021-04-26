@@ -27,7 +27,7 @@ var chosen_food_amount = 70;
 var chosen_food_5_color;
 var chosen_food_15_color;
 var chosen_food_25_color;
-var chosen_game_duration = 100;
+var chosen_game_duration = 60;
 var ghost_num = 2;
 
 // var Volslider;
@@ -47,19 +47,18 @@ var bitcoin_obj;
 
 var pac_dir = "right"
 var ghost_pos_board;
-var ghost_obj;
+var ghost_obj_arr;
 
 var food_5_points_num; // in board = 5
 var food_15_points_num; // in board = 15
 var food_25_points_num; // in board = 25
-
 	
 	
 function Start() {
 	initialGameValues();
 	board = new Array();
 	ghost_pos_board = new Array();
-	ghost_obj = new Array();
+	ghost_obj_arr = new Array();
 	bitcoin_obj = new Object();
 	score = 0;
 	lives_left = 5;
@@ -113,6 +112,7 @@ function Start() {
 				}
 				cnt--;
 			}
+			ghost_pos_board[i][j] = 0;
 		}
 	}
 	//Add Pac-Man if Not Added Yet
@@ -268,12 +268,12 @@ function Draw() {
 
 			} else if (board[i][j] == 5) { // 5 Points Food
 				context.beginPath();
-				context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle
+				context.arc(center.x, center.y, 7, 0, 2 * Math.PI); // circle
 				context.fillStyle = chosen_food_5_color; //color
 				context.fill();
 			} else if (board[i][j] == 15) { // 15 Points Food
 				context.beginPath();
-				context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle
+				context.arc(center.x, center.y, 11, 0, 2 * Math.PI); // circle
 				context.fillStyle = chosen_food_15_color; //color
 				context.fill();
 			} else if (board[i][j] == 25) { // 25 Points Food
@@ -291,7 +291,7 @@ function Draw() {
 			if (ghost_pos_board[i][j] == 10){
 				context.beginPath();
 				context.arc(center.x, center.y, 20, 1 * Math.PI, 2 * Math.PI); // head
-				context.fillStyle = "blue";
+				context.fillStyle = GetGhostByLocation(i,j).color;
 				context.fill();
 				context.beginPath();
 				context.arc(center.x + 10, center.y - 5 , 5, 0, 2 * Math.PI); // right eye
@@ -323,7 +323,7 @@ function Draw() {
 				context.lineTo(center.x - 20 , center.y + 20);
 				context.lineTo(center.x - 20 , center.y);
 				context.lineTo(center.x, center.y);
-				context.fillStyle = "blue"; 
+				context.fillStyle = GetGhostByLocation(i,j).color; 
 				context.fill();
 			}
 			// bitcoin img
@@ -369,11 +369,11 @@ function UpdatePosition() {
 	}
 
 	// check if Pac-Man Hit By Ghost
-	for (var i = 0 ; i < ghost_obj.length ; i++)
+	for (var i = 0 ; i < ghost_obj_arr.length ; i++)
 	{
-		if ((ghost_obj[i].i == shape.i && ghost_obj[i].j == shape.j ) || ghost_pos_board[shape.i][shape.j] == 10)
+		if ((ghost_obj_arr[i].i == shape.i && ghost_obj_arr[i].j == shape.j ) || ghost_pos_board[shape.i][shape.j] == 10)
 		{
-			GhostEatPacman();
+			GhostEatPacman( GetGhostByLocation(shape.i, shape.j) );
 			ateByGhost = true;
 			break;
 		}
@@ -423,16 +423,16 @@ function UpdatePosition() {
 
 function updateGhosts() {
 
-	for (var i = 0 ; i < ghost_obj.length ; i++){
+	for (var i = 0 ; i < ghost_obj_arr.length ; i++){
 
 		var row_dis = 0;
 		var col_dis = 0;
-		var ghost_row = ghost_obj[i].i;
-		var ghost_col = ghost_obj[i].j;
+		var ghost_row = ghost_obj_arr[i].i;
+		var ghost_col = ghost_obj_arr[i].j;
 		var changed_pos = false;
 
 		if (board[ghost_row][ghost_col] == 2 || (ghost_row == shape.i && ghost_col == shape.j) || ghost_pos_board[shape.i][shape.j] == 10){
-			GhostEatPacman();
+			GhostEatPacman( GetGhostByLocation(shape.i, shape.j) );
 			break;
 		}
 
@@ -443,32 +443,32 @@ function updateGhosts() {
 			if(shape.i - ghost_row > 0 && ghost_row < 9 && board[ghost_row + 1][ghost_col] != 4 && ghost_pos_board[ghost_row + 1][ghost_col] != 10){ //right
 				ghost_pos_board[ghost_row + 1][ghost_col] = 10;
 				ghost_pos_board[ghost_row][ghost_col] = 0;
-				ghost_obj[i].i++;
-				ghost_row = ghost_obj[i].i;
+				ghost_obj_arr[i].i++;
 				changed_pos = true;
 			} else if(ghost_row > 0  && board[ghost_row - 1][ghost_col] != 4 && ghost_pos_board[ghost_row - 1][ghost_col] != 10) { // left
 				ghost_pos_board[ghost_row - 1][ghost_col] = 10;
 				ghost_pos_board[ghost_row][ghost_col] = 0;
-				ghost_obj[i].i--;
-				ghost_row = ghost_obj[i].i;
+				ghost_obj_arr[i].i--;
 				changed_pos = true;
 			}
+			ghost_row = ghost_obj_arr[i].i;
 		}
 		if(!changed_pos) { //up or down
 			if(shape.j - ghost_col > 0 && ghost_col < 9 && board[ghost_row][ghost_col + 1] !=4  && ghost_pos_board[ghost_row][ghost_col + 1] != 10){ //down
 				ghost_pos_board[ghost_row][ghost_col + 1] = 10;
 				ghost_pos_board[ghost_row][ghost_col] = 0;
-				ghost_obj[i].j++;
+				ghost_obj_arr[i].j++;
 			} else if(ghost_col > 0 && board[ghost_row][ghost_col - 1] !=4 && ghost_pos_board[ghost_row][ghost_col - 1] != 10){ //up
 				ghost_pos_board[ghost_row][ghost_col - 1] = 10;
 				ghost_pos_board[ghost_row][ghost_col] = 0;
-				ghost_obj[i].j--;
+				ghost_obj_arr[i].j--;
 			}
-			ghost_col = ghost_obj[i].j;
+			ghost_col = ghost_obj_arr[i].j;
 		}
 
+
 		if (board[ghost_row][ghost_col] == 2 || (ghost_row == shape.i && ghost_col == shape.j) || ghost_pos_board[shape.i][shape.j] == 10){
-			GhostEatPacman();
+			GhostEatPacman( GetGhostByLocation(shape.i, shape.j) );
 			break;
 		}
 	}
@@ -560,9 +560,19 @@ function addGhosts(){
 
 			ghost_pos_board[row][col] = 10;
 
-			ghost_obj[cnt_loop] = new Object();
-			ghost_obj[cnt_loop].i = row;
-			ghost_obj[cnt_loop].j = col;
+			ghost_obj_arr[cnt_loop] = new Object();
+			ghost_obj_arr[cnt_loop].i = row;
+			ghost_obj_arr[cnt_loop].j = col;
+
+			if (cnt_loop % 2 == 0){
+				ghost_obj_arr[cnt_loop].points = 10; // Ghost - Blue - 10 Points
+				ghost_obj_arr[cnt_loop].color = "Blue";
+				ghost_obj_arr[cnt_loop].lives = 1;
+			} else{
+				ghost_obj_arr[cnt_loop].points = 20; // Ghost - Red - 20 Points
+				ghost_obj_arr[cnt_loop].color = "Red";
+				ghost_obj_arr[cnt_loop].lives = 2;
+			}
 
 			cnt_loop++;
 		}
@@ -570,26 +580,27 @@ function addGhosts(){
 }
 
 function RebootGhosts(){
-	for (var i=0 ; i < ghost_obj.length ; i++){
-		ghost_pos_board[ghost_obj[i].i][ghost_obj[i].j] = 0;
+	for (var i=0 ; i < ghost_obj_arr.length ; i++){
+		ghost_pos_board[ghost_obj_arr[i].i][ghost_obj_arr[i].j] = 0;
 	}
-	ghost_obj = new Array();
+	ghost_obj_arr = new Array();
 	addGhosts();
 }
 
-function GhostEatPacman(){
+function GhostEatPacman(whoEatPacman){
 	
 	board[shape.i][shape.j] = 0;
 
 	//decrease the Score
-	if (score < 10){
+	score-=whoEatPacman.points;
+	if (score < 0){
 		score = 0;
-	} else{
-		score -= 10;
 	}
 
-	lives_left--;
-	if (lives_left == 0){
+	lives_left-=whoEatPacman.lives;
+
+	if (lives_left <= 0){
+		lives_left = 0;
 		clearAllIntervals();
 		window.alert("Loser!");
 
@@ -612,6 +623,15 @@ function PacmanEatBitcoin(){
 	score += 50;
 	bitcoin_obj.i = -1;
 	bitcoin_obj.j = -1;
+}
+
+function GetGhostByLocation(g_row, g_col){
+	
+	for (var i = 0 ; i < ghost_obj_arr.length ; i ++){
+		if (ghost_obj_arr[i].i == g_row && ghost_obj_arr[i].j == g_col){
+			return ghost_obj_arr[i];
+		}
+	}
 }
 
 
