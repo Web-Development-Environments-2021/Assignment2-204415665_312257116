@@ -69,6 +69,9 @@ var ghost_obj_arr;
 var food_5_points_num; // in board = 5
 var food_15_points_num; // in board = 15
 var food_25_points_num; // in board = 25
+
+var boardRow = 15;
+var boardCol = 15;
 	
 	
 function Start() {
@@ -83,15 +86,15 @@ function Start() {
 	lives_left = 5;
 
 	pac_color = "yellow";
-	var cnt = 100;
+	var cnt = boardRow*boardCol;
 	var food_remain = chosen_food_amount;
 	var pacman_remain = 1;
 
-	for (var i = 0; i < 10; i++) {
+	for (var i = 0; i < boardRow ; i++) {
 		board[i] = new Array();
 		ghost_pos_board[i] = new Array();
 		//put obstacles in (i=3,j=3) and (i=3,j=4) and (i=3,j=5), (i=6,j=1) and (i=6,j=2)
-		for (var j = 0; j < 10; j++) {
+		for (var j = 0; j < boardCol ; j++) {
 			if (
 				(i == 3 && j == 3) ||
 				(i == 3 && j == 4) ||
@@ -119,7 +122,7 @@ function Start() {
 					}
 					food_remain--;
 				} else if (randomNum < (1.0 * (pacman_remain + food_remain)) / cnt && (
-					!(i==0 && j==0) && !(i==0 && j==9) && !(i==9 && j==0) && !(i==9 && j==9) && !(i==5 && j==5))){
+					!(i==0 && j==0) && !(i==0 && j==boardCol -1) && !(i==boardRow - 1 && j==0) && !(i==boardRow -1  && j==boardCol -1) && !(i==Math.floor(boardRow/2) && j==Math.floor(boardCol/2)))){
 					shape.i = i;
 					shape.j = j;
 					pacman_remain--;
@@ -137,7 +140,7 @@ function Start() {
 		var emptyCell = findRandomEmptyCell(board);
 		var i = emptyCell[0];
 		var j = emptyCell[1];
-		if(!(i==0 && j==0) && !(i==0 && j==9) && !(i==9 && j==0) && !(i==9 && j==9) && !(i==5 && j==5)){
+		if(!(i==0 && j==0) && !(i==0 && j==boardCol -1) && !(i==boardRow - 1 && j==0) && !(i==boardRow -1  && j==boardCol -1) && !(i==Math.floor(boardRow/2) && j==Math.floor(boardCol/2))){
 			shape.i = i;
 			shape.j = j;
 			pacman_remain--;
@@ -164,8 +167,8 @@ function Start() {
 	addGhosts();
 
 	//Add bitcoin 50
-	bitcoin_obj.i = 5;
-	bitcoin_obj.j = 5;
+	bitcoin_obj.i = Math.floor(boardRow/2);
+	bitcoin_obj.j = Math.floor(boardCol/2);
 
 	//Bonus Init
 	heart_obj.onBorad = false;
@@ -233,7 +236,6 @@ function initialGameValues() {
 	while ((food_5_points_num + food_15_points_num + food_25_points_num) != food_amount){
 		food_5_points_num++;
 	}
-
 }
 
 function Draw() {
@@ -241,8 +243,8 @@ function Draw() {
 	lblScore.value = score;
 	lblTime.value = time_elapsed;
 	lblLives.value = lives_left - 1;
-	for (var i = 0; i < 10; i++) {
-		for (var j = 0; j < 10; j++) {
+	for (var i = 0; i < boardRow; i++) {
+		for (var j = 0; j < boardCol; j++) {
 			var center = new Object();
 			center.x = i * 60 + 30;
 			center.y = j * 60 + 30;
@@ -310,9 +312,9 @@ function Draw() {
 				context.fillStyle = "grey"; //color
 				context.fill();
 			} else if (board[i][j] == 11) { // Clock
-				context.drawImage(clock_img ,  i*(canvas.height/10) , j*(canvas.width/10), 55, 55 * (clock_img.height / clock_img.width));
+				context.drawImage(clock_img ,  i*(canvas.height/boardCol) , j*(canvas.width/boardRow), 55, 55 * (clock_img.height / clock_img.width));
 			} else if (board[i][j] == 12) { // Heart
-				context.drawImage(heart_img ,  i*(canvas.height/10) , j*(canvas.width/10), 55, 55 * (heart_img.height / heart_img.width));
+				context.drawImage(heart_img ,  i*(canvas.height/boardCol) , j*(canvas.width/boardRow), 55, 55 * (heart_img.height / heart_img.width));
 			}
 			// Ghost
 			if (ghost_pos_board[i][j] == 10){
@@ -355,7 +357,7 @@ function Draw() {
 			}
 			// bitcoin img
 			if (bitcoin_obj.i == i && bitcoin_obj.j == j){ 
-				context.drawImage(bitcoin_img ,  i*(canvas.height/10) , j*(canvas.width/10), 55, 55 * (bitcoin_img.height / bitcoin_img.width));
+				context.drawImage(bitcoin_img ,  i*(canvas.height/boardCol) , j*(canvas.width/boardRow), 55, 55 * (bitcoin_img.height / bitcoin_img.width));
 			}
 		}
 	}
@@ -377,7 +379,7 @@ function UpdatePosition() {
 		}
 	}
 	if (x == 2) {
-		if (shape.j < 9 && board[shape.i][shape.j + 1] != 4) {
+		if (shape.j < boardCol - 1 && board[shape.i][shape.j + 1] != 4) {
 			shape.j++;
 			pac_dir = "down"
 		}
@@ -389,10 +391,10 @@ function UpdatePosition() {
 		}
 	}
 	if (x == 4) {
-		if (shape.i < 9 && board[shape.i + 1][shape.j] != 4) {
+		if (shape.i < boardRow - 1 && board[shape.i + 1][shape.j] != 4) {
 			shape.i++;
 			pac_dir = "right"
-		}
+		} 
 	}
 
 	// check if Pac-Man Hit By Ghost
@@ -479,7 +481,7 @@ function updateGhosts() {
 		col_dis = Math.abs(shape.j - ghost_col);
 		if (row_dis > col_dis){ //left or right
 
-			if(shape.i - ghost_row > 0 && ghost_row < 9 && board[ghost_row + 1][ghost_col] != 4 && ghost_pos_board[ghost_row + 1][ghost_col] != 10){ //right
+			if(shape.i - ghost_row > 0 && ghost_row < boardRow - 1 && board[ghost_row + 1][ghost_col] != 4 && ghost_pos_board[ghost_row + 1][ghost_col] != 10){ //right
 				ghost_pos_board[ghost_row + 1][ghost_col] = 10;
 				ghost_pos_board[ghost_row][ghost_col] = 0;
 				ghost_obj_arr[i].i++;
@@ -493,7 +495,7 @@ function updateGhosts() {
 			ghost_row = ghost_obj_arr[i].i;
 		}
 		if(!changed_pos) { //up or down
-			if(shape.j - ghost_col > 0 && ghost_col < 9 && board[ghost_row][ghost_col + 1] !=4  && ghost_pos_board[ghost_row][ghost_col + 1] != 10){ //down
+			if(shape.j - ghost_col > 0 && ghost_col < boardCol - 1 && board[ghost_row][ghost_col + 1] !=4  && ghost_pos_board[ghost_row][ghost_col + 1] != 10){ //down
 				ghost_pos_board[ghost_row][ghost_col + 1] = 10;
 				ghost_pos_board[ghost_row][ghost_col] = 0;
 				ghost_obj_arr[i].j++;
@@ -521,11 +523,11 @@ function updateBitcoin(){
 
 	if (coin_dir == 0 && coin_col > 0 && board[coin_row][coin_col - 1] != 4){
 		bitcoin_obj.j--;
-	} else if(coin_dir == 1 && coin_col < 9 && board[coin_row][coin_col + 1] != 4){
+	} else if(coin_dir == 1 && coin_col < boardCol - 1 && board[coin_row][coin_col + 1] != 4){
 		bitcoin_obj.j++;
 	} else if(coin_dir == 2 && coin_row > 0 && board[coin_row - 1][coin_col] != 4){
 		bitcoin_obj.i--;
-	} else if(coin_dir == 3 && coin_row < 9 && board[coin_row + 1][coin_col] != 4){
+	} else if(coin_dir == 3 && coin_row < boardRow - 1 && board[coin_row + 1][coin_col] != 4){
 		bitcoin_obj.i++;
 	}
 
@@ -564,11 +566,11 @@ function clearAllIntervals(){
 }
 
 function findRandomEmptyCell(board) {
-	var i = Math.floor(Math.random() * 9 + 1);
-	var j = Math.floor(Math.random() * 9 + 1);
+	var i = Math.floor(Math.random() * (boardRow - 1) + 1);
+	var j = Math.floor(Math.random() * (boardCol - 1) + 1);
 	while (board[i][j] != 0) {
-		i = Math.floor(Math.random() * 9 + 1);
-		j = Math.floor(Math.random() * 9 + 1);
+		i = Math.floor(Math.random() * (boardRow - 1) + 1);
+		j = Math.floor(Math.random() * (boardCol - 1) + 1);
 	}
 	return [i, j];
 }
@@ -593,17 +595,17 @@ function addGhosts(){
 	var cnt_loop = 0;
 	while(cnt_loop != ghost_num)
 	{
-		var row = Math.floor(Math.random() * 10);
-		var col = Math.floor(Math.random() * 10);
-		if (row < 5){
+		var row = Math.floor(Math.random() * boardRow);
+		var col = Math.floor(Math.random() * boardCol);
+		if (row < boardRow/2){
 			row = 0;
 		} else{
-			row = 9;
+			row = boardRow - 1;
 		}
-		if (col < 5){
+		if (col < boardCol/2){
 			col = 0;
 		} else{
-			col = 9;
+			col = boardCol - 1;
 		}
 		if (ghost_pos_board[row][col] != 10){
 
