@@ -44,7 +44,7 @@ var enemoutput;
 var foodslider;
 var foodoutput;
 
-var changePath = 7;
+var changePath = 5;
 var reCP = false;
 
 var FoodLeft;
@@ -477,7 +477,7 @@ function UpdatePosition() {
 }
 
 
-function U_G_BFS(){
+function updateGhosts(){
 	for (var i = 0 ; i < ghost_obj_arr.length ; i++){
 
 		var ghost_ro = ghost_obj_arr[i].i;
@@ -515,7 +515,7 @@ function U_G_BFS(){
 	}
 	if (reCP){
 		reCP = false;
-		changePath = 7;
+		changePath = 5;
 	} else{
 		changePath--;
 	}
@@ -552,7 +552,7 @@ function startIntervals(){
 	timerOfClock = new Date();
 	timerOfHeart = new Date();
 	interval = setInterval(UpdatePosition, 150);
-	intervalUGBFS = setInterval(U_G_BFS, 200);
+	intervalUGBFS = setInterval(updateGhosts, 150);
 	intervalBitcoin = setInterval(updateBitcoin, 150);
 	intervalClockObj = setInterval(checkTimerOfClock, 200);
 	intervalHeartObj = setInterval(checkTimerOfHeart, 200);
