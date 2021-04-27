@@ -630,11 +630,11 @@ function addGhosts(){
 
 			if (cnt_loop % 2 == 0){
 				ghost_obj_arr[cnt_loop].points = 10; // Ghost - Blue - 10 Points
-				ghost_obj_arr[cnt_loop].color = "Blue";
+				ghost_obj_arr[cnt_loop].color = "#1d58fa";
 				ghost_obj_arr[cnt_loop].lives = 1;
 			} else{
 				ghost_obj_arr[cnt_loop].points = 20; // Ghost - Red - 20 Points
-				ghost_obj_arr[cnt_loop].color = "Red";
+				ghost_obj_arr[cnt_loop].color = "#fd3c56";
 				ghost_obj_arr[cnt_loop].lives = 2;
 			}
 
