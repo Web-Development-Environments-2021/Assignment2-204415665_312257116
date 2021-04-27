@@ -44,6 +44,9 @@ var enemoutput;
 var foodslider;
 var foodoutput;
 
+var changePath = 10;
+var reCP = false;
+
 
 /////////*  Images */////////
 
@@ -552,7 +555,10 @@ function startIntervals(){
 	timerOfClock = new Date();
 	timerOfHeart = new Date();
 	interval = setInterval(UpdatePosition, 150);
-	intervalGhost = setInterval(updateGhosts, 300);
+	// intervalGhost = setInterval(updateGhosts, 300);
+
+	intervalUGBFS = setInterval(U_G_BFS, 200);
+
 	intervalBitcoin = setInterval(updateBitcoin, 150);
 	intervalClockObj = setInterval(checkTimerOfClock, 200);
 	intervalHeartObj = setInterval(checkTimerOfHeart, 200);
@@ -560,7 +566,10 @@ function startIntervals(){
 
 function clearAllIntervals(){
 	window.clearInterval(interval);
-	window.clearInterval(intervalGhost);
+	// window.clearInterval(intervalGhost);
+
+	window.clearInterval(intervalUGBFS);
+
 	if (bitcoin_obj.i != -1 || bitcoin_obj.j != -1){
 		window.clearInterval(intervalBitcoin);
 	}
@@ -622,6 +631,8 @@ function addGhosts(){
 			ghost_obj_arr[cnt_loop] = new Object();
 			ghost_obj_arr[cnt_loop].i = row;
 			ghost_obj_arr[cnt_loop].j = col;
+
+			ghost_obj_arr[cnt_loop].path = BFSghosts(row, col);
 
 			if (cnt_loop % 2 == 0){
 				ghost_obj_arr[cnt_loop].points = 10; // Ghost - Blue - 10 Points
@@ -739,6 +750,127 @@ function checkTimerOfHeart(){
 			timerOfHeart = time_h_now;
 		}
 	}
+}
+
+
+function BFSghosts(ghost_r , ghost_c){
+	var closed = [];
+	var queue = new Array();
+	var neighbors = new Array();
+	var startState = new Object;
+	var GoalState = new Object;
+	startState.i = ghost_r;
+	startState.j = ghost_c;
+	GoalState.i = shape.i;
+	GoalState.j = shape.j;
+	var Skey = ghost_r.toString() + "," + ghost_c.toString();
+
+	closed[Skey] = startState;
+	queue.push(startState);
+
+	while (queue.length != 0){
+		var currentState = queue.shift();
+		if (currentState.i == GoalState.i && currentState.j == GoalState.j){
+			return getPathFromState(startState, currentState);
+		}
+		var neighbors = getAllNeighbors(currentState);
+		for (var i = 0 ; i < neighbors.length ; i++){
+			var neighborKey = neighbors[i].i.toString() + "," + neighbors[i].j.toString();
+			if (!(neighborKey in closed)){
+				neighbors[i].cameFrom = currentState;
+				closed[neighborKey] = neighbors[i];
+				queue.push(neighbors[i]);
+			}
+		}
+	}
+	return new Array();
+}
+
+
+function getAllNeighbors(state){
+	var successors = new Array();
+	if (state.j > 0 && board[state.i][state.j - 1] != 4){
+		var upState = new Object;
+		upState.i = state.i;
+		upState.j = state.j - 1;
+		successors.push(upState);
+	}
+	if(state.j < boardCol - 1 && board[state.i][state.j + 1] != 4){
+		var downState = new Object;
+		downState.i = state.i;
+		downState.j = state.j + 1;
+		successors.push(downState);
+	}
+	if(state.i > 0 && board[state.i - 1][state.j] != 4){
+		var leftState = new Object;
+		leftState.i = state.i - 1;
+		leftState.j = state.j;
+		successors.push(leftState);
+	}
+	if(state.i < boardRow - 1 && board[state.i + 1][state.j] != 4){
+		var rightState = new Object;
+		rightState.i = state.i + 1;
+		rightState.j = state.j;
+		successors.push(rightState);
+	}
+	return successors;
+}
+
+function getPathFromState(Sstate , Gstate){
+	var solPath = new Array();
+	var cur = new Object();
+	cur = Gstate;
+	solPath.unshift(cur);
+	while ( !(cur.i == Sstate.i && cur.j == Sstate.j)){
+		var cur = cur.cameFrom;
+		solPath.unshift(cur);
+	}
+	return solPath;
+}
+
+function U_G_BFS(){
+	for (var i = 0 ; i < ghost_obj_arr.length ; i++){
+
+		var ghost_ro = ghost_obj_arr[i].i;
+		var ghost_co = ghost_obj_arr[i].j;
+
+
+		if (board[ghost_ro][ghost_co] == 2 || (ghost_ro == shape.i && ghost_co == shape.j) || ghost_pos_board[shape.i][shape.j] == 10){
+			GhostEatPacman( GetGhostByLocation(shape.i, shape.j) );
+			break;
+		}
+
+		if (ghost_obj_arr[i].path.length == 0 || changePath == 0){
+			reCP = true;
+			ghost_obj_arr[i].path = BFSghosts(ghost_ro, ghost_co);
+		}
+
+		var nextState = ghost_obj_arr[i].path.shift();
+
+		if (ghost_pos_board[nextState.i][nextState.j] == 10){
+			ghost_obj_arr[i].path = BFSghosts(ghost_ro, ghost_co);
+			var nextState = ghost_obj_arr[i].path.shift();
+		}
+
+		ghost_pos_board[ghost_ro][ghost_co] = 0;
+		ghost_pos_board[nextState.i][nextState.j] = 10;
+		ghost_obj_arr[i].i = nextState.i;
+		ghost_obj_arr[i].j = nextState.j;
+		ghost_ro = nextState.i;
+		ghost_co = nextState.j;
+
+		if (board[ghost_ro][ghost_co] == 2 || (ghost_ro == shape.i && ghost_co == shape.j) || ghost_pos_board[shape.i][shape.j] == 10){
+			GhostEatPacman( GetGhostByLocation(shape.i, shape.j) );
+			break;
+		}
+	}
+	if (reCP){
+		reCP = false;
+		changePath = 10;
+	} else{
+		changePath--;
+	}
+
 }
 
 
