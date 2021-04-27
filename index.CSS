@@ -94,7 +94,7 @@ span.psw {
   background-color: #ffffffef;
   margin: auto;
   padding: 0;
-  border: 1px solid #888;
+  border: 1px solid rgb(136, 136, 136);
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
   -webkit-animation-name: animatetop;
   -webkit-animation-duration: 0.4s;
@@ -193,7 +193,7 @@ dialog:not([open]) {
 .game_button:hover {background-color: #c97201e5}
 
 .game_button:active {
-  background-color: #6e4200;
+  background-color: #42006e;
   box-shadow: 0 5px rgb(146, 95, 1);
   transform: translateY(4px);
 
