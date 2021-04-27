@@ -44,6 +44,11 @@ var enemoutput;
 var foodslider;
 var foodoutput;
 
+var changePath = 7;
+var reCP = false;
+
+var FoodLeft;
+
 
 /////////*  Images */////////
 
@@ -117,6 +122,7 @@ function Start() {
 	pac_color = "#f8be00";
 	var cnt = boardRow*boardCol;
 	var food_remain = chosen_food_amount;
+	FoodLeft = chosen_food_amount;
 	var pacman_remain = 1;
 
 	for (var i = 0; i < boardRow ; i++) {
@@ -428,10 +434,13 @@ function UpdatePosition() {
 		//  Points
 		if (board[shape.i][shape.j] == 5) {// 5 Points
 			score+=5;
+			FoodLeft--;
 		} else if (board[shape.i][shape.j] == 15) {// 15 Points
 			score+=15;
+			FoodLeft--;
 		} else if (board[shape.i][shape.j] == 25) {// 25 Points
 			score+=25;
+			FoodLeft--;
 		} else if (board[shape.i][shape.j] == 11) {// Clock Bonus
 			if (!clock_obj.ate){
 				chosen_game_duration+=15;
@@ -448,83 +457,69 @@ function UpdatePosition() {
 
 		board[shape.i][shape.j] = 2;
 		var currentTime = new Date();
-		time_elapsed = (currentTime - start_time) / 1000;
+		time_elapsed = chosen_game_duration-(currentTime - start_time) / 1000;
 
-		if (score >= 2000 && time_elapsed <= 10) { //  TODO : What to do with this?
-			pac_color = "green";
-		}
+		time_elapsed = Math.floor(time_elapsed);
 
-		if (time_elapsed >= chosen_game_duration){
+		if (time_elapsed <= 0 || FoodLeft == 0){
 			if (score < 100){
 				clearAllIntervals();
-				window.alert("You are better than" + score + "points!");
+				window.alert("You are better than " + score + " points!");
 			} else{
 				clearAllIntervals();
 				window.alert("Winner!!!");
 			}
 		}
 
-		if (score == 1000) { // TODO : Game Finished
-			clearAllIntervals();
-			window.alert("Game completed");
-		} else {
-			Draw();
-		}
+		Draw();
+		
 	}
 }
 
 
-function updateGhosts() {
-
+function U_G_BFS(){
 	for (var i = 0 ; i < ghost_obj_arr.length ; i++){
 
-		var row_dis = 0;
-		var col_dis = 0;
-		var ghost_row = ghost_obj_arr[i].i;
-		var ghost_col = ghost_obj_arr[i].j;
-		var changed_pos = false;
+		var ghost_ro = ghost_obj_arr[i].i;
+		var ghost_co = ghost_obj_arr[i].j;
 
-		if (board[ghost_row][ghost_col] == 2 || (ghost_row == shape.i && ghost_col == shape.j) || ghost_pos_board[shape.i][shape.j] == 10){
+
+		if (board[ghost_ro][ghost_co] == 2 || (ghost_ro == shape.i && ghost_co == shape.j) || ghost_pos_board[shape.i][shape.j] == 10){
 			GhostEatPacman( GetGhostByLocation(shape.i, shape.j) );
 			break;
 		}
 
-		row_dis = Math.abs(shape.i - ghost_row);
-		col_dis = Math.abs(shape.j - ghost_col);
-		if (row_dis > col_dis){ //left or right
-
-			if(shape.i - ghost_row > 0 && ghost_row < boardRow - 1 && board[ghost_row + 1][ghost_col] != 4 && ghost_pos_board[ghost_row + 1][ghost_col] != 10){ //right
-				ghost_pos_board[ghost_row + 1][ghost_col] = 10;
-				ghost_pos_board[ghost_row][ghost_col] = 0;
-				ghost_obj_arr[i].i++;
-				changed_pos = true;
-			} else if(ghost_row > 0  && board[ghost_row - 1][ghost_col] != 4 && ghost_pos_board[ghost_row - 1][ghost_col] != 10) { // left
-				ghost_pos_board[ghost_row - 1][ghost_col] = 10;
-				ghost_pos_board[ghost_row][ghost_col] = 0;
-				ghost_obj_arr[i].i--;
-				changed_pos = true;
-			}
-			ghost_row = ghost_obj_arr[i].i;
-		}
-		if(!changed_pos) { //up or down
-			if(shape.j - ghost_col > 0 && ghost_col < boardCol - 1 && board[ghost_row][ghost_col + 1] !=4  && ghost_pos_board[ghost_row][ghost_col + 1] != 10){ //down
-				ghost_pos_board[ghost_row][ghost_col + 1] = 10;
-				ghost_pos_board[ghost_row][ghost_col] = 0;
-				ghost_obj_arr[i].j++;
-			} else if(ghost_col > 0 && board[ghost_row][ghost_col - 1] !=4 && ghost_pos_board[ghost_row][ghost_col - 1] != 10){ //up
-				ghost_pos_board[ghost_row][ghost_col - 1] = 10;
-				ghost_pos_board[ghost_row][ghost_col] = 0;
-				ghost_obj_arr[i].j--;
-			}
-			ghost_col = ghost_obj_arr[i].j;
+		if (ghost_obj_arr[i].path.length == 0 || changePath == 0){
+			reCP = true;
+			ghost_obj_arr[i].path = BFSghosts(ghost_ro, ghost_co);
 		}
 
+		var nextState = ghost_obj_arr[i].path.shift();
 
-		if (board[ghost_row][ghost_col] == 2 || (ghost_row == shape.i && ghost_col == shape.j) || ghost_pos_board[shape.i][shape.j] == 10){
+		if (ghost_pos_board[nextState.i][nextState.j] == 10){
+			ghost_obj_arr[i].path = BFSghosts(ghost_ro, ghost_co);
+			var nextState = ghost_obj_arr[i].path.shift();
+		}
+
+		ghost_pos_board[ghost_ro][ghost_co] = 0;
+		ghost_pos_board[nextState.i][nextState.j] = 10;
+		ghost_obj_arr[i].i = nextState.i;
+		ghost_obj_arr[i].j = nextState.j;
+		ghost_ro = nextState.i;
+		ghost_co = nextState.j;
+
+		if (board[ghost_ro][ghost_co] == 2 || (ghost_ro == shape.i && ghost_co == shape.j) || ghost_pos_board[shape.i][shape.j] == 10){
 			GhostEatPacman( GetGhostByLocation(shape.i, shape.j) );
 			break;
 		}
 	}
+	if (reCP){
+		reCP = false;
+		changePath = 7;
+	} else{
+		changePath--;
+	}
+
 }
 
 function updateBitcoin(){
@@ -557,22 +552,26 @@ function startIntervals(){
 	timerOfClock = new Date();
 	timerOfHeart = new Date();
 	interval = setInterval(UpdatePosition, 150);
-	intervalGhost = setInterval(updateGhosts, 300);
+	intervalUGBFS = setInterval(U_G_BFS, 200);
 	intervalBitcoin = setInterval(updateBitcoin, 150);
 	intervalClockObj = setInterval(checkTimerOfClock, 200);
 	intervalHeartObj = setInterval(checkTimerOfHeart, 200);
 }
 
 function clearAllIntervals(){
-	window.clearInterval(interval);
-	window.clearInterval(intervalGhost);
-	if (bitcoin_obj.i != -1 || bitcoin_obj.j != -1){
+	if (window.interval){
+		window.clearInterval(interval);
+	}
+	if (window.intervalUGBFS){
+		window.clearInterval(intervalUGBFS);
+	}
+	if (window.intervalBitcoin){
 		window.clearInterval(intervalBitcoin);
 	}
-	if ( !clock_obj.ate){
+	if (window.intervalClockObj){
 		window.clearInterval(intervalClockObj);
 	}
-	if ( !heart_obj.ate){
+	if (window.intervalHeartObj){
 		window.clearInterval(intervalHeartObj);
 	}
 	stopMusic();
@@ -627,6 +626,8 @@ function addGhosts(){
 			ghost_obj_arr[cnt_loop] = new Object();
 			ghost_obj_arr[cnt_loop].i = row;
 			ghost_obj_arr[cnt_loop].j = col;
+
+			ghost_obj_arr[cnt_loop].path = BFSghosts(row, col);
 
 			if (cnt_loop % 2 == 0){
 				ghost_obj_arr[cnt_loop].points = 10; // Ghost - Blue - 10 Points
@@ -747,10 +748,84 @@ function checkTimerOfHeart(){
 }
 
 
+function BFSghosts(ghost_r , ghost_c){
+	var closed = [];
+	var queue = new Array();
+	var neighbors = new Array();
+	var startState = new Object;
+	var GoalState = new Object;
+	startState.i = ghost_r;
+	startState.j = ghost_c;
+	GoalState.i = shape.i;
+	GoalState.j = shape.j;
+	var Skey = ghost_r.toString() + "," + ghost_c.toString();
+
+	closed[Skey] = startState;
+	queue.push(startState);
+
+	while (queue.length != 0){
+		var currentState = queue.shift();
+		if (currentState.i == GoalState.i && currentState.j == GoalState.j){
+			return getPathFromState(startState, currentState);
+		}
+		var neighbors = getAllNeighbors(currentState);
+		for (var i = 0 ; i < neighbors.length ; i++){
+			var neighborKey = neighbors[i].i.toString() + "," + neighbors[i].j.toString();
+			if (!(neighborKey in closed)){
+				neighbors[i].cameFrom = currentState;
+				closed[neighborKey] = neighbors[i];
+				queue.push(neighbors[i]);
+			}
+		}
+	}
+	return new Array();
+}
 
 
-////////////////////// Liad To Change Or Remove ///////////////////////////////////////////
-/* Disable scrolling page with arrows*/ 
+function getAllNeighbors(state){
+	var successors = new Array();
+	if (state.j > 0 && board[state.i][state.j - 1] != 4){
+		var upState = new Object;
+		upState.i = state.i;
+		upState.j = state.j - 1;
+		successors.push(upState);
+	}
+	if(state.j < boardCol - 1 && board[state.i][state.j + 1] != 4){
+		var downState = new Object;
+		downState.i = state.i;
+		downState.j = state.j + 1;
+		successors.push(downState);
+	}
+	if(state.i > 0 && board[state.i - 1][state.j] != 4){
+		var leftState = new Object;
+		leftState.i = state.i - 1;
+		leftState.j = state.j;
+		successors.push(leftState);
+	}
+	if(state.i < boardRow - 1 && board[state.i + 1][state.j] != 4){
+		var rightState = new Object;
+		rightState.i = state.i + 1;
+		rightState.j = state.j;
+		successors.push(rightState);
+	}
+	return successors;
+}
+
+function getPathFromState(Sstate , Gstate){
+	var solPath = new Array();
+	var cur = new Object();
+	cur = Gstate;
+	solPath.unshift(cur);
+	while ( !(cur.i == Sstate.i && cur.j == Sstate.j)){
+		var cur = cur.cameFrom;
+		solPath.unshift(cur);
+	}
+	return solPath;
+}
+
+
+
+/* Scroller Block In Game*/ 
 addEventListener(
 	"keydown",
 	function(e) {
@@ -758,7 +833,7 @@ addEventListener(
 		e.preventDefault();
 	}
 	},
-	 false
+	false
 );
 
 
@@ -1242,19 +1317,19 @@ function UserScreenON() {
 function settingON() {
 	resetElement();
 	document.getElementById("setting").style.display = "block";
-	// clearAllIntervals();
+	clearAllIntervals();
 }
 
 function UserScreenWelcomeON() {
 	resetElement();
 	document.getElementById("UserScreenWelcome").style.display = "block";
-	// clearAllIntervals();
+	clearAllIntervals();
 }
 
 function UserScreenAboutON() {
 	resetElement();
 	document.getElementById("UserScreenAbout").style.display = "block";
-	// clearAllIntervals();
+	clearAllIntervals();
 }
 
 function UserScreenConsoleON() {
@@ -1263,13 +1338,7 @@ function UserScreenConsoleON() {
 	document.getElementById("UserScreenConsole").style.display = "block";
 	startIntervals();
 }
-function IntervalsCheck() {
-	if(true){
-		clearAllIntervals();
 
-	}
-
-}
 function show_key() {
 
 	document.getElementById('key_up_display').value = chosen_key_up;
