@@ -231,7 +231,7 @@ function initialGameValues() {
 
 	start_time = new Date();
 	ghost_num = parseInt(document.getElementById('ghost_num_id').value.substring(0,1));
-	food_amount = chosen_food_amount;
+	chosen_food_amount= parseInt(document.getElementById('foodNum').value);
 	// document.getElementById("game_username").value = game_username;
 	document.getElementById("game_username_disply").value = game_username;
 	chosen_game_duration = parseInt(document.getElementById('duration_id').value);
@@ -242,10 +242,10 @@ function initialGameValues() {
 	chosen_food_25_color = document.getElementById('25_Color_id').value;
 
 	//food numbers
-	food_5_points_num = Math.floor(food_amount * 0.6);
-	food_15_points_num = Math.floor(food_amount * 0.3);
-	food_25_points_num = Math.floor(food_amount * 0.1);
-	while ((food_5_points_num + food_15_points_num + food_25_points_num) != food_amount){
+	food_5_points_num = Math.floor(chosen_food_amount * 0.6);
+	food_15_points_num = Math.floor(chosen_food_amount * 0.3);
+	food_25_points_num = Math.floor(chosen_food_amount * 0.1);
+	while ((food_5_points_num + food_15_points_num + food_25_points_num) != chosen_food_amount){
 		food_5_points_num++;
 	}
 }
@@ -1263,7 +1263,13 @@ function UserScreenConsoleON() {
 	document.getElementById("UserScreenConsole").style.display = "block";
 	startIntervals();
 }
+function IntervalsCheck() {
+	if(true){
+		clearAllIntervals();
 
+	}
+
+}
 function show_key() {
 
 	document.getElementById('key_up_display').value = chosen_key_up;
@@ -1306,9 +1312,6 @@ function ChangeIconMusic()
 		playMusic();
 	 }
  }
- 
-//  alert('Esc key pressed.');
-
 /*--------------------------------------------------------------------*/
 // When the user clicks on ESC button, close the modal
 $(document).on(
