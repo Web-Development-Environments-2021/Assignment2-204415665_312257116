@@ -51,15 +51,15 @@ var reCP = false;
 /////////*  Images */////////
 
 var bitcoin_img = new Image();
-bitcoin_img.src = 'photos/bitcoin_icon.jpg';
+bitcoin_img.src = 'photos/bitcoin.png';
 var bitcoin_obj;
 
 var clock_img = new Image();
-clock_img.src = 'photos/clock_icon.jpg';
+clock_img.src = 'photos/time+.png';
 var clock_obj; // in board = 11
 
 var heart_img = new Image();
-heart_img.src = 'photos/heart_icon.jpg';
+heart_img.src = 'photos/heart+.png';
 var heart_obj; // in board = 12
 
 var timerOfHeart;
@@ -74,33 +74,41 @@ var food_5_points_num; // in board = 5
 var food_15_points_num; // in board = 15
 var food_25_points_num; // in board = 25
 
-var boardRow = 15;
-var boardCol = 15;
-
-
-var TemplateForBoard = [
-							'000000000000000',
-							'0##0#00#0000#00',
-							'0#00000#000##00',
-							'0####00##000#00',
-							'000000##00###00',
-							'000000000000000',
-							'0####00000####0',
-							'0000#000000#000',
-							'00#0#00#0####00',
-							'0##0#00#0000000',
-							'00#0#00#0000000',
-							'00#0000#######0',
-							'0##00#0000#0000',
-							'00000#00#0#0000',
-							'000000000000000'
-];
+var boardRow = 24;
+var boardCol = 16;
 	
 
 
 function Start() {
+	board = 
+	[
+		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+		[0, 4, 0, 4, 0, 4, 4, 4, 4, 4, 0, 4, 4, 4, 0, 4],
+		[0, 4, 0, 4, 0, 0, 0, 0, 4, 0, 0, 0, 0, 4, 0, 0],
+		[0, 4, 0, 4, 0, 4, 0, 0, 4, 0, 4, 4, 0, 4, 4, 0],
+		[0, 4, 0, 4, 4, 4, 0, 0, 4, 0, 4, 0, 0, 4, 0, 0],
+		[0, 4, 0, 0, 0, 0, 0, 0, 4, 0, 4, 0, 4, 4, 0, 4],
+		[0, 4, 4, 4, 4, 0, 0, 4, 4, 0, 4, 0, 0, 4, 0, 0],
+		[0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 4, 4, 0],
+		[0, 4, 4, 0, 0, 0, 4, 0, 4, 4, 4, 4, 0, 4, 0, 0],
+		[0, 4, 0, 0, 4, 0, 4, 0, 4, 0, 0, 4, 0, 0, 0, 0],
+		[0, 0, 0, 0, 4, 0, 4, 0, 4, 0, 0, 0, 0, 4, 0, 0],
+		[0, 4, 4, 4, 4, 0, 4, 0, 4, 0, 0, 4, 4, 4, 4, 0],
+		[0, 0, 0, 0, 0, 0, 4, 0, 4, 0, 0, 0, 0, 0, 0, 0],
+		[0, 0, 4, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0],
+		[0, 4, 4, 4, 4, 0, 4, 0, 4, 4, 0, 4, 4, 4, 4, 0],
+		[0, 4, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+		[0, 4, 0, 4, 4, 0, 4, 0, 4, 0, 4, 4, 4, 4, 4, 0],
+		[0, 4, 0, 4, 0, 0, 4, 0, 4, 0, 4, 0, 0, 0, 0, 0],
+		[0, 0, 0, 4, 0, 4, 4, 0, 4, 0, 4, 0, 4, 0, 4, 0],
+		[0, 4, 0, 4, 0, 0, 4, 0, 4, 0, 0, 0, 4, 0, 4, 0],
+		[0, 4, 0, 4, 4, 0, 4, 0, 4, 0, 4, 0, 4, 4, 4, 0],
+		[0, 4, 0, 0, 0, 0, 4, 0, 4, 0, 4, 0, 0, 0, 0, 0],
+		[0, 4, 4, 4, 4, 0, 0, 0, 0, 0, 4, 4, 4, 4, 4, 0],
+		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+	];
 	init_all();
-	board = new Array();
+	// board = new Array();
 	ghost_pos_board = new Array();
 	ghost_obj_arr = new Array();
 	bitcoin_obj = new Object();
@@ -109,23 +117,20 @@ function Start() {
 	score = 0;
 	lives_left = 5;
 
-	pac_color = "yellow";
+	pac_color = "#f8be00";
 	var cnt = boardRow*boardCol;
 	var food_remain = chosen_food_amount;
 	var pacman_remain = 1;
 
 	for (var i = 0; i < boardRow ; i++) {
-		board[i] = new Array();
+		// board[i] = new Array();
 		ghost_pos_board[i] = new Array();
 		//put obstacles in (i=3,j=3) and (i=3,j=4) and (i=3,j=5), (i=6,j=1) and (i=6,j=2)
 		for (var j = 0; j < boardCol ; j++) {
-			if ( TemplateForBoard[j][i] == '#'
-				// (i == 3 && j == 3) ||
-				// (i == 3 && j == 4) ||
-				// (i == 3 && j == 5) ||
-				// (i == 6 && j == 1) ||
-				// (i == 6 && j == 2)
-			) {
+			if (
+				board[i][j] == 4
+			)
+			{
 				board[i][j] = 4;
 			} else {
 				var randomNum = Math.random();
@@ -229,7 +234,7 @@ function initialGameValues() {
 
 	start_time = new Date();
 	ghost_num = parseInt(document.getElementById('ghost_num_id').value.substring(0,1));
-	food_amount = chosen_food_amount;
+	chosen_food_amount= parseInt(document.getElementById('foodNum').value);
 	// document.getElementById("game_username").value = game_username;
 	document.getElementById("game_username_disply").value = game_username;
 	chosen_game_duration = parseInt(document.getElementById('duration_id').value);
@@ -240,10 +245,10 @@ function initialGameValues() {
 	chosen_food_25_color = document.getElementById('25_Color_id').value;
 
 	//food numbers
-	food_5_points_num = Math.floor(food_amount * 0.6);
-	food_15_points_num = Math.floor(food_amount * 0.3);
-	food_25_points_num = Math.floor(food_amount * 0.1);
-	while ((food_5_points_num + food_15_points_num + food_25_points_num) != food_amount){
+	food_5_points_num = Math.floor(chosen_food_amount * 0.6);
+	food_15_points_num = Math.floor(chosen_food_amount * 0.3);
+	food_25_points_num = Math.floor(chosen_food_amount * 0.1);
+	while ((food_5_points_num + food_15_points_num + food_25_points_num) != chosen_food_amount){
 		food_5_points_num++;
 	}
 }
@@ -256,118 +261,118 @@ function Draw() {
 	for (var i = 0; i < boardRow; i++) {
 		for (var j = 0; j < boardCol; j++) {
 			var center = new Object();
-			center.x = i * 60 + 30;
-			center.y = j * 60 + 30;
+			center.x = i * 30 + 15;
+			center.y = j * 30 + 15;
 			if (board[i][j] == 2) { // Pac-Man
 				if (pac_dir == "up"){
 					context.beginPath();
-					context.arc(center.x, center.y, 30, 1.65 * Math.PI, 1.35 * Math.PI); // half circle
+					context.arc(center.x, center.y, 15, 1.65 * Math.PI, 1.35 * Math.PI); // half circle
 					context.lineTo(center.x, center.y);
 					context.fillStyle = pac_color; //color
 					context.fill();
 					context.beginPath();
-					context.arc(center.x + 15, center.y - 5, 5, 0, 2 * Math.PI); // circle
+					context.arc(center.x + 7.5, center.y - 5, 2.5, 0, 2 * Math.PI); // circle
 					context.fillStyle = "black"; //color
 					context.fill();
 				} else if (pac_dir == "down"){
 					context.beginPath();
-					context.arc(center.x, center.y, 30, 0.65 * Math.PI, 0.35 * Math.PI,false); // half circle
+					context.arc(center.x, center.y, 15, 0.65 * Math.PI, 0.35 * Math.PI,false); // half circle
 					context.lineTo(center.x, center.y);
 					context.fillStyle = pac_color; //color
 					context.fill();
 					context.beginPath();
-					context.arc(center.x + 15, center.y - 5, 5, 0, 2 * Math.PI); // circle
+					context.arc(center.x + 7.5, center.y - 5, 2.5, 0, 2 * Math.PI); // circle
 					context.fillStyle = "black"; //color
 					context.fill();
 				} else if (pac_dir == "left"){
 					context.beginPath();
-					context.arc(center.x, center.y, 30, 1.15 * Math.PI, 0.85 * Math.PI); // half circle
+					context.arc(center.x, center.y, 15, 1.15 * Math.PI, 0.85 * Math.PI); // half circle
 					context.lineTo(center.x, center.y);
 					context.fillStyle = pac_color; //color
 					context.fill();
 					context.beginPath();
-					context.arc(center.x + 5, center.y - 15, 5, 0, 2 * Math.PI); // circle
+					context.arc(center.x + 2.5, center.y - 7.5, 2.5, 0, 2 * Math.PI); // circle
 					context.fillStyle = "black"; //color
 					context.fill();
 				} else if (pac_dir == "right"){
 					context.beginPath();
-					context.arc(center.x, center.y, 30, 0.15 * Math.PI, 1.85 * Math.PI); // half circle
+					context.arc(center.x, center.y, 15, 0.15 * Math.PI, 1.85 * Math.PI); // half circle
 					context.lineTo(center.x, center.y);
 					context.fillStyle = pac_color; //color
 					context.fill();
 					context.beginPath();
-					context.arc(center.x + 5, center.y - 15, 5, 0, 2 * Math.PI); // circle
+					context.arc(center.x + 2.5, center.y - 7.5, 2.5, 0, 2 * Math.PI); // circle
 					context.fillStyle = "black"; //color
 					context.fill();
 				}
 
 			} else if (board[i][j] == 5) { // 5 Points Food
 				context.beginPath();
-				context.arc(center.x, center.y, 7, 0, 2 * Math.PI); // circle
+				context.arc(center.x, center.y, 3.5, 0, 2 * Math.PI); // circle
 				context.fillStyle = chosen_food_5_color; //color
 				context.fill();
 			} else if (board[i][j] == 15) { // 15 Points Food
 				context.beginPath();
-				context.arc(center.x, center.y, 11, 0, 2 * Math.PI); // circle
+				context.arc(center.x, center.y, 5.5, 0, 2 * Math.PI); // circle
 				context.fillStyle = chosen_food_15_color; //color
 				context.fill();
 			} else if (board[i][j] == 25) { // 25 Points Food
 				context.beginPath();
-				context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle
+				context.arc(center.x, center.y, 7.5, 0, 2 * Math.PI); // circle
 				context.fillStyle = chosen_food_25_color; //color
 				context.fill();
 			} else if (board[i][j] == 4) { // Wall
 				context.beginPath();
-				context.rect(center.x - 30, center.y - 30, 60, 60);
-				context.fillStyle = "grey"; //color
+				context.rect(center.x - 15, center.y - 15, 30, 30);
+				context.fillStyle = "#590083ab"; //color
 				context.fill();
 			} else if (board[i][j] == 11) { // Clock
-				context.drawImage(clock_img ,  i*(canvas.height/boardCol) , j*(canvas.width/boardRow), 55, 55 * (clock_img.height / clock_img.width));
+				context.drawImage(clock_img ,  i*(canvas.height/boardCol) , j*(canvas.width/boardRow), 25, 25 * (clock_img.height / clock_img.width));
 			} else if (board[i][j] == 12) { // Heart
-				context.drawImage(heart_img ,  i*(canvas.height/boardCol) , j*(canvas.width/boardRow), 55, 55 * (heart_img.height / heart_img.width));
+				context.drawImage(heart_img ,  i*(canvas.height/boardCol) , j*(canvas.width/boardRow), 35, 35 * (heart_img.height / heart_img.width));
 			}
 			// Ghost
 			if (ghost_pos_board[i][j] == 10){
 				context.beginPath();
-				context.arc(center.x, center.y, 20, 1 * Math.PI, 2 * Math.PI); // head
+				context.arc(center.x, center.y, 10, 1 * Math.PI, 2 * Math.PI); // head
 				context.fillStyle = GetGhostByLocation(i,j).color;
 				context.fill();
 				context.beginPath();
-				context.arc(center.x + 10, center.y - 5 , 5, 0, 2 * Math.PI); // right eye
+				context.arc(center.x + 5, center.y - 2.5 , 2.5, 0, 2 * Math.PI); // right eye
 				context.fillStyle = "white"; 
 				context.fill();
 				context.beginPath();
-				context.arc(center.x + 10, center.y - 5 , 2, 0, 2 * Math.PI); // in right eye
+				context.arc(center.x + 5, center.y - 2.5 , 1, 0, 2 * Math.PI); // in right eye
 				context.fillStyle = "black";
 				context.fill();
 				context.beginPath();
-				context.arc(center.x - 10, center.y - 5, 5, 0, 2 * Math.PI); // left eye
+				context.arc(center.x - 5, center.y - 2.5, 2.5, 0, 2 * Math.PI); // left eye
 				context.fillStyle = "white"; 
 				context.fill();
 				context.beginPath();
-				context.arc(center.x - 10, center.y - 5 , 2, 0, 2 * Math.PI); // in left eye
+				context.arc(center.x - 5, center.y - 2.5 , 1, 0, 2 * Math.PI); // in left eye
 				context.fillStyle = "black"; 
 				context.fill();
 				context.beginPath(); // legs
 				context.moveTo(center.x, center.y);
-				context.lineTo(center.x + 20 , center.y);
-				context.lineTo(center.x + 20 , center.y + 20);
-				context.lineTo(center.x + 15 , center.y + 15);
-				context.lineTo(center.x + 10 , center.y + 20);
-				context.lineTo(center.x +  5 , center.y + 15);
-				context.lineTo(center.x      , center.y + 20);
-				context.lineTo(center.x -  5 , center.y + 15);
-				context.lineTo(center.x - 10 , center.y + 20);
-				context.lineTo(center.x - 15 , center.y + 15);
-				context.lineTo(center.x - 20 , center.y + 20);
-				context.lineTo(center.x - 20 , center.y);
+				context.lineTo(center.x + 10 , center.y);
+				context.lineTo(center.x + 10 , center.y + 10);
+				context.lineTo(center.x + 7.5 , center.y + 7.5);
+				context.lineTo(center.x + 7.5 , center.y + 10);
+				context.lineTo(center.x +  2.5 , center.y + 7.5);
+				context.lineTo(center.x      , center.y + 10);
+				context.lineTo(center.x -  2.5 , center.y + 7.5);
+				context.lineTo(center.x - 5 , center.y + 10);
+				context.lineTo(center.x - 7.5 , center.y + 7.5);
+				context.lineTo(center.x - 10 , center.y + 10);
+				context.lineTo(center.x - 10 , center.y);
 				context.lineTo(center.x, center.y);
 				context.fillStyle = GetGhostByLocation(i,j).color; 
 				context.fill();
 			}
 			// bitcoin img
 			if (bitcoin_obj.i == i && bitcoin_obj.j == j){ 
-				context.drawImage(bitcoin_img ,  i*(canvas.height/boardCol) , j*(canvas.width/boardRow), 55, 55 * (bitcoin_img.height / bitcoin_img.width));
+				context.drawImage(bitcoin_img ,  i*(canvas.height/boardCol) , j*(canvas.width/boardRow), 25, 25 * (bitcoin_img.height / bitcoin_img.width));
 			}
 		}
 	}
@@ -1107,12 +1112,12 @@ $(function() {
 		}
 	});
 
-	//check if password match user
+	//check if password match
 	$.validator.addMethod('validateUser', function (password, element) {
 
 		let user_input_username = document.getElementById("logIn_name_id").value;
 		if(user_input_username in userDic) {
-			if(userDic[user_input_username] === password) {
+			if(userDic[user_input_username] == password) {
 				return true;
 			}
 	
@@ -1333,7 +1338,13 @@ function UserScreenConsoleON() {
 	document.getElementById("UserScreenConsole").style.display = "block";
 	startIntervals();
 }
+function IntervalsCheck() {
+	if(true){
+		clearAllIntervals();
 
+	}
+
+}
 function show_key() {
 
 	document.getElementById('key_up_display').value = chosen_key_up;
@@ -1355,7 +1366,7 @@ function show_key() {
 /*-----------------------Music Function---------------------- */
 function playMusic() {
 	document.getElementById("Background_Music_id").play();
-	document.getElementById("Background_Music_id").volume = 0.4;
+	document.getElementById("Background_Music_id").volume = 0.2;
 }
 
 function stopMusic()
@@ -1376,9 +1387,6 @@ function ChangeIconMusic()
 		playMusic();
 	 }
  }
- 
-//  alert('Esc key pressed.');
-
 /*--------------------------------------------------------------------*/
 // When the user clicks on ESC button, close the modal
 $(document).on(

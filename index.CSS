@@ -1,8 +1,11 @@
-body {
+/* body {
   padding:0;
   margin: 0;
-}
-
+} */
+/* html {
+  background: radial-gradient(#000, #111); 
+  height: 100%;
+} */
 .slider {
   -webkit-appearance: none;
   width: 50%;
@@ -37,10 +40,6 @@ body {
   cursor: pointer;
 }
 
-div_none {
-   display: none;
- }
-
  button:hover {
   opacity: 0.8;
 }
@@ -49,7 +48,7 @@ div_none {
 .cancelbtn {
   width: auto;
   padding: 10px 18px;
-  background-color: #f44336;
+  background-color: #f4d136;
 }
 
 /* Center the image and position the close button */
@@ -78,7 +77,7 @@ span.psw {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
-  padding-top: 100px; /* Location of the box */
+  padding-top: 10px; /* Location of the box */
   left: 0;
   top: 0;
   width: 100%; /* Full width */
@@ -91,17 +90,23 @@ span.psw {
 /* Modal Content */
 .modal-content {
   position: relative;
-  background-color: #fefefe;
+  width: 50%;
+  background-color: #ffffffef;
   margin: auto;
   padding: 0;
-  border: 1px solid #888;
-  width: 80%;
+  border: 1px solid rgb(136, 136, 136);
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
   -webkit-animation-name: animatetop;
   -webkit-animation-duration: 0.4s;
   animation-name: animatetop;
   animation-duration: 0.4s
 }
+.modal-content input[type=email], input[type=date], input[type=password], input[type=text]{
+  width:100%;
+  text-align:left;
+  
+}
+
 
 /* Add Animation */
 @-webkit-keyframes animatetop {
@@ -114,22 +119,7 @@ span.psw {
   to {top:0; opacity:1}
 }
 
-/* The Close Button */
-.close {
-  color: white;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-  color: #000;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-.modal-header {
+/* .modal-header {
   padding: 2px 16px;
   background-color: #5cb85c;
   color: white;
@@ -141,7 +131,7 @@ span.psw {
   padding: 2px 16px;
   background-color: #5cb85c;
   color: white;
-}
+} */
 
 /* The Close Button (x) */
 .close {
@@ -187,7 +177,7 @@ dialog:not([open]) {
 
 .game_button {
   display: inline-block;
-  padding: 15px 25px;
+  padding: 10px 20px;
   font-size: 20px;
   cursor: pointer;
   text-align: center;
@@ -203,13 +193,13 @@ dialog:not([open]) {
 .game_button:hover {background-color: #c97201e5}
 
 .game_button:active {
-  background-color: #6e4200;
+  background-color: #42006e;
   box-shadow: 0 5px rgb(146, 95, 1);
   transform: translateY(4px);
 
 }.setting_button {
   display: inline-block;
-  width: 5%;
+  width: 75px;
   padding: 15px 15px;
   font-size: 10px;
   cursor: pointer;
@@ -217,39 +207,32 @@ dialog:not([open]) {
   text-decoration: none;
   outline: none;
   color: #fff;
-  background-color: #a4abd6e5;
+  background-color: #5680f5e5;
   border: none;
   border-radius: 10px;
-  box-shadow: 0 9px rgb(89, 85, 110);
+  box-shadow: 0 9px rgb(62, 50, 122);
+  word-wrap: break-word;
+
 }
 
-.setting_button:hover {background-color: #0c68e0e5}
-
-.setting_button:active {
-  background-color: #6e4200;
-  box-shadow: 0 5px rgb(146, 95, 1);
+.setting_button:hover {
+  background-color: #c72323;
+  box-shadow: 0 5px rgb(94, 0, 0);
   transform: translateY(4px);
 }
-h2{
 
+.setting_button:active {
+  background-color: #c72323;
+  box-shadow: 0 5px rgb(94, 0, 0);
+  transform: translateY(4px);
+}
+
+h2{
 font-family: 'Monoton', cursive;
 font-family: 'Press Start 2P', cursive;
-/* animation: color-change 1s infinite; */
 font-size: xx-large;
 }
 
-/* 
-
-@keyframes color-change {
-  0% { color: rgb(50, 211, 9); }
-  15% { color: rgb(0, 255, 170); }
-  30% { color: rgb(135, 207, 0); }
-  45% { color: rgb(255, 166, 0); }
-  60% { color: rgb(69, 69, 226); }
-  75% { color: red; }
-  85% { color: rgb(82, 6, 6); }
-  100% { color: rgb(255, 0, 119); }
-} */
 
 /*-------------------pacman neon sign--------------------------------------*/
 label.error {
@@ -274,15 +257,9 @@ label.error {
   align-items: center;
   width: 50%;
   height: 50%;
-  /* background-image: radial-gradient(
-    ellipse 50% 35% at 50% 50%,
-    #919191,
-    transparent
-  ); */
   transform: translate(-50%, -50%);
   letter-spacing: 2;
   left: 50%;
-  /* top: 37%; */
   font-family: "Clip";
   text-transform: uppercase;
   font-size: 6em;
@@ -466,45 +443,56 @@ label.error {
   height: 30%;
 }
 
-/* Create three equal columns that floats next to each other */
-.column_l {
-  float: left;
-  width: 33.33%;
-  padding: 15px;
-}
-
 /*-------------page layout-----------------*/
 * {
   box-sizing: border-box;
 }
 .menu {
-  width:15%;
+  width:20%;
   height: 100%;
   text-align:center;
-  background-color:#181818;
+  background-color:#1b1b1b;
+  float: left;
+  /* border-radius: 15%; */
+  /* background-color:#590083ab; */
+
 }
 
 .menu input[type=text]{
-  width:50%;
+  width:40%;
   text-align:center;
+  border-radius: 15%;
+
+
 }
 
 .menu a {
   /* background-color:#e5e5e5; */
-  padding:8px;
+  padding:4px;
   margin-top:7px;
   display:block;
   width:100%;
   height: 100%;
   color:rgb(255, 255, 255);
-  text-align:left;
-  font-family: 'Monoton', cursive;
-  font-family: 'Press Start 2P', cursive;
+  text-align:center;
+  word-wrap: break-word;
+
+  /* font-family: 'Monoton', cursive;
+  font-family: 'Press Start 2P', cursive; */
 }
 .main {
-  float:none;
+  float:left;
   width:60%;
-  padding:0 10px;
+  height: 600;
+  background-color:#000000;
+  border: black;
+
+
+}
+@media screen and (max-width: 600px) {
+  .main, .menu .div {
+    width: 100%;
+  }
 }
 
 
@@ -538,8 +526,8 @@ label.error {
 
 /*---------------------input color design----------------------*/
 input[type=color] {
-    width: 35px;
-    height: 35px; 
+    width: 22px;
+    height: 22px; 
     border-radius: 50%;
     overflow: hidden;
 }
@@ -557,5 +545,15 @@ input[type=color]::-webkit-color-swatch-wrapper {
 }
 
 /*----------------------------------------------------------------*/
+#canvas{
+  border-color:#590083ab;
+  border: 5px solid ;
+  background: radial-gradient(#000, #111); 
+  height: 100%;
+}
 
 
+#UserScreenConsole{
+  background: radial-gradient(#000, #111); 
+  height: 100%;
+}
