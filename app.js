@@ -47,6 +47,8 @@ var foodoutput;
 var changePath = 7;
 var reCP = false;
 
+var FoodLeft;
+
 
 /////////*  Images */////////
 
@@ -120,6 +122,7 @@ function Start() {
 	pac_color = "#f8be00";
 	var cnt = boardRow*boardCol;
 	var food_remain = chosen_food_amount;
+	FoodLeft = chosen_food_amount;
 	var pacman_remain = 1;
 
 	for (var i = 0; i < boardRow ; i++) {
@@ -431,10 +434,13 @@ function UpdatePosition() {
 		//  Points
 		if (board[shape.i][shape.j] == 5) {// 5 Points
 			score+=5;
+			FoodLeft--;
 		} else if (board[shape.i][shape.j] == 15) {// 15 Points
 			score+=15;
+			FoodLeft--;
 		} else if (board[shape.i][shape.j] == 25) {// 25 Points
 			score+=25;
+			FoodLeft--;
 		} else if (board[shape.i][shape.j] == 11) {// Clock Bonus
 			if (!clock_obj.ate){
 				chosen_game_duration+=15;
@@ -451,13 +457,11 @@ function UpdatePosition() {
 
 		board[shape.i][shape.j] = 2;
 		var currentTime = new Date();
-		time_elapsed = (currentTime - start_time) / 1000;
+		time_elapsed = chosen_game_duration-(currentTime - start_time) / 1000;
 
-		if (score >= 2000 && time_elapsed <= 10) { //  TODO : What to do with this?
-			pac_color = "green";
-		}
+		time_elapsed = Math.floor(time_elapsed);
 
-		if (time_elapsed >= chosen_game_duration){
+		if (time_elapsed <= 0 || FoodLeft == 0){
 			if (score < 100){
 				clearAllIntervals();
 				window.alert("You are better than " + score + " points!");
@@ -467,12 +471,8 @@ function UpdatePosition() {
 			}
 		}
 
-		if (score == 1000) { // TODO : Game Finished
-			clearAllIntervals();
-			window.alert("Game completed");
-		} else {
-			Draw();
-		}
+		Draw();
+		
 	}
 }
 
@@ -833,7 +833,7 @@ addEventListener(
 		e.preventDefault();
 	}
 	},
-	 false
+	false
 );
 
 
@@ -1317,19 +1317,19 @@ function UserScreenON() {
 function settingON() {
 	resetElement();
 	document.getElementById("setting").style.display = "block";
-	// clearAllIntervals();
+	clearAllIntervals();
 }
 
 function UserScreenWelcomeON() {
 	resetElement();
 	document.getElementById("UserScreenWelcome").style.display = "block";
-	// clearAllIntervals();
+	clearAllIntervals();
 }
 
 function UserScreenAboutON() {
 	resetElement();
 	document.getElementById("UserScreenAbout").style.display = "block";
-	// clearAllIntervals();
+	clearAllIntervals();
 }
 
 function UserScreenConsoleON() {
@@ -1338,13 +1338,7 @@ function UserScreenConsoleON() {
 	document.getElementById("UserScreenConsole").style.display = "block";
 	startIntervals();
 }
-function IntervalsCheck() {
-	if(true){
-		clearAllIntervals();
 
-	}
-
-}
 function show_key() {
 
 	document.getElementById('key_up_display').value = chosen_key_up;
