@@ -260,7 +260,7 @@ function Draw() {
 	canvas.width = canvas.width; //clean board
 	lblScore.value = score;
 	lblTime.value = time_elapsed;
-	lblLives.value = lives_left - 1;
+	lblLives.value = lives_left;
 	for (var i = 0; i < boardRow; i++) {
 		for (var j = 0; j < boardCol; j++) {
 			var center = new Object();
@@ -473,7 +473,6 @@ function UpdatePosition() {
 		time_elapsed = chosen_game_duration-(currentTime - start_time) / 1000;
 
 		time_elapsed = Math.floor(time_elapsed);
-
 		if (time_elapsed <= 0 || FoodLeft == 0){
 			if (score < 100){
 				clearAllIntervals();
