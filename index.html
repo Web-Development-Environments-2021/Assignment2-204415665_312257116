@@ -107,28 +107,23 @@
 				<div id ="aboutDialog" class="modal-content animate">
 					<h2 class="w3-wide w3-center">About</h2>
 					<span onclick="welcomeON()" class="close" title="Close Modal">&times;</span>
-					<p id="aboutPara" >
-						<p style="text-align: left; padding: 25px;">
-							This web page was created by:<br>
+					<div id="aboutPara1">
 							Moshe Biran - 204415665 <br>
-							Daniel Dinshtein - 312257116 <br>
-							___________________________________________________________________
+							Daniel Dinshtein - 312257116 
+							<hr style="border: 0.5px solid gray;">
+							<b>jQuery Plugin Usage:</b>
 							<br>
-							jQuery Plugin Usage:
-							<br>In addition to collecting information from the user and apply to the system
-							<br>We used jQuery plugins to validate and verify the details entered by the user,
-							<br>this use take place in the settings, registration and login screen in the game. 
+							In addition to collecting information from the user and apply to the system
 							<br>
-							___________________________________________________________________
+							We used jQuery plugins to validate and verify the details entered by the user,
 							<br>
-							Template Usage : ...<br>
-
-							....
-							<br>
-							<br>
-							___________________________________________________________________
-							<br>
-							Difficulties:
+							this use take place in the settings, registration and login screen in the game. 
+							<hr style="border: 0.5px solid gray;">
+							<b>Template Usage :</b> We Took template from w3schools.
+							
+							<hr style="border: 0.5px solid gray;">
+							
+							<b>Difficulties:</b>
 							<br>
 							1. Cause the ghosts to chase intelligently - we used BFS at the end.
 							<br>
@@ -137,11 +132,12 @@
 							3. Maintaining the logic between all menus and screens.
 							<br>
 							4. Game size design - Finally we chose to fit tp screen of a laptop.
-							___________________________________________________________________
-							<br>Hope you enjoy!
-						</p>
-						<input class="game_button" type="button" value="Close" id="setting_Cancel" onclick="welcomeON()">
-					</p>
+							<hr style="border: 0.5px solid gray;">
+							Hope you enjoy!
+							<br>
+					</div>
+					<input class="game_button" type="button" value="Close" id="setting_Cancel" onclick="welcomeON()">
+					
 				</div>
 			</dialog>
 		</div>
@@ -225,17 +221,36 @@
 			<div id ="UserScreenaboutDialog" class="modal-content animate">
 				<h2 class="w3-wide w3-center">About</h2>
 				<span onclick="UserScreenWelcomeON()" class="close" title="Close Modal">&times;</span>
-				<br>
-				<p id="aboutPara">
-					This web page was created by:<br>
+				<div id="aboutPara1">
 					Moshe Biran - 204415665 <br>
-					Daniel Dinshtein - 312257116 <br>
-					____________________________________<br>
-					jQuery Plugin Usage:<br>We used the jQuery plugins to validate and verify the details entered by the user<br>In addition to collecting the information and using it in the system<br> in the settings, registration and login screen in the game. <br>
-					____________________________________<br>
-					Template Usage : ...<br>
-					<input class="game_button" type="button" value="Close" id="setting_Cancel" onclick="UserScreenWelcomeON()">
-				</p>
+					Daniel Dinshtein - 312257116 
+					<hr style="border: 0.5px solid gray;">
+					<b>jQuery Plugin Usage:</b>
+					<br>
+					In addition to collecting information from the user and apply to the system
+					<br>
+					We used jQuery plugins to validate and verify the details entered by the user,
+					<br>
+					this use take place in the settings, registration and login screen in the game. 
+					<hr style="border: 0.5px solid gray;">
+					<b>Template Usage :</b> We Took template from w3schools.
+					
+					<hr style="border: 0.5px solid gray;">
+					
+					<b>Difficulties:</b>
+					<br>
+					1. Cause the ghosts to chase intelligently - we used BFS at the end.
+					<br>
+					2. Create synchronization between the intervals of all objects so the user can see the game properly.
+					<br>
+					3. Maintaining the logic between all menus and screens.
+					<br>
+					4. Game size design - Finally we chose to fit tp screen of a laptop.
+					<hr style="border: 0.5px solid gray;">
+					Hope you enjoy!
+					<br>
+				</div>
+				<input class="game_button" type="button" value="Close" id="setting_Cancel" onclick="UserScreenWelcomeON()">
 			</div>
 		</dialog>
 	<!-- ----------------------------ScreenConsole------------------------------ -->
@@ -256,17 +271,17 @@
 							<input id="lblLives" type="text" value="Lives Left"/>
 						</a>
 						<a id="score" >
-							<label for="lblScore">SCORE:</label><br>
+							<label for="lblScore">Score:</label><br>
 							<input id="lblScore" type="text" value="SCORE"/>
 						</a>
 						<a id="time">
-							<label for="lblTime">TIME:</label><br>
+							<label for="lblTime">Time Left:</label><br>
 							<input id="lblTime" type="text" value="TIME"/>
 						</a>
 					</a>
 					<div class=" w3-center">
 						<br>
-						<a>Key pad layout:</a><br>
+						<label for="key_up_display">Key Pad Layout:</label><br>
 						<input class="setting_button" type="button" id="key_up_display" style="text-align: center;font-size:x-small;"><br><br>
 
 						<input class="setting_button" type="button" id="key_left_display" style="text-align: center ;font-size:x-small;">
