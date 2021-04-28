@@ -469,7 +469,7 @@ label.error {
   word-wrap: break-word;
   /* font-family: 'Monoton', cursive; */
   font-family: 'Press Start 2P', cursive;
-  font-size: large;
+  font-size:medium;
   font-family: 'Freckle Face', cursive;
 
 }
@@ -526,7 +526,7 @@ input[type=color]::-webkit-color-swatch-wrapper {
 }
 #aboutPara,#aboutPara1  {
   font-family: 'Press Start 2P', cursive;
-  font-size: 14px;
+  font-size: 12px;
   font-family: 'Freckle Face', cursive;
   text-align: left;
   padding-left: 5%;
