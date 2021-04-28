@@ -1,7 +1,4 @@
-/* body {
-  padding:0;
-  margin: 0;
-} */
+
 #UserScreenConsole {
   
   
@@ -119,20 +116,6 @@ span.psw {
   from {top:-300px; opacity:0}
   to {top:0; opacity:1}
 }
-
-/* .modal-header {
-  padding: 2px 16px;
-  background-color: #5cb85c;
-  color: white;
-}
-
-.modal-body {padding: 2px 16px;}
-
-.modal-footer {
-  padding: 2px 16px;
-  background-color: #5cb85c;
-  color: white;
-} */
 
 /* The Close Button (x) */
 .close {
@@ -308,9 +291,6 @@ label.error {
   }
   100% {
     color: #f0cc01;
-    /* text-shadow: 0 0 0.6rem #ffe6ff, 0 0 1.5rem #ff65bd,
-      -0.2rem 0.1rem 1rem #ff65bd, 0.2rem 0.1rem 1rem #ff65bd,
-      0 -0.5rem 2rem #ff2483, 0 0.5rem 3rem #ff2483; */
   }
 }
 
@@ -502,35 +482,6 @@ label.error {
   .main, .menu .div {
     width: 100%;
   }
-}
-
-
-/*-------------------key bord arrows---------------------*/
-.arrow {
-  border: solid black;
-  border-width: 0 3px 3px 0;
-  display: inline-block;
-  padding: 3px;
-}
-
-.right {
-  transform: rotate(-45deg);
-  -webkit-transform: rotate(-45deg);
-}
-
-.left {
-  transform: rotate(135deg);
-  -webkit-transform: rotate(135deg);
-}
-
-.up {
-  transform: rotate(-135deg);
-  -webkit-transform: rotate(-135deg);
-}
-
-.down {
-  transform: rotate(45deg);
-  -webkit-transform: rotate(45deg);
 }
 
 /*---------------------input color design----------------------*/
