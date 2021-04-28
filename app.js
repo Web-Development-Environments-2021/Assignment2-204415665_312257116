@@ -78,7 +78,6 @@ var boardRow = 24;
 var boardCol = 16;
 	
 
-
 function Start() {
 	board = 
 	[
