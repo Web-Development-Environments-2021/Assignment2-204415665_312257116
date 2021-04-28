@@ -1137,6 +1137,7 @@ $(function() {
 		return false;
 	});
 	//chack if key already taken by another action
+	
 	$.validator.addMethod("keyChange_up", function(value, element, param) {
 		return value != $(param).val();
 	});
@@ -1150,6 +1151,70 @@ $(function() {
 	});
 	$.validator.addMethod("keyChange3", function(value, element, param) {
 		return value != $(param).val();
+	});
+
+	$.validator.addMethod("keyChange", function(value, element) {
+		let upCheck = document.getElementById("up").value;
+		let downCheck = document.getElementById("down").value;
+		let rightCheck = document.getElementById("right").value;
+		let leftCheck = document.getElementById("left").value;
+
+		if(upCheck == downCheck || upCheck == rightCheck || upCheck == leftCheck){
+			return false;
+		}
+
+		else{
+			return true;
+		}
+
+	});
+
+	$.validator.addMethod("keyChange_up", function(value, element) {
+		let upCheck = document.getElementById("up").value;
+		let downCheck = document.getElementById("down").value;
+		let rightCheck = document.getElementById("right").value;
+		let leftCheck = document.getElementById("left").value;
+
+		if(upCheck == downCheck || downCheck == rightCheck || downCheck == leftCheck){
+			return false;
+		}
+
+		else{
+			return true;
+		}
+
+	});
+
+	$.validator.addMethod("checkLeftKey", function(value, element) {
+		let upCheck = document.getElementById("up").value;
+		let downCheck = document.getElementById("down").value;
+		let rightCheck = document.getElementById("right").value;
+		let leftCheck = document.getElementById("left").value;
+
+		if(upCheck == leftCheck || leftCheck == rightCheck || downCheck == leftCheck){
+			return false;
+		}
+
+		else{
+			return true;
+		}
+
+	});
+
+	$.validator.addMethod("checkRightKey", function(value, element) {
+		let upCheck = document.getElementById("up").value;
+		let downCheck = document.getElementById("down").value;
+		let rightCheck = document.getElementById("right").value;
+		let leftCheck = document.getElementById("left").value;
+
+		if(upCheck == rightCheck || downCheck == rightCheck || rightCheck == leftCheck){
+			return false;
+		}
+
+		else{
+			return true;
+		}
+
 	});
 	$.validator.addMethod('gameTimeMoreThen60', function (value, element, param) {
 		return value >= param;
