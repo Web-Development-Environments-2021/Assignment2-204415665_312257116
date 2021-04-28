@@ -284,7 +284,7 @@ function Draw() {
 					context.fillStyle = pac_color; //color
 					context.fill();
 					context.beginPath();
-					context.arc(center.x + 7.5, center.y - 5, 2.5, 0, 2 * Math.PI); // circle
+					context.arc(center.x + 5, center.y - 5, 2.5, 0, 2 * Math.PI); // circle
 					context.fillStyle = "black"; //color
 					context.fill();
 				} else if (pac_dir == "left"){

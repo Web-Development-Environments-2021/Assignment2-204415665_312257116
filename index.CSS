@@ -450,7 +450,7 @@ label.error {
 } */
 .menu {
   width:20%;
-  height: 100%;
+  height:480;
   text-align:center;
   background-color:#1b1b1b;
   float: left;
