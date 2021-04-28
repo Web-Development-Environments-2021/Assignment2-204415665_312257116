@@ -32,10 +32,6 @@ var chosen_food_25_color;
 var chosen_game_duration = 60;
 var ghost_num = 2;
 
-
-// var Volslider;
-// var s;
-
 var myAudio;
 
 var enemslider;
@@ -48,6 +44,8 @@ var changePath = 5;
 var reCP = false;
 
 var FoodLeft;
+var pacMouth = 0;
+var pacMouthCheck = true;
 
 
 /////////*  Images */////////
@@ -269,7 +267,7 @@ function Draw() {
 			if (board[i][j] == 2) { // Pac-Man
 				if (pac_dir == "up"){
 					context.beginPath();
-					context.arc(center.x, center.y, 15, 1.65 * Math.PI, 1.35 * Math.PI); // half circle
+					context.arc(center.x, center.y, 15, 1.65 * Math.PI + pacMouth , 1.35 * Math.PI - pacMouth); // half circle
 					context.lineTo(center.x, center.y);
 					context.fillStyle = pac_color; //color
 					context.fill();
@@ -279,7 +277,7 @@ function Draw() {
 					context.fill();
 				} else if (pac_dir == "down"){
 					context.beginPath();
-					context.arc(center.x, center.y, 15, 0.65 * Math.PI, 0.35 * Math.PI,false); // half circle
+					context.arc(center.x, center.y, 15, 0.65 * Math.PI + pacMouth, 0.35 * Math.PI - pacMouth,false); // half circle
 					context.lineTo(center.x, center.y);
 					context.fillStyle = pac_color; //color
 					context.fill();
@@ -289,7 +287,7 @@ function Draw() {
 					context.fill();
 				} else if (pac_dir == "left"){
 					context.beginPath();
-					context.arc(center.x, center.y, 15, 1.15 * Math.PI, 0.85 * Math.PI); // half circle
+					context.arc(center.x, center.y, 15, 1.15 * Math.PI + pacMouth , 0.85 * Math.PI - pacMouth); // half circle
 					context.lineTo(center.x, center.y);
 					context.fillStyle = pac_color; //color
 					context.fill();
@@ -299,7 +297,7 @@ function Draw() {
 					context.fill();
 				} else if (pac_dir == "right"){
 					context.beginPath();
-					context.arc(center.x, center.y, 15, 0.15 * Math.PI, 1.85 * Math.PI); // half circle
+					context.arc(center.x, center.y, 15, 0.15 * Math.PI + pacMouth , 1.85 * Math.PI - pacMouth); // half circle
 					context.lineTo(center.x, center.y);
 					context.fillStyle = pac_color; //color
 					context.fill();
@@ -307,6 +305,13 @@ function Draw() {
 					context.arc(center.x + 2.5, center.y - 7.5, 2.5, 0, 2 * Math.PI); // circle
 					context.fillStyle = "black"; //color
 					context.fill();
+				}
+				if (pacMouthCheck){
+					pacMouthCheck = false;
+					pacMouth = 0.30;
+				} else {
+					pacMouthCheck = true;
+					pacMouth = 0;
 				}
 
 			} else if (board[i][j] == 5) { // 5 Points Food
@@ -353,23 +358,6 @@ function Draw() {
 				context.arc(center.x, center.y, 10, 1 * Math.PI, 2 * Math.PI); // head
 				context.fillStyle = GetGhostByLocation(i,j).color;
 				context.fill();
-				// ghostEyes(center, i, j);
-				// context.beginPath();
-				// context.arc(center.x + 5, center.y - 2.5 , 2.5, 0, 2 * Math.PI); // right eye
-				// context.fillStyle = "white"; 
-				// context.fill();
-				// context.beginPath();
-				// context.arc(center.x + 7.5, center.y - 2.5 , 1.5, 0, 2 * Math.PI); // in right eye
-				// context.fillStyle = "black";
-				// context.fill();
-				// context.beginPath();
-				// context.arc(center.x - 5, center.y - 2.5, 2.5, 0, 2 * Math.PI); // left eye
-				// context.fillStyle = "white"; 
-				// context.fill();
-				// context.beginPath();
-				// context.arc(center.x - 2.5, center.y - 2.5 , 1.5, 0, 2 * Math.PI); // in left eye
-				// context.fillStyle = "black"; 
-				// context.fill();
 				context.beginPath(); // legs
 				context.moveTo(center.x, center.y);
 				context.lineTo(center.x + 10 , center.y);
@@ -386,7 +374,7 @@ function Draw() {
 				context.lineTo(center.x, center.y);
 				context.fillStyle = GetGhostByLocation(i,j).color; 
 				context.fill();
-				ghostEyes(center, i, j);
+				ghostEyes(center, i, j); // eyes
 			}
 			// bitcoin img
 			if (bitcoin_obj.i == i && bitcoin_obj.j == j){ 
