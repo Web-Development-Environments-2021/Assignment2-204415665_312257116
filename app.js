@@ -455,13 +455,13 @@ function UpdatePosition() {
 			score+=25;
 			FoodLeft--;
 		} else if (board[shape.i][shape.j] == 11) {// Clock Bonus
-			if (!clock_obj.ate){
+			if (!clock_obj.ate || window.intervalClockObj){
 				chosen_game_duration+=15;
 				clock_obj.ate = true;
 				window.clearInterval(intervalClockObj);
 			}
 		} else if (board[shape.i][shape.j] == 12) {// Heart Bonus
-			if ( !heart_obj.ate){
+			if ( !heart_obj.ate || window.intervalHeartObj){
 				lives_left++;
 				heart_obj.ate = true;
 				window.clearInterval(intervalHeartObj);
@@ -702,7 +702,7 @@ function GhostEatPacman(whoEatPacman){
 }
 
 function PacmanEatBitcoin(){
-	if (bitcoin_obj.i != -1 || bitcoin_obj.j != -1){
+	if (bitcoin_obj.i != -1 || bitcoin_obj.j != -1 ||  window.intervalBitcoin){
 		window.clearInterval(intervalBitcoin);
 	}
 	score += 50;
@@ -1286,7 +1286,7 @@ function resetElement() {
 	// document.getElementById("UserScreenWelcome").style.display = "none";
 	document.getElementById("UserScreenAbout").style.display = "none";
 	document.getElementById("UserScreenConsole").style.display = "none";
-
+	document.getElementsByTagName("BODY")[0].style.backgroundColor = "White";
 }
 /*-----------------------logout user screen-------------------------------- */
 function logOutON(){
@@ -1295,6 +1295,7 @@ function logOutON(){
 	document.getElementById("UserScreenWelcome").style.display = "none";
 	document.getElementById("UserScreen").style.display = "none";
 	document.getElementById("NotLogIn").style.display = "block";
+	clearAllIntervals();
 	welcomeON();
 }
 
@@ -1348,6 +1349,7 @@ function UserScreenConsoleON() {
 	resetElement();
 	document.getElementById("UserScreenWelcome").style.display = "none";
 	document.getElementById("UserScreenConsole").style.display = "block";
+	document.getElementsByTagName("BODY")[0].style.backgroundColor = "#1b1b1b";
 	startIntervals();
 }
 
