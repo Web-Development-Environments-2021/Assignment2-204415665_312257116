@@ -1025,53 +1025,17 @@ $(document).ready(function() {
 	});
 	$("#setting_form").validate({
 		rules: {
-			UP_name: {
-			 	keyChange1: '#RIGHT',
-				keyChange1: '#DOWN',
-				keyChange1: '#LEFT'
-			},
-			DOWN_name: {
-				keyChange1: '#UP',
-				keyChange1: '#RIGHT',
-				keyChange1: '#LEFT'
-			},
-			LEFT_name: {
-				keyChange1: '#UP',
-				keyChange1: '#DOWN',
-				keyChange1: '#RIGHT'
-			},
 			RIGHT_name: {
-				keyChange1: '#UP',
-				keyChange1: '#DOWN',
-				keyChange1: '#LEFT'
+				keyChangeCheck:true,
 			},
 			duration_name: {
 				gameTimeMoreThen60: 60
 			}
 		},
 		messages: {
-			UP_name: {			
-				keyChange1: "This key already taken by another action.",
-				keyChange2: "This key already taken by another action.",
-				keyChange3: "This key already taken by another action.",
+			RIGHT_name: {			
+				keyChangeCheck: "This key already taken by another action."
 			},
-			DOWN_name: {
-				keyChange1: "This key already taken by another action.",
-				keyChange2: "This key already taken by another action.",
-				keyChange3: "This key already taken by another action.",
-					},
-			LEFT_name: {
-				keyChange1: "This key already taken by another action.",
-				keyChange2: "This key already taken by another action.",
-				keyChange3: "This key already taken by another action.",
-
-						},
-			RIGHT_name: {
-				keyChange1: "This key already taken by another action.",
-				keyChange2: "This key already taken by another action.",
-				keyChange3: "This key already taken by another action.",
-
-					},
 			duration_name: {
 				gameTimeMoreThen60: "Minimum game duration is 60 second."
 			}
@@ -1186,20 +1150,23 @@ $(function() {
 		return false;
 	});
 	//chack if key already taken by another action
-	$.validator.addMethod("keyChange_up", function(value, element, param) {
-		return value != $(param).val();
-	});
+	
 
-	$.validator.addMethod("keyChange1", function(value, element, param) {
-		return value != $(param).val();
-	});
-	$.validator.addMethod("keyChange2", function(value, element, param) {
-		return value != $(param).val();
+	$.validator.addMethod("keyChangeCheck", function(value, element, param) {
+		let upK = document.getElementById("UP").value;
+		let downK = document.getElementById("DOWN").value;
+		let rightK = document.getElementById("RIGHT").value;
+		let leftK = document.getElementById("LEFT").value;
+
+		if(upK == downK || upK == leftK || upK == rightK ||downK==leftK|| downK==rightK || rightK== leftK){
+			return false;
+		}
+		else{
+			return true;
+		}
 
 	});
-	$.validator.addMethod("keyChange3", function(value, element, param) {
-		return value != $(param).val();
-	});
+	
 	$.validator.addMethod('gameTimeMoreThen60', function (value, element, param) {
 		return value >= param;
 	});
@@ -1298,6 +1265,11 @@ function randomConfigurations()
 	document.getElementById('DOWN').value = chosen_key_down;
 	document.getElementById('LEFT').value = chosen_key_left;
 	document.getElementById('RIGHT').value = chosen_key_right;
+
+	chosen_key_code_up=38;
+	chosen_key_code_down=40;
+	chosen_key_code_left=37;
+	chosen_key_code_right=39;
 
 
 	//random food amount
