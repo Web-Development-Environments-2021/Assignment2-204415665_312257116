@@ -473,7 +473,6 @@ function UpdatePosition() {
 		time_elapsed = chosen_game_duration-(currentTime - start_time) / 1000;
 
 		time_elapsed = Math.floor(time_elapsed);
-
 		if (time_elapsed <= 0 || FoodLeft == 0){
 			if (score < 100){
 				clearAllIntervals();
