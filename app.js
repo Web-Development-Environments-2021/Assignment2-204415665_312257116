@@ -353,22 +353,23 @@ function Draw() {
 				context.arc(center.x, center.y, 10, 1 * Math.PI, 2 * Math.PI); // head
 				context.fillStyle = GetGhostByLocation(i,j).color;
 				context.fill();
-				context.beginPath();
-				context.arc(center.x + 5, center.y - 2.5 , 2.5, 0, 2 * Math.PI); // right eye
-				context.fillStyle = "white"; 
-				context.fill();
-				context.beginPath();
-				context.arc(center.x + 7.5, center.y - 2.5 , 1.5, 0, 2 * Math.PI); // in right eye
-				context.fillStyle = "black";
-				context.fill();
-				context.beginPath();
-				context.arc(center.x - 5, center.y - 2.5, 2.5, 0, 2 * Math.PI); // left eye
-				context.fillStyle = "white"; 
-				context.fill();
-				context.beginPath();
-				context.arc(center.x - 2.5, center.y - 2.5 , 1.5, 0, 2 * Math.PI); // in left eye
-				context.fillStyle = "black"; 
-				context.fill();
+				// ghostEyes(center, i, j);
+				// context.beginPath();
+				// context.arc(center.x + 5, center.y - 2.5 , 2.5, 0, 2 * Math.PI); // right eye
+				// context.fillStyle = "white"; 
+				// context.fill();
+				// context.beginPath();
+				// context.arc(center.x + 7.5, center.y - 2.5 , 1.5, 0, 2 * Math.PI); // in right eye
+				// context.fillStyle = "black";
+				// context.fill();
+				// context.beginPath();
+				// context.arc(center.x - 5, center.y - 2.5, 2.5, 0, 2 * Math.PI); // left eye
+				// context.fillStyle = "white"; 
+				// context.fill();
+				// context.beginPath();
+				// context.arc(center.x - 2.5, center.y - 2.5 , 1.5, 0, 2 * Math.PI); // in left eye
+				// context.fillStyle = "black"; 
+				// context.fill();
 				context.beginPath(); // legs
 				context.moveTo(center.x, center.y);
 				context.lineTo(center.x + 10 , center.y);
@@ -385,6 +386,7 @@ function Draw() {
 				context.lineTo(center.x, center.y);
 				context.fillStyle = GetGhostByLocation(i,j).color; 
 				context.fill();
+				ghostEyes(center, i, j);
 			}
 			// bitcoin img
 			if (bitcoin_obj.i == i && bitcoin_obj.j == j){ 
@@ -517,6 +519,15 @@ function updateGhosts(){
 		ghost_pos_board[nextState.i][nextState.j] = 10;
 		ghost_obj_arr[i].i = nextState.i;
 		ghost_obj_arr[i].j = nextState.j;
+		if (ghost_ro < nextState.i){
+			ghost_obj_arr[i].dir = "right";
+		} else if (ghost_ro > nextState.i){
+			ghost_obj_arr[i].dir = "left";
+		} else if (ghost_co < nextState.j){
+			ghost_obj_arr[i].dir = "down";
+		} else if (ghost_co > nextState.j){
+			ghost_obj_arr[i].dir = "up";
+		} 
 		ghost_ro = nextState.i;
 		ghost_co = nextState.j;
 
@@ -833,6 +844,56 @@ function getPathFromState(Sstate , Gstate){
 		solPath.unshift(cur);
 	}
 	return solPath;
+}
+
+function ghostEyes(center, i, j){
+	var g_to_draw = GetGhostByLocation(i,j);
+	context.beginPath();
+	context.arc(center.x + 5, center.y - 2.5 , 2.5, 0, 2 * Math.PI); // right eye
+	context.fillStyle = "white"; 
+	context.fill();
+	context.beginPath();
+	context.arc(center.x - 5, center.y - 2.5, 2.5, 0, 2 * Math.PI); // left eye
+	context.fillStyle = "white"; 
+	context.fill();
+
+	if (g_to_draw.dir == "right"){
+		context.beginPath();
+		context.arc(center.x + 7.5, center.y - 2.5 , 1.5, 0, 2 * Math.PI); // in right eye
+		context.fillStyle = "black";
+		context.fill();
+		context.beginPath();
+		context.arc(center.x - 2.5, center.y - 2.5 , 1.5, 0, 2 * Math.PI); // in left eye
+		context.fillStyle = "black"; 
+		context.fill();
+	} else if(g_to_draw.dir == "left"){
+		context.beginPath();
+		context.arc(center.x + 2.5, center.y - 2.5 , 1.5, 0, 2 * Math.PI); // in right eye
+		context.fillStyle = "black";
+		context.fill();
+		context.beginPath();
+		context.arc(center.x - 7.5, center.y - 2.5 , 1.5, 0, 2 * Math.PI); // in left eye
+		context.fillStyle = "black"; 
+		context.fill();
+	} else if(g_to_draw.dir == "up"){
+		context.beginPath();
+		context.arc(center.x + 5, center.y - 5 , 1.5, 0, 2 * Math.PI); // in right eye
+		context.fillStyle = "black";
+		context.fill();
+		context.beginPath();
+		context.arc(center.x - 5, center.y - 5 , 1.5, 0, 2 * Math.PI); // in left eye
+		context.fillStyle = "black"; 
+		context.fill();
+	} else if(g_to_draw.dir == "down"){
+		context.beginPath();
+		context.arc(center.x + 5, center.y , 1.5, 0, 2 * Math.PI); // in right eye
+		context.fillStyle = "black";
+		context.fill();
+		context.beginPath();
+		context.arc(center.x - 5, center.y , 1.5, 0, 2 * Math.PI); // in left eye
+		context.fillStyle = "black"; 
+		context.fill();
+	}
 }
 
 
