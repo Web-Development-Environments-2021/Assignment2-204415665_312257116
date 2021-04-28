@@ -2,10 +2,11 @@
   padding:0;
   margin: 0;
 } */
-/* html {
-  background: radial-gradient(#000, #111); 
+#UserScreenConsole {
+  
+  
   height: 100%;
-} */
+}
 .slider {
   -webkit-appearance: none;
   width: 50%;
@@ -193,7 +194,7 @@ dialog:not([open]) {
 .game_button:hover {background-color: #c97201e5}
 
 .game_button:active {
-  background-color: #42006e;
+  background-color: #856100;
   box-shadow: 0 5px rgb(146, 95, 1);
   transform: translateY(4px);
 
@@ -207,10 +208,10 @@ dialog:not([open]) {
   text-decoration: none;
   outline: none;
   color: #fff;
-  background-color: #5680f5e5;
+  background-color: #ffa600;
   border: none;
   border-radius: 10px;
-  box-shadow: 0 9px rgb(62, 50, 122);
+  box-shadow: 0 9px rgb(207, 93, 0);
   word-wrap: break-word;
 
 }
@@ -444,9 +445,9 @@ label.error {
 }
 
 /*-------------page layout-----------------*/
-* {
+/* * {
   box-sizing: border-box;
-}
+} */
 .menu {
   width:20%;
   height: 100%;
@@ -461,7 +462,6 @@ label.error {
 .menu input[type=text]{
   width:40%;
   text-align:center;
-  border-radius: 15%;
 
 
 }
@@ -483,8 +483,8 @@ label.error {
 .main {
   float:left;
   width:60%;
-  height: 600;
-  background-color:#000000;
+  height: 100%;
+  background-color:#1b1b1b;
   border: black;
 
 
@@ -546,14 +546,16 @@ input[type=color]::-webkit-color-swatch-wrapper {
 
 /*----------------------------------------------------------------*/
 #canvas{
-  border-color:#590083ab;
-  border: 5px solid ;
-  background: radial-gradient(#000, #111); 
+  border:#005e83 22px solid ;
+  background-color:#080808;
+  /* background: radial-gradient(#000, #111);  */
   height: 100%;
 }
 
 
 #UserScreenConsole{
-  background: radial-gradient(#000, #111); 
+  background-color:#1b1b1b;
   height: 100%;
+  display:none;
+  background: radial-gradient(#000, #111); 
 }

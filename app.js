@@ -311,15 +311,28 @@ function Draw() {
 
 			} else if (board[i][j] == 5) { // 5 Points Food
 				context.beginPath();
+				context.arc(center.x, center.y, 5.5, 0, 2 * Math.PI); // circle
+				context.fillStyle = "#bdd6e0"; //color
+				context.fill();
+				context.beginPath();
 				context.arc(center.x, center.y, 3.5, 0, 2 * Math.PI); // circle
 				context.fillStyle = chosen_food_5_color; //color
 				context.fill();
+		
 			} else if (board[i][j] == 15) { // 15 Points Food
+				context.beginPath();
+				context.arc(center.x, center.y, 7.5, 0, 2 * Math.PI); // circle
+				context.fillStyle = "#bdd6e0"; //color
+				context.fill();
 				context.beginPath();
 				context.arc(center.x, center.y, 5.5, 0, 2 * Math.PI); // circle
 				context.fillStyle = chosen_food_15_color; //color
 				context.fill();
 			} else if (board[i][j] == 25) { // 25 Points Food
+				context.beginPath();
+				context.arc(center.x, center.y, 9.5, 0, 2 * Math.PI); // circle
+				context.fillStyle = "#bdd6e0"; //color
+				context.fill();
 				context.beginPath();
 				context.arc(center.x, center.y, 7.5, 0, 2 * Math.PI); // circle
 				context.fillStyle = chosen_food_25_color; //color
@@ -327,7 +340,7 @@ function Draw() {
 			} else if (board[i][j] == 4) { // Wall
 				context.beginPath();
 				context.rect(center.x - 15, center.y - 15, 30, 30);
-				context.fillStyle = "#590083ab"; //color
+				context.fillStyle = "#005e83"; //color
 				context.fill();
 			} else if (board[i][j] == 11) { // Clock
 				context.drawImage(clock_img ,  i*(canvas.height/boardCol) , j*(canvas.width/boardRow), 25, 25 * (clock_img.height / clock_img.width));
@@ -345,7 +358,7 @@ function Draw() {
 				context.fillStyle = "white"; 
 				context.fill();
 				context.beginPath();
-				context.arc(center.x + 5, center.y - 2.5 , 1, 0, 2 * Math.PI); // in right eye
+				context.arc(center.x + 7.5, center.y - 2.5 , 1.5, 0, 2 * Math.PI); // in right eye
 				context.fillStyle = "black";
 				context.fill();
 				context.beginPath();
@@ -353,7 +366,7 @@ function Draw() {
 				context.fillStyle = "white"; 
 				context.fill();
 				context.beginPath();
-				context.arc(center.x - 5, center.y - 2.5 , 1, 0, 2 * Math.PI); // in left eye
+				context.arc(center.x - 2.5, center.y - 2.5 , 1.5, 0, 2 * Math.PI); // in left eye
 				context.fillStyle = "black"; 
 				context.fill();
 				context.beginPath(); // legs
@@ -631,11 +644,11 @@ function addGhosts(){
 
 			if (cnt_loop % 2 == 0){
 				ghost_obj_arr[cnt_loop].points = 10; // Ghost - Blue - 10 Points
-				ghost_obj_arr[cnt_loop].color = "Blue";
+				ghost_obj_arr[cnt_loop].color = "#1d58fa";
 				ghost_obj_arr[cnt_loop].lives = 1;
 			} else{
 				ghost_obj_arr[cnt_loop].points = 20; // Ghost - Red - 20 Points
-				ghost_obj_arr[cnt_loop].color = "Red";
+				ghost_obj_arr[cnt_loop].color = "#fd3c56";
 				ghost_obj_arr[cnt_loop].lives = 2;
 			}
 
