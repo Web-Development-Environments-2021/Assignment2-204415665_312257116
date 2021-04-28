@@ -105,16 +105,35 @@
 
 			<dialog id="about" class="w3-center modal" style="display:none;">
 				<div id ="aboutDialog" class="modal-content animate">
-					  <h2 class="w3-wide w3-center">About</h2>
-					  <span onclick="welcomeON()" class="close" title="Close Modal">&times;</span>
-					  <br>
-					  <p id="aboutPara">
-							Moshe Biran - 204415665 <br>
-							Daniel Dinshtein - 312257116 <br>
-							jQuery Plugin Usage : ... <br>
-							Template Usage : ...<br>
-							<input class="game_button" type="button" value="Close" id="setting_Cancel" onclick="welcomeON()">
-					  </p>
+					<h2 class="w3-wide w3-center">About</h2>
+					<span onclick="welcomeON()" class="close" title="Close Modal">&times;</span>
+					<p id="aboutPara" >
+						<p style="text-align: left; padding: 25px;">
+							Moshe Biran - 204415665
+							<br>
+							Daniel Dinshtein - 312257116
+							<br>
+							jQuery Plugin Usage :
+							<br>
+							....
+							<br>
+							Template Usage :
+							<br>
+							....
+							<br>
+							<br>
+							Difficulties:
+							<br>
+							1. Cause the ghosts to chase intelligently - we used BFS at the end.
+							<br>
+							2. Create synchronization between the intervals of all objects so the user can see the game properly.
+							<br>
+							3. Maintaining the logic between all menus and screens.
+							<br>
+							4. Game size design - Finally we chose to fit tp screen of a laptop.
+						</p>
+						<input class="game_button" type="button" value="Close" id="setting_Cancel" onclick="welcomeON()">
+					</p>
 				</div>
 			</dialog>
 		</div>
